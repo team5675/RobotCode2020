@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.XboxController;
  * Organize inputs from the Xbox Controllers
  */
 public class DriverController {
+                                           // v port number?
+    XboxController xbox1 = new XboxController(0); //main
+    XboxController xbox2 = new XboxController(1); //aux
 
-    XboxController xbox1 = new XboxController(0);
-    XboxController xbox2 = new XboxController(1);
 }
