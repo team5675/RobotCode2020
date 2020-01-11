@@ -7,8 +7,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.XboxController;
+
 /**
- * Add your docs here.
+ * Organize inputs from the Xbox Controllers
  */
 public class DriverController {
+
+    XboxController xbox1 = new XboxController(0);
+    XboxController xbox2 = new XboxController(1);
 }
