@@ -12,6 +12,7 @@ public class Constants {
     //for distance calculations
     public static double portHeight = 8.01875; //ft
     public static double camHeight;
+    public static double heightOffset = portHeight - camHeight;
     public static double camAngle;
 
 }

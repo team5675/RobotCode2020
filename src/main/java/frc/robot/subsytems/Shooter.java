@@ -7,8 +7,17 @@
 
 package frc.robot.subsytems;
 
+import frc.robot.Constants;
+
 /**
  * Add your docs here.
  */
 public class Shooter {
+
+    public double calcDistance() {
+        double angleToPort = Constants.camAngle + Vision.getVerticalOffset();
+        return Constants.heightOffset / Math.tan(angleToPort);
+
+        
+    }
 }
