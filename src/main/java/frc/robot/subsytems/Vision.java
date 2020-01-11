@@ -16,7 +16,7 @@ public class Vision {
     NetworkTableEntry horizontalOffset;
     NetworkTableEntry verticalOffset;
 
-    void init() {
+    public void init() {
         limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
     }
 

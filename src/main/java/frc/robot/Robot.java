@@ -12,11 +12,17 @@ import frc.robot.subsytems.Vision;
 
 public class Robot extends TimedRobot {
 
+  DriverController driverController;
+
   Vision vision;
 
   @Override
   public void robotInit() {
+    driverController = new DriverController();
     vision = new Vision();
+
+    driverController.init();
+    vision.init();
   }
 
   @Override
