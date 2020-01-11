@@ -7,8 +7,24 @@
 
 package frc.robot.subsytems;
 
-/**
- * Add your docs here.
- */
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+
 public class Vision {
+    NetworkTable limelightTable;
+    NetworkTableEntry horizontalOffset;
+    NetworkTableEntry verticalOffset;
+
+    void init() {
+        limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
+    }
+
+    double getHorizontalOffset() {
+        return horizontalOffset.getDouble(0);
+    }
+
+    double getVerticalOffset() {
+        return verticalOffset.getDouble(0);
+    }
 }
