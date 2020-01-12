@@ -11,6 +11,10 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
+/*
+Get Limelight data and send Limelight data/interact with it
+*/
+
 public class Vision {
     NetworkTable limelightTable;
     NetworkTableEntry horizontalOffset;
