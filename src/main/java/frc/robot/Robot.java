@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import frc.robot.subsytems.Shooter;
 import frc.robot.subsytems.Vision;
 
 public class Robot extends TimedRobot {
@@ -15,14 +16,18 @@ public class Robot extends TimedRobot {
   DriverController driverController;
 
   Vision vision;
+  Shooter shooter;
 
   @Override
   public void robotInit() {
     driverController = new DriverController();
+
     vision = new Vision();
+    shooter = new Shooter();
 
     driverController.init();
     vision.init();
+    shooter.init();
   }
 
   @Override

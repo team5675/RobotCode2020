@@ -11,4 +11,13 @@ package frc.robot.subsytems;
  * Add your docs here.
  */
 public class Shooter {
+
+    public void init() {
+
+    }
+
+    public void autoAimAtTarget() {
+        
+    }
+
 }

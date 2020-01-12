@@ -9,10 +9,15 @@ package frc.robot;
 
 public class Constants { 
 
-    //for distance calculations
-    public static double portHeight = 8.01875; //ft
-    public static double camHeight;
-    public static double heightOffset = portHeight - camHeight;
-    public static double camAngle;
+    //Drive subsystem constants
+    public static final double DRIVE_FRONT_LEFT_AZIMUTH_ID = 0;
+    public static final double DRIVE_FRONT_RIGHT_AZIMUTH_ID = 0;
+    public static final double DRIVE_BACK_LEFT_AZIMUTH_ID = 0;
+    public static final double DRIVE_BACK_RIGHT_AZIMUTH_ID = 0;
 
+    //Shooter subsystem constants
+    public static final double PORT_HEIGHT = 8.01875; //ft
+   // public static final double camHeight;
+   // public static final double heightOffset = portHeight - camHeight;
+   // public static final double camAngle;
 }
