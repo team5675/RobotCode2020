@@ -10,9 +10,13 @@ package frc.robot;
 public class Constants { 
 
     //Drive subsystem constants
+    public static final double DRIVE_FRONT_LEFT_SPEED_ID = 0;
     public static final double DRIVE_FRONT_LEFT_AZIMUTH_ID = 0;
+    public static final double DRIVE_FRONT_RIGHT_SPEED_ID = 0;
     public static final double DRIVE_FRONT_RIGHT_AZIMUTH_ID = 0;
+    public static final double DRIVE_BACK_LEFT_SPEED_ID = 0;
     public static final double DRIVE_BACK_LEFT_AZIMUTH_ID = 0;
+    public static final double DRIVE_BACK_RIGHT_SPEED_ID = 0;
     public static final double DRIVE_BACK_RIGHT_AZIMUTH_ID = 0;
 
     //Shooter subsystem constants

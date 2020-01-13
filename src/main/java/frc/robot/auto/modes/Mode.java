@@ -5,20 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot;
-
-import edu.wpi.first.wpilibj.XboxController;
+package frc.robot.auto.modes;
 
 /**
- * Organize inputs from the Xbox Controllers
+ * Add your docs here.
  */
-public class DriverController {
-    
-    XboxController mainController;
-    XboxController auxController;
-
-    void init() {
-        mainController = new XboxController(0);
-        auxController = new XboxController(1);
-    }
+public class Mode {
 }

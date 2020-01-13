@@ -17,11 +17,23 @@ Get Limelight data and send Limelight data/interact with it
 
 public class Vision {
     NetworkTable limelightTable;
+    NetworkTableEntry ledMode;
     NetworkTableEntry horizontalOffset;
     NetworkTableEntry verticalOffset;
 
     public void init() {
         limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
+        ledMode = limelightTable.getEntry("ledMode");
+        horizontalOffset = limelightTable.getEntry("horizontalOffset");
+        verticalOffset = limelightTable.getEntry("verticalOffset");
+    }
+
+    void lightOn() {
+        ledMode.setDouble(3);
+    }
+
+    void lightOff() {
+        ledMode.setDouble(1);
     }
 
     double getHorizontalOffset() {
