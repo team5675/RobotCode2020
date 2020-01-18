@@ -20,8 +20,12 @@ public class Constants {
     public static final double DRIVE_BACK_RIGHT_AZIMUTH_ID = 0;
 
     //Shooter subsystem constants
+    public static final int SHOOTER_ID = 0;
+    public static final double SHOOTER_FLYWHEEL_KP = 0;
+    public static final double SHOOTER_FLYWHEEL_KD = 0; 
+    public static final double SHOOTER_FLYWHEEL_KF = 0; 
     public static final double PORT_HEIGHT = 8.01875; //ft
-   // public static final double camHeight;
-   // public static final double heightOffset = portHeight - camHeight;
-   // public static final double camAngle;
+    //public static final double CAM_HEIGHT;
+    //public static final double CAM_ANGLE;
+
 }

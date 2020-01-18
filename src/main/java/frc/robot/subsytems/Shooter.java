@@ -7,17 +7,36 @@
 
 package frc.robot.subsytems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.controller.PIDController;
+import frc.robot.Constants;
+
 /**
  * Add your docs here.
  */
 public class Shooter {
 
-    public void init() {
+    Vision vision;
 
+    CANSparkMax shootMotor;
+
+    double speed;
+    double angle;
+    double distance;
+
+    PIDController speedPID;
+
+    public void init() {
+        vision = new Vision();
+        shootMotor = new CANSparkMax(Constants.SHOOTER_ID, MotorType.kBrushless);
     }
 
-    public void autoAimAtTarget() {
-        
+    public void autoAimAtTarget() { //Distance, angle, and velocity
+        //angle = vision.getVerticalOffset() + Constants.CAM_ANGLE;
+        //distance = (Constants.PORT_HEIGHT - Constants.CAM_HEIGHT) / Math.tan(angle);
+
     }
 
 }
