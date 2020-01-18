@@ -39,7 +39,7 @@ public class Vision {
     double getHorizontalOffset() {
         return horizontalOffset.getDouble(0);
     }
-
+    
     double getVerticalOffset() {
         return verticalOffset.getDouble(0);
     }
