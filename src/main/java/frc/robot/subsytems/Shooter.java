@@ -59,7 +59,8 @@ public class Shooter {
     public void setAngle(double hoodAngle){
     }
 
-    /**Sets the launcher's RPM
+    /**
+     * Sets the launcher's RPM
      * @param velocityRPM The setpoint velocity for the power cell
      */
     public void setRPM(double velocityRPM){
