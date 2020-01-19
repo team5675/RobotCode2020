@@ -7,7 +7,16 @@
 
 package frc.robot;
 
-public class Constants { 
+public class Constants {
+
+    public enum AUTO_MODE {
+
+        SHOOT_THEN_TRENCH,
+        SHOOT,
+        TRENCH
+    }
+
+    public static final CharSequence SELECTED_AUTO = "DEFAULT";
 
     //Drive subsystem constants
     public static final int DRIVE_FRONT_LEFT_SPEED_ID = 0;
