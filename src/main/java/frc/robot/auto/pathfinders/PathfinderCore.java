@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Filesystem;
 import frc.libs.swerve.WheelDrive;
 
 import frc.robot.Constants;
+import frc.robot.subsytems.Drive;
 
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
@@ -29,6 +30,8 @@ public class PathfinderCore {
     Trajectory fr;
     Trajectory fl;
 
+    Drive driveBase;
+
     WheelDrive backRight;
     WheelDrive backLeft;
     WheelDrive frontRight;
@@ -36,12 +39,14 @@ public class PathfinderCore {
 
     SwerveModifier modifier;
 
-    public PathfinderCore(WheelDrive backRight, WheelDrive backLeft, WheelDrive frontRight, WheelDrive frontLeft) {
+    public PathfinderCore(Drive driveBase) {
 
-        this.backRight = backRight;
-        this.backLeft = backLeft;
-        this.frontRight = frontRight;
-        this.frontLeft = frontLeft;
+        this.driveBase = driveBase;
+
+        this.backRight  = driveBase.backRight();
+        this.backLeft   = driveBase.backLeft();
+        this.frontRight = driveBase.frontRight();
+        this.frontLeft  = driveBase.frontLeft();
     }
 
     // TODO: Add functionality to write paths to csv files, so robot doesn't have to
@@ -63,6 +68,8 @@ public class PathfinderCore {
 
         // Generate the spline trajectory for the robot
         trajectory = Pathfinder.generate(points, config);
+
+        //Constants.Selected_Auto = networkTable.getautoCharSequence("");
 
         try {
 
@@ -103,7 +110,7 @@ public class PathfinderCore {
             //yoink the segements from the trajectory
             seg = trajectory.get(i);
 
-            //Print out segmentts for debugging
+            //Print out segments for debugging
             System.out.printf("%f,%f,%f\n", 
             seg.velocity, seg.acceleration, seg.heading);
         }
