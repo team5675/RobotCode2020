@@ -14,6 +14,6 @@ public class Dashboard {
     NetworkTable dashboardTable;
 
     void init() {
-        dashboardTable = NetworkTableInstance.getDefault().;
+        dashboardTable = NetworkTableInstance.getDefault().getTable("dashboardTable");       
     }
 }

@@ -7,6 +7,11 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.subsytems.Shooter;
 import frc.robot.subsytems.Vision;
@@ -17,6 +22,10 @@ public class Robot extends TimedRobot {
 
   Vision vision;
   Shooter shooter;
+  Dashboard dashboard;
+
+  Spark shooterFeeder = new Spark(0);
+  CANSparkMax shooterFlywheel = new CANSparkMax(1, MotorType.kBrushless);
 
   @Override
   public void robotInit() {
@@ -24,10 +33,12 @@ public class Robot extends TimedRobot {
 
     vision = new Vision();
     shooter = new Shooter();
+    dashboard = new Dashboard();
 
     driverController.init();
     vision.init();
     shooter.init();
+    dashboard.init();
   }
 
   @Override
@@ -36,6 +47,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
+    shooterFeeder.set(-1);
+    shooterFlywheel.getPIDController().setReference(-6000, ControlType.kVelocity);
   }
 
   @Override
@@ -44,6 +57,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+    vision.loop();
   }
 
   @Override
