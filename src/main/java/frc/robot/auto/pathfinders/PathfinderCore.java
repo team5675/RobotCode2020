@@ -11,7 +11,6 @@ import frc.robot.Constants;
 
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
-import jaci.pathfinder.Waypoint;
 import jaci.pathfinder.modifiers.SwerveModifier;
 
 public class PathfinderCore {
@@ -36,15 +35,22 @@ public class PathfinderCore {
 
     SwerveModifier modifier;
 
-    public PathfinderCore(WheelDrive backRight, WheelDrive backLeft, WheelDrive frontRight, WheelDrive frontLeft) {
+    public PathfinderCore() {
 
-        this.backRight = backRight;
-        this.backLeft = backLeft;
-        this.frontRight = frontRight;
-        this.frontLeft = frontLeft;
+        backRight = new WheelDrive(Constants.DRIVE_BACK_RIGHT_AZIMUTH_ID, Constants.DRIVE_BACK_RIGHT_SPEED_ID, Constants.BR_AZIMUTH_ENCODER_ID, 
+        Constants.BR_P, Constants.BR_I, Constants.BR_D);
+
+        backLeft = new WheelDrive(Constants.DRIVE_BACK_LEFT_AZIMUTH_ID, Constants.DRIVE_BACK_LEFT_SPEED_ID, Constants.BL_AZIMUTH_ENCODER_ID, 
+        Constants.BL_P, Constants.BL_I, Constants.BL_D);
+
+        frontRight = new WheelDrive(Constants.DRIVE_FRONT_RIGHT_AZIMUTH_ID, Constants.DRIVE_FRONT_RIGHT_SPEED_ID, Constants.FR_AZIMUTH_ENCODER_ID, 
+        Constants.FR_P, Constants.FR_I, Constants.FR_D);
+
+        frontLeft = new WheelDrive(Constants.DRIVE_FRONT_LEFT_AZIMUTH_ID, Constants.DRIVE_FRONT_LEFT_SPEED_ID, Constants.FL_AZIMUTH_ENCODER_ID, 
+        Constants.FL_P, Constants.FL_I, Constants.FL_D);
     }
 
-    
+
     public void config() {
 
         //Grabbing all the pathfinder csvs from the RIO directory

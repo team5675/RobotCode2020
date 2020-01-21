@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.libs.swerve.SwerveDrive;
 import frc.libs.swerve.WheelDrive;
+import frc.robot.subsytems.Drive;
 import frc.robot.subsytems.Shooter;
 import frc.robot.subsytems.Vision;
 import frc.robot.auto.pathfinders.PathfinderCore;
@@ -30,13 +31,9 @@ public class Robot extends TimedRobot {
   Spark shooterFeeder = new Spark(0);
   CANSparkMax shooterFlywheel = new CANSparkMax(1, MotorType.kBrushless);
 
-  SwerveDrive swerve;
-  WheelDrive backRight;
-  WheelDrive backLeft;
-  WheelDrive frontRight;
-  WheelDrive frontLeft;
-
   PathfinderCore pathfinder;
+
+  Drive driveBase;
 
   @Override
   public void robotInit() {
@@ -46,12 +43,9 @@ public class Robot extends TimedRobot {
     shooter = new Shooter();
     dashboard = new Dashboard();
 
-    pathfinder = new PathfinderCore(backRight, backLeft, frontRight, frontLeft);
+    pathfinder = new PathfinderCore();
 
-    backRight = new WheelDrive(Constants.DRIVE_BACK_RIGHT_AZIMUTH_ID, Constants.DRIVE_BACK_RIGHT_SPEED_ID, Constants.BR_AZIMUTH_ENCODER_ID, 
-    Constants.BR_P, Constants.BR_I, Constants.BR_D);
-
-    swerve = new SwerveDrive(backRight, backLeft, frontRight, frontLeft);
+    driveBase = new Drive();
 
     driverController.init();
     vision.init();
@@ -77,6 +71,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+    
+    driveBase.teleopDrive();
+    
     vision.loop();
   }
 

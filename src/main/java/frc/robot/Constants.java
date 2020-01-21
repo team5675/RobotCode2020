@@ -33,7 +33,7 @@ public class Constants {
 
     public static final int DRIVE_FRONT_RIGHT_SPEED_ID = 0;
     public static final int DRIVE_FRONT_RIGHT_AZIMUTH_ID = 0;
-    public static final double RL_P = 0;
+    public static final double FR_P = 0;
     public static final double FR_I = 0;
     public static final double FR_D = 0;
     public static final int FR_AZIMUTH_ENCODER_ID = 0;

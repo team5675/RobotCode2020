@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 /**
  * Organize inputs from the Xbox Controllers
@@ -20,5 +21,25 @@ public class DriverController {
     void init() {
         mainController = new XboxController(0);
         auxController = new XboxController(1);
+    }
+
+    public double getForward() {
+
+        return mainController.getRawAxis(1);
+    }
+
+    public double getStrafe() {
+
+        return mainController.getRawAxis(0);
+    }
+
+    public double getRotation() {
+
+        return mainController.getRawAxis(4);
+    }
+
+    public boolean isFieldOriented() {
+
+        return mainController.getBumper(Hand.kRight);
     }
 }
