@@ -13,8 +13,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
-import frc.libs.swerve.SwerveDrive;
-import frc.libs.swerve.WheelDrive;
 import frc.robot.subsytems.Drive;
 import frc.robot.subsytems.Shooter;
 import frc.robot.subsytems.Vision;
@@ -43,9 +41,10 @@ public class Robot extends TimedRobot {
     shooter = new Shooter();
     dashboard = new Dashboard();
 
-    pathfinder = new PathfinderCore();
-
     driveBase = new Drive();
+
+    //Pathfinder needs Drive, so put it after
+    pathfinder = new PathfinderCore(driveBase);
 
     driverController.init();
     vision.init();
@@ -61,8 +60,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
+    /*
     shooterFeeder.set(-1);
-    shooterFlywheel.getPIDController().setReference(-6000, ControlType.kVelocity);
+    shooterFlywheel.getPIDController().setReference(-6000, ControlType.kVelocity);*/
+
+    pathfinder.runpathfinder();
   }
 
   @Override

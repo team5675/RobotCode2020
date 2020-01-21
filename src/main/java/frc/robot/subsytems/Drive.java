@@ -60,5 +60,23 @@ public class Drive {
         swerve.drive(controller.getForward(), controller.getStrafe(), controller.getRotation(), navX.getAngle(), controller.isFieldOriented());
     }
 
+    public WheelDrive backRight() {
+
+        return backRight;
+    }
     
+    public WheelDrive backLeft() {
+
+        return backLeft;
+    }
+
+    public WheelDrive frontRight() {
+
+        return frontRight;
+    }
+
+    public WheelDrive frontLeft() {
+
+        return frontLeft;
+    }
 }

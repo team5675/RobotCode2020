@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj.Filesystem;
 import frc.libs.swerve.WheelDrive;
 
 import frc.robot.Constants;
+import frc.robot.subsytems.Drive;
 
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
+import jaci.pathfinder.Waypoint;
 import jaci.pathfinder.modifiers.SwerveModifier;
 
 public class PathfinderCore {
@@ -28,6 +30,8 @@ public class PathfinderCore {
     Trajectory fr;
     Trajectory fl;
 
+    Drive driveBase;
+
     WheelDrive backRight;
     WheelDrive backLeft;
     WheelDrive frontRight;
@@ -35,27 +39,37 @@ public class PathfinderCore {
 
     SwerveModifier modifier;
 
-    public PathfinderCore() {
+    public PathfinderCore(Drive driveBase) {
 
-        backRight = new WheelDrive(Constants.DRIVE_BACK_RIGHT_AZIMUTH_ID, Constants.DRIVE_BACK_RIGHT_SPEED_ID, Constants.BR_AZIMUTH_ENCODER_ID, 
-        Constants.BR_P, Constants.BR_I, Constants.BR_D);
+        this.driveBase = driveBase;
 
-        backLeft = new WheelDrive(Constants.DRIVE_BACK_LEFT_AZIMUTH_ID, Constants.DRIVE_BACK_LEFT_SPEED_ID, Constants.BL_AZIMUTH_ENCODER_ID, 
-        Constants.BL_P, Constants.BL_I, Constants.BL_D);
-
-        frontRight = new WheelDrive(Constants.DRIVE_FRONT_RIGHT_AZIMUTH_ID, Constants.DRIVE_FRONT_RIGHT_SPEED_ID, Constants.FR_AZIMUTH_ENCODER_ID, 
-        Constants.FR_P, Constants.FR_I, Constants.FR_D);
-
-        frontLeft = new WheelDrive(Constants.DRIVE_FRONT_LEFT_AZIMUTH_ID, Constants.DRIVE_FRONT_LEFT_SPEED_ID, Constants.FL_AZIMUTH_ENCODER_ID, 
-        Constants.FL_P, Constants.FL_I, Constants.FL_D);
+        this.backRight  = driveBase.backRight();
+        this.backLeft   = driveBase.backLeft();
+        this.frontRight = driveBase.frontRight();
+        this.frontLeft  = driveBase.frontLeft();
     }
 
-
+    // TODO: Add functionality to write paths to csv files, so robot doesn't have to
+    // create the spline every time
     public void config() {
 
         //Grabbing all the pathfinder csvs from the RIO directory
         pathFiles = Filesystem.getDeployDirectory();
         pathFilesList = pathFiles.listFiles();
+
+        // Type of spline generated, how many refinement samples, Time(5ms), Max
+        // Velocity,
+        // accel, jerk MAX VELOCITY FOR TEST SWERVE BOT = 3.3528 m/s
+        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC,
+                Trajectory.Config.SAMPLES_FAST, 0.05, 1.5, 2.0, 60.0);
+
+        // Points we want the robot to pass through
+        Waypoint[] points = new Waypoint[] { new Waypoint(0, 0, 0), new Waypoint(2, 2, 0) };
+
+        // Generate the spline trajectory for the robot
+        trajectory = Pathfinder.generate(points, config);
+
+        //Constants.Selected_Auto = networkTable.getautoCharSequence("");
 
         try {
 
@@ -66,12 +80,13 @@ public class PathfinderCore {
                 String pathFileName = pathFilesList[i].getCanonicalPath();
 
                 //If the file is the one we want...
-                if (pathFileName.contains("Trench")) {//Constants.SELECTED_AUTO)) {
+                if (pathFileName.contains(Constants.SELECTED_AUTO)) {
 
                     //Load the trajectory in
                     trajectory = Pathfinder.readFromCSV(pathFilesList[i]);
 
-                    System.out.println("Found the file at: " + pathFilesList[i]);
+                    //Break out early if needed
+                    break;
                 }
             }
             
@@ -90,13 +105,12 @@ public class PathfinderCore {
         fr = modifier.getFrontRightTrajectory();
         fl = modifier.getFrontLeftTrajectory();
 
-        
-        for(int j = 0; j < trajectory.length(); j++) {
+        for(int i = 0; i < trajectory.length(); i++) {
 
             //yoink the segements from the trajectory
-            seg = trajectory.get(j);
+            seg = trajectory.get(i);
 
-            //Print out segmentts for debugging
+            //Print out segments for debugging
             System.out.printf("%f,%f,%f\n", 
             seg.velocity, seg.acceleration, seg.heading);
         }
