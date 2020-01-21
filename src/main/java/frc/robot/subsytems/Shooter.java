@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 
+import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.Constants;
 
 /**
@@ -28,15 +29,12 @@ public class Shooter {
 
     double speed;
     double angle;
+    double distance;
+    double height;
+    double theta;
     double distanceLimelight;
 
-    double height;
-    double distance;
-    double slope_constant;
-    double tanLineSlope;
-    double theta;
-    double velocity;
-    double thetaDegrees;
+    PIDController speedPID;
 
     public void init() {
         vision = new Vision();

@@ -18,6 +18,11 @@ public class Constants {
 
     public static final CharSequence SELECTED_AUTO = "DEFAULT";
 
+    //Vision subsystem constants
+    public static final double VISION_TARGET_HEIGHT = 8.1875;
+    public static final double VISION_CAMERA_HEIGHT = 1.916;
+    public static final double VISION_CAMERA_ANGLE = 25.3778;
+
     //Drive subsystem constants
     public static final int DRIVE_FRONT_LEFT_SPEED_ID = 0;
     public static final int DRIVE_FRONT_LEFT_AZIMUTH_ID = 0;
