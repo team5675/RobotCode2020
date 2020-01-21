@@ -13,6 +13,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
+import frc.libs.swerve.SwerveDrive;
+import frc.libs.swerve.WheelDrive;
 import frc.robot.subsytems.Shooter;
 import frc.robot.subsytems.Vision;
 
@@ -27,6 +29,12 @@ public class Robot extends TimedRobot {
   Spark shooterFeeder = new Spark(0);
   CANSparkMax shooterFlywheel = new CANSparkMax(1, MotorType.kBrushless);
 
+  SwerveDrive swerve;
+  WheelDrive backRight;
+  WheelDrive backLeft;
+  WheelDrive frontRight;
+  WheelDrive frontLeft;
+
   @Override
   public void robotInit() {
     driverController = new DriverController();
@@ -34,6 +42,11 @@ public class Robot extends TimedRobot {
     vision = new Vision();
     shooter = new Shooter();
     dashboard = new Dashboard();
+
+    backRight = new WheelDrive(Constants.DRIVE_BACK_RIGHT_AZIMUTH_ID, Constants.DRIVE_BACK_RIGHT_SPEED_ID, Constants.BR_AZIMUTH_ENCODER_ID, 
+    Constants.BR_P, Constants.BR_I, Constants.BR_D);
+
+    swerve = new SwerveDrive(backRight, backLeft, frontRight, frontLeft);
 
     driverController.init();
     vision.init();

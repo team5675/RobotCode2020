@@ -7,7 +7,16 @@
 
 package frc.robot;
 
-public class Constants { 
+public class Constants {
+
+    public enum AUTO_MODE {
+
+        SHOOT_THEN_TRENCH,
+        SHOOT,
+        TRENCH
+    }
+
+    public static final CharSequence SELECTED_AUTO = "DEFAULT";
 
     //Vision subsystem constants
     public static final double VISION_TARGET_HEIGHT = 8.1875;
@@ -17,19 +26,44 @@ public class Constants {
     //Drive subsystem constants
     public static final int DRIVE_FRONT_LEFT_SPEED_ID = 0;
     public static final int DRIVE_FRONT_LEFT_AZIMUTH_ID = 0;
+    public static final double FL_P = 0;
+    public static final double FL_I = 0;
+    public static final double FL_D = 0;
+    public static final int FL_AZIMUTH_ENCODER_ID = 0;
+
     public static final int DRIVE_FRONT_RIGHT_SPEED_ID = 0;
     public static final int DRIVE_FRONT_RIGHT_AZIMUTH_ID = 0;
+    public static final double RL_P = 0;
+    public static final double FR_I = 0;
+    public static final double FR_D = 0;
+    public static final int FR_AZIMUTH_ENCODER_ID = 0;
+
     public static final int DRIVE_BACK_LEFT_SPEED_ID = 0;
     public static final int DRIVE_BACK_LEFT_AZIMUTH_ID = 0;
+    public static final double BL_P = 0;
+    public static final double BL_I = 0;
+    public static final double BL_D = 0;
+    public static final int BL_AZIMUTH_ENCODER_ID = 0;
+
     public static final int DRIVE_BACK_RIGHT_SPEED_ID = 0;
     public static final int DRIVE_BACK_RIGHT_AZIMUTH_ID = 0;
+    public static final double BR_P = 0;
+    public static final double BR_I = 0;
+    public static final double BR_D = 0;
+    public static final int BR_AZIMUTH_ENCODER_ID = 0;
 
     //Shooter subsystem constants
     public static final int SHOOTER_ID = 0;
     public static final double SHOOTER_FLYWHEEL_KP = 0;
     public static final double SHOOTER_FLYWHEEL_KD = 0; 
     public static final double SHOOTER_FLYWHEEL_KF = 0; 
+<<<<<<< HEAD
     //public static final double PORT_HEIGHT = 8.01875; //ft
+=======
+    public static final double PORT_HEIGHT = 8.01875; //ft
+    public static final double SHOOTER_HEIGHT = 2;    //ft
+    public static final double SHOOTER_WHEEL_DIAMTER = 1/3; //ft
+>>>>>>> ebe78029c646d96db10521788009d22c62b93e34
     //public static final double CAM_HEIGHT;
     //public static final double CAM_ANGLE;
 
