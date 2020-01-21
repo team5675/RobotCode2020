@@ -49,10 +49,11 @@ public class Constants {
 
     //Shooter subsystem constants
     public static final int SHOOTER_ID = 0;
+    public static final double SHOOTER_SETPOINT = 5000;
     public static final double SHOOTER_FLYWHEEL_KP = 0;
     public static final double SHOOTER_FLYWHEEL_KD = 0; 
     public static final double SHOOTER_FLYWHEEL_KF = 0; 
-    public static final double PORT_HEIGHT = 8.01875; //ft
+    public static final double PORT_HEIGHT = 8.1875; //ft
     public static final double SHOOTER_HEIGHT = 2;    //ft
     public static final double SHOOTER_WHEEL_DIAMTER = 1/3; //ft
     //public static final double CAM_HEIGHT;

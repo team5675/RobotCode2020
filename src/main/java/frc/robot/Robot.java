@@ -12,6 +12,7 @@ import frc.libs.swerve.SwerveDrive;
 import frc.libs.swerve.WheelDrive;
 import frc.robot.subsytems.Shooter;
 import frc.robot.subsytems.Vision;
+import frc.robot.auto.pathfinders.PathfinderCore;
 
 public class Robot extends TimedRobot {
 
@@ -26,12 +27,16 @@ public class Robot extends TimedRobot {
   WheelDrive frontRight;
   WheelDrive frontLeft;
 
+  PathfinderCore pathfinder;
+
   @Override
   public void robotInit() {
     driverController = new DriverController();
 
     vision = new Vision();
     shooter = new Shooter();
+
+    pathfinder = new PathfinderCore(backRight, backLeft, frontRight, frontLeft);
 
     backRight = new WheelDrive(Constants.DRIVE_BACK_RIGHT_AZIMUTH_ID, Constants.DRIVE_BACK_RIGHT_SPEED_ID, Constants.BR_AZIMUTH_ENCODER_ID, 
     Constants.BR_P, Constants.BR_I, Constants.BR_D);
@@ -45,6 +50,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+
+    pathfinder.config();
   }
 
   @Override

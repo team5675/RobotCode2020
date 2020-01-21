@@ -61,38 +61,35 @@ public class Shooter {
 
     /**
      * Sets the launcher's RPM
-     * @param velocityRPM The setpoint velocity for the power cell
+     * @param velocityRPM The setpoint velocity for the shooter
      */
     public void setRPM(double velocityRPM){
 
-        double RPM = 60 * (velocity * Constants.SHOOTER_WHEEL_DIAMTER) / Math.PI;
-
-        RPMController.setReference(RPM, ControlType.kVelocity);
+        RPMController.setReference(velocityRPM, ControlType.kVelocity);
     }
 
     public void autoAimAtTarget() { //Distance, angle, and velocity
         //angle = vision.getVerticalOffset() + Constants.CAM_ANGLE;
         //distanceLimelight = (Constants.PORT_HEIGHT - Constants.CAM_HEIGHT) / Math.tan(angle);
 
-        double[] setpoints = getSetpoints(distanceLimelight);
-
-        double angleSetpoint    = setpoints[0];
-        double velocitySetpoint = setpoints[1];
+        double angleSetpoint = getHoodAngle(distanceLimelight);
 
         setAngle(angleSetpoint);
-        setRPM(velocitySetpoint);
     }
 
+
+    public void shoot() {
+
+        setRPM(Constants.SHOOTER_SETPOINT);
+    }
     /**
-     * Returns the launcher angle and exit velocity based on the distance
-     * @apiNote
-     * index 0 = angle (in radians) 
-     * @apiNote
-     * index 1 = velocity (in ft/s)
+     * Returns the hood angle based on the distance from port
+     * Note 
+     * @return angle in radians 
      * 
      * @param distance The distance from the port. (Use limelight generated distance)
      */
-    public double[] getSetpoints(double distance) {
+    public double getHoodAngle(double distance) {
 
         //delcaring our distances as the same so no weird mixups
         this.distance = distance;
@@ -100,23 +97,10 @@ public class Shooter {
         //getting adjusted height
         height = (Constants.PORT_HEIGHT - Constants.SHOOTER_HEIGHT);
 
-        //grabbing the slope constant to calculate tangent line with
-        slope_constant = height / (distance * distance);
+        //angle calculated by modeling a triangle approx to the parabola
+        theta = Math.atan(2 * height / distance);
 
-        tanLineSlope = 2 * distance * slope_constant;
-
-        //The needed launcher velocity
-        theta = Math.atan(tanLineSlope);
-
-        velocity = distance / (Math.cos(theta) * Math.sqrt((height - (Math.tan(theta) * distance)) / -4.9));
-
-        thetaDegrees = Math.toDegrees(theta);
-
-        System.out.printf("Shooter angle: %f \nVelocity: %f", thetaDegrees, velocity);
-
-        double[] setpoints = {theta, velocity};
-
-        return setpoints;
+        return theta;
     }
 
 }
