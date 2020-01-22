@@ -43,10 +43,10 @@ public class PathfinderCore {
 
         this.driveBase = driveBase;
 
-        this.backRight  = driveBase.backRight();
-        this.backLeft   = driveBase.backLeft();
-        this.frontRight = driveBase.frontRight();
-        this.frontLeft  = driveBase.frontLeft();
+        this.backRight  = driveBase.getBackRight();
+        this.backLeft   = driveBase.getBackLeft();
+        this.frontRight = driveBase.getFrontRight();
+        this.frontLeft  = driveBase.getFrontLeft();
     }
 
     // TODO: Add functionality to write paths to csv files, so robot doesn't have to

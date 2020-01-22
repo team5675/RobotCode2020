@@ -9,9 +9,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 
-import frc.robot.auto.pathfinders.PathfinderCore;
+//import frc.robot.auto.pathfinders.PathfinderCore;
 
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.NavX;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 
@@ -22,10 +23,11 @@ public class Robot extends TimedRobot {
   Dashboard dashboard;
 
   Vision vision;
-  Shooter shooter;
+ // Shooter shooter;
   Drive drive;
+  NavX navX;
 
-  PathfinderCore pathfinder;
+  //PathfinderCore pathfinder;
 
 
   @Override
@@ -34,7 +36,7 @@ public class Robot extends TimedRobot {
     dashboard = new Dashboard();
 
     vision = new Vision();
-    shooter = new Shooter();
+    //shooter = new Shooter();
     drive = new Drive();
 
     //Pathfinder needs Drive, so put it after
@@ -42,20 +44,20 @@ public class Robot extends TimedRobot {
 
     driverController.init();
     vision.init();
-    shooter.init();
+   // shooter.init();
     dashboard.init();
   }
 
   @Override
   public void autonomousInit() {
 
-    pathfinder.config();
+    //pathfinder.config();
   }
 
   @Override
   public void autonomousPeriodic() {
 
-    pathfinder.runpathfinder();
+    //pathfinder.runpathfinder();
   }
 
   @Override
@@ -64,10 +66,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+
+    System.out.println(navX.getAngle());
+    drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle(), false);
     
-    drive.teleopDrive();
-    
-    vision.loop();
+   // vision.loop();
   }
 
   @Override

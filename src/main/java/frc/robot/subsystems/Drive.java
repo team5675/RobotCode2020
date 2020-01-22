@@ -11,7 +11,6 @@ import frc.libs.swerve.SwerveDrive;
 import frc.libs.swerve.WheelDrive;
 
 import frc.robot.Constants;
-import frc.robot.subsystems.NavX;
 
 /**
  * Drive class to manage chassis with swerve drive module.
@@ -25,8 +24,6 @@ public class Drive {
     WheelDrive backLeft;
     WheelDrive frontRight;
     WheelDrive frontLeft;
-
-    NavX navX;
 
 
     public Drive() {
@@ -44,36 +41,34 @@ public class Drive {
         Constants.FL_P, Constants.FL_I, Constants.FL_D);
 
         chassis = new SwerveDrive(backRight, backLeft, frontRight, frontLeft);
-
-        navX = new NavX();
     }
 
 
-    public void teleopDrive() {
-
-        //chassis.drive(controller.getForward(), controller.getStrafe(), controller.getRotation(), navX.getAngle(), controller.isFieldOriented());
+    public void move(double forward, double strafe, double rotation, double angle, boolean isFieldOriented) {
+        
+        chassis.drive(forward, strafe, rotation, angle, isFieldOriented);
     }
 
 
-    public WheelDrive backRight() {
+    public WheelDrive getBackRight() {
 
         return backRight;
     }
 
     
-    public WheelDrive backLeft() {
+    public WheelDrive getBackLeft() {
 
         return backLeft;
     }
 
 
-    public WheelDrive frontRight() {
+    public WheelDrive getFrontRight() {
 
         return frontRight;
     }
     
 
-    public WheelDrive frontLeft() {
+    public WheelDrive getFrontLeft() {
 
         return frontLeft;
     }
