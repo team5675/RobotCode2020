@@ -5,46 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsytems;
+package frc.robot.subsystems;
 
 import frc.libs.swerve.SwerveDrive;
 import frc.libs.swerve.WheelDrive;
-<<<<<<< HEAD
-import frc.robot.Constants;
-=======
 
 import frc.robot.Constants;
-import frc.robot.DriverController;
-import frc.robot.NavX;
->>>>>>> c99f055fcecccb45dfb1d9f92423e5117458335d
+import frc.robot.subsystems.NavX;
 
 /**
- * Add your docs here.
+ * Drive class to manage chassis with swerve drive module.
  */
+
 public class Drive {
 
-<<<<<<< HEAD
     SwerveDrive chassis;
-    WheelDrive backLeft;
-    WheelDrive backRight;
-    WheelDrive frontLeft;
-    WheelDrive frontRight;
-
-    void init() {
-        backRight = new WheelDrive(Constants.DRIVE_BACK_RIGHT_AZIMUTH_ID, Constants.DRIVE_BACK_RIGHT_SPEED_ID, Constants.BR_AZIMUTH_ENCODER_ID, Constants.BR_P, Constants.BR_I, Constants.BR_D);
-
-        chassis = new SwerveDrive();
-    }
-}
-=======
-    SwerveDrive swerve;
 
     WheelDrive backRight;
     WheelDrive backLeft;
     WheelDrive frontRight;
     WheelDrive frontLeft;
-
-    DriverController controller;
 
     NavX navX;
 
@@ -63,39 +43,38 @@ public class Drive {
         frontLeft = new WheelDrive(Constants.DRIVE_FRONT_LEFT_AZIMUTH_ID, Constants.DRIVE_FRONT_LEFT_SPEED_ID, Constants.FL_AZIMUTH_ENCODER_ID, 
         Constants.FL_P, Constants.FL_I, Constants.FL_D);
 
-        swerve = new SwerveDrive(backRight, backLeft, frontRight, frontLeft);
-
-        controller = new DriverController();
+        chassis = new SwerveDrive(backRight, backLeft, frontRight, frontLeft);
 
         navX = new NavX();
     }
 
-    /**
-     * drive the *Configured* swerve in teleop
-     */
+
     public void teleopDrive() {
 
-        swerve.drive(controller.getForward(), controller.getStrafe(), controller.getRotation(), navX.getAngle(), controller.isFieldOriented());
+        //chassis.drive(controller.getForward(), controller.getStrafe(), controller.getRotation(), navX.getAngle(), controller.isFieldOriented());
     }
+
 
     public WheelDrive backRight() {
 
         return backRight;
     }
+
     
     public WheelDrive backLeft() {
 
         return backLeft;
     }
 
+
     public WheelDrive frontRight() {
 
         return frontRight;
     }
+    
 
     public WheelDrive frontLeft() {
 
         return frontLeft;
     }
 }
->>>>>>> c99f055fcecccb45dfb1d9f92423e5117458335d

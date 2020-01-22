@@ -7,16 +7,14 @@
 
 package frc.robot;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
-import frc.robot.subsytems.Drive;
-import frc.robot.subsytems.Shooter;
-import frc.robot.subsytems.Vision;
+
 import frc.robot.auto.pathfinders.PathfinderCore;
+
+import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Vision;
+
 
 public class Robot extends TimedRobot {
 
@@ -25,17 +23,10 @@ public class Robot extends TimedRobot {
 
   Vision vision;
   Shooter shooter;
-<<<<<<< HEAD
-=======
-  Dashboard dashboard;
-
-  Spark shooterFeeder = new Spark(0);
-  CANSparkMax shooterFlywheel = new CANSparkMax(1, MotorType.kBrushless);
+  Drive drive;
 
   PathfinderCore pathfinder;
 
-  Drive driveBase;
->>>>>>> c99f055fcecccb45dfb1d9f92423e5117458335d
 
   @Override
   public void robotInit() {
@@ -44,15 +35,10 @@ public class Robot extends TimedRobot {
 
     vision = new Vision();
     shooter = new Shooter();
-<<<<<<< HEAD
-=======
-    dashboard = new Dashboard();
-
-    driveBase = new Drive();
->>>>>>> c99f055fcecccb45dfb1d9f92423e5117458335d
+    drive = new Drive();
 
     //Pathfinder needs Drive, so put it after
-    pathfinder = new PathfinderCore(driveBase);
+    //pathfinder = new PathfinderCore(driveBase);
 
     driverController.init();
     vision.init();
@@ -68,14 +54,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-<<<<<<< HEAD
-=======
-    /*
-    shooterFeeder.set(-1);
-    shooterFlywheel.getPIDController().setReference(-6000, ControlType.kVelocity);*/
 
     pathfinder.runpathfinder();
->>>>>>> c99f055fcecccb45dfb1d9f92423e5117458335d
   }
 
   @Override
@@ -85,7 +65,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     
-    driveBase.teleopDrive();
+    drive.teleopDrive();
     
     vision.loop();
   }
