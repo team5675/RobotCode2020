@@ -7,9 +7,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
 
-//import frc.robot.auto.pathfinders.PathfinderCore;
+import frc.robot.auto.pathfinders.PathfinderCore;
 
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.NavX;
@@ -27,7 +28,7 @@ public class Robot extends TimedRobot {
   Drive drive;
   NavX navX;
 
-  //PathfinderCore pathfinder;
+  PathfinderCore pathfinder;
 
 
   @Override
@@ -35,12 +36,14 @@ public class Robot extends TimedRobot {
     driverController = new DriverController();
     dashboard = new Dashboard();
 
+    navX = new NavX(SPI.Port.kMXP);
+
     vision = new Vision();
     //shooter = new Shooter();
     drive = new Drive();
 
     //Pathfinder needs Drive, so put it after
-    //pathfinder = new PathfinderCore(driveBase);
+    pathfinder = new PathfinderCore(drive);
 
     driverController.init();
     vision.init();
@@ -51,13 +54,13 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-    //pathfinder.config();
+    pathfinder.config();
   }
 
   @Override
   public void autonomousPeriodic() {
 
-    //pathfinder.runpathfinder();
+    pathfinder.runpathfinder();
   }
 
   @Override
@@ -67,7 +70,6 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    System.out.println(navX.getAngle());
     drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle(), false);
     
    // vision.loop();
