@@ -7,11 +7,12 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.actions.Action;
 import frc.robot.auto.actions.LineUpWithTarget;
 
-//import frc.robot.auto.pathfinders.PathfinderCore;
+import frc.robot.auto.pathfinders.PathfinderCore;
 
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.NavX;
@@ -31,9 +32,8 @@ public class Robot extends TimedRobot {
   Drive drive;
   NavX navX;
 
+  PathfinderCore pathfinder;
   Action action;
-
-  //PathfinderCore pathfinder;
 
   Action lineUpWithTarget;
 
@@ -43,6 +43,8 @@ public class Robot extends TimedRobot {
     dashboard = new Dashboard();
     navX = new NavX();
 
+    navX = new NavX(SPI.Port.kMXP);
+
     vision = new Vision();
     sucker = new Sucker();
     //shooter = new Shooter();
@@ -51,7 +53,7 @@ public class Robot extends TimedRobot {
     action = new Action();
 
     //Pathfinder needs Drive, so put it after
-    //pathfinder = new PathfinderCore(driveBase);
+    pathfinder = new PathfinderCore(drive);
 
     navX.init();
     driverController.init();
@@ -65,13 +67,13 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-    //pathfinder.config();
+    pathfinder.config();
   }
 
   @Override
   public void autonomousPeriodic() {
 
-    //pathfinder.runpathfinder();
+    pathfinder.runpathfinder();
   }
 
   @Override
@@ -81,6 +83,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+
+    drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle(), false);
     
     if(driverController.getA()) {
 

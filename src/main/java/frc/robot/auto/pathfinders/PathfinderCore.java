@@ -30,6 +30,7 @@ public class PathfinderCore {
     Trajectory fr;
     Trajectory fl;
 
+    //MAX VELOCITY FOR TEST SWERVE BOT = 3.3528 m/s
     Drive driveBase;
 
     WheelDrive backRight;
@@ -49,27 +50,11 @@ public class PathfinderCore {
         this.frontLeft  = driveBase.getFrontLeft();
     }
 
-    // TODO: Add functionality to write paths to csv files, so robot doesn't have to
-    // create the spline every time
     public void config() {
 
         //Grabbing all the pathfinder csvs from the RIO directory
         pathFiles = Filesystem.getDeployDirectory();
         pathFilesList = pathFiles.listFiles();
-
-        // Type of spline generated, how many refinement samples, Time(5ms), Max
-        // Velocity,
-        // accel, jerk MAX VELOCITY FOR TEST SWERVE BOT = 3.3528 m/s
-        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC,
-                Trajectory.Config.SAMPLES_FAST, 0.05, 1.5, 2.0, 60.0);
-
-        // Points we want the robot to pass through
-        Waypoint[] points = new Waypoint[] { new Waypoint(0, 0, 0), new Waypoint(2, 2, 0) };
-
-        // Generate the spline trajectory for the robot
-        trajectory = Pathfinder.generate(points, config);
-
-        //Constants.Selected_Auto = networkTable.getautoCharSequence("");
 
         try {
 
