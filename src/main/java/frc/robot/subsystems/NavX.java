@@ -9,13 +9,11 @@ public class NavX {
 
     AHRS gyro;
 
-    public NavX() {
-
+    public void init() {
 
         try {
 
             gyro = new AHRS(SPI.Port.kMXP);
-            
 		} catch (RuntimeException ex) {
 
 			System.out.println("Error instantiating navX-MXP:  " + ex.getMessage());
@@ -26,5 +24,10 @@ public class NavX {
     public double getAngle() {
 
         return gyro.getAngle();
+    }
+
+    public void resetYaw() {
+
+        gyro.zeroYaw();
     }
 }

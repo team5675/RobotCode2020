@@ -42,4 +42,14 @@ public class DriverController {
 
         return mainController.getBumper(Hand.kRight);
     }
+
+    public boolean getA() {
+
+        return mainController.getAButton();
+    }
+
+    public boolean getLineUp() {
+
+        return mainController.getBButton();
+    }
 }

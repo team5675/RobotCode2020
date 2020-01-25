@@ -7,21 +7,14 @@
 
 package frc.robot.auto.actions;
 
-import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.NavX;
-import frc.robot.subsystems.Vision;
 
 /**
- * Add your docs here.
+ * Uses vision to line up.
  */
-public class Action {
+public class LineUpWithTarget extends Action {
 
-    Drive drive = new Drive();
-    Vision vision = new Vision();
-
-    
     public void run() {
-
-        System.out.println("HI");
+        
+        drive.move(0, 0, vision.getHorizontalOffset() * 0.02, 0, true);
     }
 }

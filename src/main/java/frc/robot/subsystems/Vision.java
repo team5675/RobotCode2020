@@ -17,12 +17,12 @@ Get Limelight data and send Limelight data/interact with it
 */
 
 public class Vision {
-    NetworkTable limelightTable;
-    NetworkTableEntry ledMode;
-    NetworkTableEntry horizontalOffset;
-    NetworkTableEntry verticalOffset;
-    NetworkTableEntry distanceFromTarget;
-    NetworkTable dashboardTable;
+    static NetworkTable limelightTable;
+    static NetworkTableEntry ledMode;
+    static NetworkTableEntry horizontalOffset;
+    static NetworkTableEntry verticalOffset;
+    static NetworkTableEntry distanceFromTarget;
+    static NetworkTable dashboardTable;
 
     public void init() {
         limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
@@ -33,19 +33,27 @@ public class Vision {
         distanceFromTarget = dashboardTable.getEntry("distanceFromTarget");
     }
 
-    void lightOn() {
+    public void lightOn() {
         ledMode.setDouble(3);
     }
 
-    void lightOff() {
+    public void lightOff() {
         ledMode.setDouble(1);
     }
 
-    double getHorizontalOffset() {
+    public boolean getLightOn() {
+        if (ledMode.getDouble(0) == 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public double getHorizontalOffset() {
         return horizontalOffset.getDouble(0);
     }
     
-    double getVerticalOffset() {
+    public double getVerticalOffset() {
         return verticalOffset.getDouble(0);
     }
 
