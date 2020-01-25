@@ -54,10 +54,12 @@ public class DriverController {
     }
 
     public double getIntake() {
+
         return auxController.getTriggerAxis(Hand.kRight);
     }
 
     public double getOuttake() {
+        
         return auxController.getTriggerAxis(Hand.kLeft);
     }
 }

@@ -90,7 +90,7 @@ boolean first = true;
 			follower = new DistanceFollower(traj);
 
 			//configure the PIDVAs for ff and fb control
-			follower.configurePIDVA(0.0, 0.0, 0.0, 1/3.3528, 0.0);
+			follower.configurePIDVA(0.0, 0.0, 0.0, 1/3, 0.0);
 
 			//so we only run this once
 			first = false;

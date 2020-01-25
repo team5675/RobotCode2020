@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.actions.Action;
 import frc.robot.auto.actions.LineUpWithTarget;
@@ -80,8 +81,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-
-    drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle(), false);
     
     if(driverController.getA()) {
 
@@ -95,7 +94,7 @@ public class Robot extends TimedRobot {
     }
 
     vision.loop();
-    sucker.run();
+    //sucker.run();
   }
 
   @Override
