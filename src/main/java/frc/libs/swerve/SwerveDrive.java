@@ -8,10 +8,10 @@ public class SwerveDrive {
 	public double W = 25;//width of wheel axle distances
 
 	//backright backleft frontright frontleft
-	public double ANGLE_OFFSET1 = 0.5725;//3.769; //from 0 to 5
-	public double ANGLE_OFFSET2 = 4.114;//0.531;
-	public double ANGLE_OFFSET3 = 4.351;//1.976;
-	public double ANGLE_OFFSET4 = 0.279;//3.883;
+	public double ANGLE_OFFSET1 = 3.035;//3.769; //from 0 to 5
+	public double ANGLE_OFFSET2 = 4.086;//0.531;
+	public double ANGLE_OFFSET3 = 3.647;//1.976;
+	public double ANGLE_OFFSET4 = 0.297;//3.883;
 
 	public final double CONTROLLER_DEADBAND = .05;
 	
@@ -41,7 +41,7 @@ public class SwerveDrive {
 	
 		if (robotCentric) {
 
-			forward = x1;
+			forward = -x1;
 			strafe  = y1;
 		}
 
