@@ -39,13 +39,11 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     driverController = new DriverController();
     dashboard = new Dashboard();
+    
     navX = new NavX();
-
     vision = new Vision();
-    //shooter = new Shooter();
     drive = new Drive();
-
-    action = new Action();
+    //shooter = new Shooter();
 
     //Pathfinder needs Drive, so put it after
     //pathfinder = new PathfinderCore(driveBase);
@@ -53,7 +51,7 @@ public class Robot extends TimedRobot {
     navX.init();
     driverController.init();
     vision.init();
-   // shooter.init();
+    //shooter.init();
     dashboard.init();
     drive.init();
   }

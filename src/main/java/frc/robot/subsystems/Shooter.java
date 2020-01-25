@@ -93,7 +93,7 @@ public class Shooter {
         this.distance = distance;
 
         //getting adjusted height
-        height = (Constants.PORT_HEIGHT - Constants.SHOOTER_HEIGHT);
+        height = (Constants.VISION_TARGET_HEIGHT - Constants.SHOOTER_HEIGHT);
 
         //angle calculated by modeling a triangle approx to the parabola
         theta = Math.atan(2 * height / distance);

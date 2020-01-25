@@ -10,12 +10,12 @@ package frc.robot.auto.actions;
 import frc.robot.Constants;
 
 /**
- * Uses vision to line up.
+ * Add your docs here.
  */
-public class LineUpWithTarget extends Action {
+public class LineUpTowardsTargetWithDriver extends Action {
 
-    public void run() {
-        
-        drive.move(0, 0, 0, 0, true);
+    public void run(double forward, double strafe) {
+
+        drive.move(forward, strafe, vision.getHorizontalOffset() * Constants.AUTO_ROTATE_P, 0, true);
     }
 }
