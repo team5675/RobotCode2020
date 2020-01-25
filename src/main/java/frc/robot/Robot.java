@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.actions.Action;
 import frc.robot.auto.actions.LineUpWithTarget;
 
-//import frc.robot.auto.pathfinders.PathfinderCore;
+import frc.robot.auto.pathfinders.PathfinderCore;
 
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.NavX;
-import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Sucker;
 
 
 public class Robot extends TimedRobot {
@@ -25,33 +25,49 @@ public class Robot extends TimedRobot {
   Dashboard dashboard;
 
   Vision vision;
+  Sucker sucker;
  // Shooter shooter;
   Drive drive;
   NavX navX;
 
+  PathfinderCore pathfinder;
   Action action;
-
-  //PathfinderCore pathfinder;
 
   Action lineUpWithTarget;
 
   @Override
   public void robotInit() {
+
     driverController = new DriverController();
+
     dashboard = new Dashboard();
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 9db40d45fe83751a79f802e76b433094e68f9cc0
     navX = new NavX();
     vision = new Vision();
+<<<<<<< HEAD
+=======
+    sucker = new Sucker();
+    //shooter = new Shooter();
+>>>>>>> 9db40d45fe83751a79f802e76b433094e68f9cc0
     drive = new Drive();
     //shooter = new Shooter();
 
     //Pathfinder needs Drive, so put it after
-    //pathfinder = new PathfinderCore(driveBase);
+    pathfinder = new PathfinderCore(drive);
 
     navX.init();
     driverController.init();
     vision.init();
+<<<<<<< HEAD
     //shooter.init();
+=======
+    sucker.init();
+   // shooter.init();
+>>>>>>> 9db40d45fe83751a79f802e76b433094e68f9cc0
     dashboard.init();
     drive.init();
   }
@@ -59,13 +75,13 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-    //pathfinder.config();
+    pathfinder.config();
   }
 
   @Override
   public void autonomousPeriodic() {
 
-    //pathfinder.runpathfinder();
+    pathfinder.runpathfinder();
   }
 
   @Override
@@ -75,6 +91,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+
+    drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle(), false);
     
     if(driverController.getA()) {
 
@@ -84,10 +102,11 @@ public class Robot extends TimedRobot {
     if (driverController.getLineUp()) {
       lineUpWithTarget.run();
     } else {
-      drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle() - 90, driverController.isFieldOriented());
+      drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle() - 45, driverController.isFieldOriented());
     }
 
     vision.loop();
+    sucker.run();
   }
 
   @Override

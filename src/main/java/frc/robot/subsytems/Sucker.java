@@ -5,24 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.auto.actions;
-
-import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.NavX;
-import frc.robot.subsystems.Vision;
+package frc.robot.subsytems;
 
 /**
  * Add your docs here.
  */
-public class Action {
-
-    Drive drive   = new Drive();
-    Vision vision = new Vision();
-    NavX navX     = new NavX();
-
-
-    public void run() {
-
-        System.out.println("HI");
-    }
+public class Sucker {
 }

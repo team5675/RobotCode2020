@@ -47,11 +47,6 @@ public class Constants {
     public static final double BR_D = 0.01;
     public static final int BR_AZIMUTH_ENCODER_ID = 0;
 
-    //Vision subsystem constants
-    public static final double VISION_TARGET_HEIGHT = 8.1875;
-    public static final double VISION_CAMERA_HEIGHT = 1.7493;
-    public static final double VISION_CAMERA_ANGLE = 25.3778;
-
     //Shooter subsystem constants
     public static final int SHOOTER_ID = 0;
     public static final double SHOOTER_SETPOINT = 5000;
@@ -63,7 +58,14 @@ public class Constants {
     //public static final double CAM_HEIGHT;
     //public static final double CAM_ANGLE;
 
+    //Intake subsystem constants
+    public static final int INTAKE_ID = 0;
+
+    //Vision subsystem constants
+    public static final double VISION_TARGET_HEIGHT = 8.1875;
+    public static final double VISION_CAMERA_HEIGHT = 1.7493;
+    public static final double VISION_CAMERA_ANGLE = 25.3778;
+
     //Auto Constants
     public static final double AUTO_ROTATE_P = 0;
-
 }

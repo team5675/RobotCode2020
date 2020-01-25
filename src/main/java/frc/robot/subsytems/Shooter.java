@@ -5,30 +5,40 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot.subsytems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.controller.PIDController;
 import frc.robot.Constants;
-import frc.robot.DriverController;
+import frc.robot.subsystems.Vision;
 
 /**
- * Sucks
+ * Add your docs here.
  */
-public class Sucker {
+public class Shooter {
 
-    DriverController control;
-    CANSparkMax roller;
-    double vIntake;
+    Vision vision;
+
+    CANSparkMax shootMotor;
+
+    double speed;
+    double angle;
+    double distance;
+
+    PIDController speedPID;
 
     public void init() {
-        control = new DriverController();
-        roller = new CANSparkMax(Constants.INTAKE_ID, MotorType.kBrushless);
+        vision = new Vision();
+        shootMotor = new CANSparkMax(Constants.SHOOTER_ID, MotorType.kBrushless);
     }
 
-    public void run() {
-        vIntake = control.getIntake() - control.getOuttake();
-        roller.set(vIntake); 
+    public void autoAimAtTarget() { 
+        //angle = vision.getVerticalOffset() + Constants.CAM_ANGLE;
+        //distance = (Constants.PORT_HEIGHT - Constants.CAM_HEIGHT) / Math.tan(angle);
+        //velocity = Constants.PORT_HEIGHT /
+
     }
+
 }
