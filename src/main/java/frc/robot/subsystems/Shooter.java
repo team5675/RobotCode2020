@@ -21,6 +21,8 @@ import frc.robot.Constants;
  */
 public class Shooter {
 
+    static Shooter instance;
+
     Vision vision;
 
     CANSparkMax shootMotor;
@@ -36,7 +38,7 @@ public class Shooter {
 
     PIDController speedPID;
 
-    public void init() {
+    public Shooter() {
         vision = new Vision();
         shootMotor = new CANSparkMax(Constants.SHOOTER_ID, MotorType.kBrushless);
 
@@ -101,4 +103,12 @@ public class Shooter {
         return theta;
     }
 
+
+    public static Shooter getInstance() {
+        if (instance == null) {
+            instance = new Shooter();
+        }
+
+        return instance;
+    }
 }

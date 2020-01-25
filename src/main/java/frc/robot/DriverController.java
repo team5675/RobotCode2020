@@ -15,10 +15,12 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
  */
 public class DriverController {
     
+    static DriverController instance;
+
     XboxController mainController;
     XboxController auxController;
 
-    void init() {
+    public DriverController() {
         mainController = new XboxController(0);
         auxController = new XboxController(1);
     }
@@ -61,5 +63,15 @@ public class DriverController {
     public double getOuttake() {
         
         return auxController.getTriggerAxis(Hand.kLeft);
+    }
+
+
+    public static DriverController getInstance() {
+
+        if (instance == null) {
+            instance = new DriverController();
+        }
+
+        return instance;
     }
 }

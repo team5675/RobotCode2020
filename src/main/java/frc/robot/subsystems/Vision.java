@@ -17,6 +17,9 @@ Get Limelight data and send Limelight data/interact with it
 */
 
 public class Vision {
+
+    static Vision instance;
+
     static NetworkTable limelightTable;
     static NetworkTableEntry ledMode;
     static NetworkTableEntry horizontalOffset;
@@ -24,7 +27,7 @@ public class Vision {
     static NetworkTableEntry distanceFromTarget;
     static NetworkTable dashboardTable;
 
-    public void init() {
+    public Vision() {
         limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
         dashboardTable = NetworkTableInstance.getDefault().getTable("limelight");
         ledMode = limelightTable.getEntry("ledMode");
@@ -60,5 +63,14 @@ public class Vision {
     public void loop() {
         double distance = (Constants.VISION_TARGET_HEIGHT - Constants.VISION_CAMERA_HEIGHT) / Math.tan(Math.toRadians(Constants.VISION_CAMERA_ANGLE + getVerticalOffset()));
         distanceFromTarget.setDouble(distance);
+    }
+
+
+    public static Vision getInstance() {
+        if (instance == null) {
+            instance = new Vision();
+        }
+
+        return instance;
     }
 }

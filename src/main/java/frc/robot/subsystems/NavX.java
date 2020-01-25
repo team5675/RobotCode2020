@@ -7,9 +7,11 @@ import edu.wpi.first.wpilibj.SPI;
 
 public class NavX {
 
+    static NavX instance;
+    
     AHRS gyro;
 
-    public void init() {
+    public NavX() {
 
         try {
 
@@ -29,5 +31,15 @@ public class NavX {
     public void resetYaw() {
 
         gyro.zeroYaw();
+    }
+
+
+    public static NavX getInstance() {
+        
+        if (instance == null) {
+            instance = new NavX();
+        }
+
+        return instance;
     }
 }

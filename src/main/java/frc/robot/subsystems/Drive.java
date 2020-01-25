@@ -18,6 +18,8 @@ import frc.robot.Constants;
 
 public class Drive {
 
+    static Drive instance;
+
     static SwerveDrive chassis;
 
     static WheelDrive backRight;
@@ -26,7 +28,7 @@ public class Drive {
     static WheelDrive frontLeft;
 
 
-    public void init() {
+    public Drive() {
 
         backRight = new WheelDrive(Constants.DRIVE_BACK_RIGHT_AZIMUTH_ID, Constants.DRIVE_BACK_RIGHT_SPEED_ID, Constants.BR_AZIMUTH_ENCODER_ID, 
         Constants.BR_P, Constants.BR_I, Constants.BR_D);
@@ -71,5 +73,15 @@ public class Drive {
     public WheelDrive getFrontLeft() {
 
         return frontLeft;
+    }
+
+
+    public static Drive getInstance() {
+
+        if (instance == null) {
+            instance = new Drive();
+        }
+
+        return instance;
     }
 }

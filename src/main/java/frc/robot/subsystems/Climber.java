@@ -11,4 +11,21 @@ package frc.robot.subsystems;
  * Add your docs here.
  */
 public class Climber {
+
+    static Climber instance;
+
+
+    public Climber() {
+
+    }
+    
+    
+    public static Climber getInstance() {
+
+        if (instance == null) {
+            instance = new Climber();
+        }
+
+        return instance;
+    }
 }

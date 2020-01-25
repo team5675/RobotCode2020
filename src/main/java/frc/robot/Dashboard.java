@@ -11,9 +11,22 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Dashboard {
+
+    static Dashboard instance;
+
     NetworkTable dashboardTable;
 
-    void init() {
+    public Dashboard() {
         dashboardTable = NetworkTableInstance.getDefault().getTable("dashboardTable");       
+    }
+
+
+    public static Dashboard getInstance() {
+
+        if (instance == null) {
+            instance = new Dashboard();
+        }
+
+        return instance;
     }
 }

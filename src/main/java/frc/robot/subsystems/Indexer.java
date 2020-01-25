@@ -11,4 +11,21 @@ package frc.robot.subsystems;
  * Add your docs here.
  */
 public class Indexer {
+
+    static Indexer instance;
+
+
+    public Indexer() {
+
+    }
+    
+
+    public static Indexer getInstance() {
+
+        if (instance == null) {
+            instance = new Indexer();
+        }
+
+        return instance;
+    }
 }

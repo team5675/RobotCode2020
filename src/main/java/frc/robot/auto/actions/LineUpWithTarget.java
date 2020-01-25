@@ -12,10 +12,15 @@ import frc.robot.Constants;
 /**
  * Uses vision to line up.
  */
-public class LineUpWithTarget extends Action {
+public class LineUpWithTarget implements Action {
+
+    public LineUpWithTarget() {
+
+    }
 
     public void run() {
         
-        drive.move(0, 0, 0, 0, true);
+        System.out.println(navX.getAngle() * 0.01);
+        drive.move(0, vision.getHorizontalOffset() * Constants.AUTO_STRAFE_P, navX.getAngle() * 0.01, 0, true);
     }
 }

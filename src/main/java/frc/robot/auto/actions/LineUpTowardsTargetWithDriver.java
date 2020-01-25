@@ -8,14 +8,16 @@
 package frc.robot.auto.actions;
 
 import frc.robot.Constants;
+import frc.robot.subsystems.Drive;
 
 /**
  * Add your docs here.
  */
-public class LineUpTowardsTargetWithDriver extends Action {
+public class LineUpTowardsTargetWithDriver implements Action {
+    
+    Drive drive = Drive.getInstance();
 
-    public void run(double forward, double strafe) {
-
+    public void run() {
         drive.move(forward, strafe, vision.getHorizontalOffset() * Constants.AUTO_ROTATE_P, 0, true);
     }
 }
