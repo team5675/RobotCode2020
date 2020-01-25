@@ -16,6 +16,7 @@ import frc.robot.auto.pathfinders.PathfinderCore;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.NavX;
 import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Sucker;
 
 
 public class Robot extends TimedRobot {
@@ -24,6 +25,7 @@ public class Robot extends TimedRobot {
   Dashboard dashboard;
 
   Vision vision;
+  Sucker sucker;
  // Shooter shooter;
   Drive drive;
   NavX navX;
@@ -43,6 +45,7 @@ public class Robot extends TimedRobot {
     navX = new NavX();
 
     vision = new Vision();
+    sucker = new Sucker();
     //shooter = new Shooter();
     drive = new Drive();
 
@@ -54,6 +57,7 @@ public class Robot extends TimedRobot {
     navX.init();
     driverController.init();
     vision.init();
+    sucker.init();
    // shooter.init();
     dashboard.init();
     drive.init();
@@ -93,6 +97,7 @@ public class Robot extends TimedRobot {
     }
 
     vision.loop();
+    sucker.run();
   }
 
   @Override

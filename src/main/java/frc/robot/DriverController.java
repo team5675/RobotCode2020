@@ -52,4 +52,12 @@ public class DriverController {
 
         return mainController.getBButton();
     }
+
+    public double getIntake() {
+        return auxController.getTriggerAxis(Hand.kRight);
+    }
+
+    public double getOuttake() {
+        return auxController.getTriggerAxis(Hand.kLeft);
+    }
 }

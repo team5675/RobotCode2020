@@ -64,4 +64,7 @@ public class Constants {
     //public static final double CAM_HEIGHT;
     //public static final double CAM_ANGLE;
 
+    //intake subsystem constants
+    public static final int INTAKE_ID = 0;
+
 }
