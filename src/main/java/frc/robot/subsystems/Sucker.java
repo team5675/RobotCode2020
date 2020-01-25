@@ -18,11 +18,13 @@ import frc.robot.DriverController;
  */
 public class Sucker {
 
+    static Sucker instance;
+    
     DriverController control;
     CANSparkMax roller;
     double vIntake;
 
-    public void init() {
+    public Sucker() {
         control = new DriverController();
         roller = new CANSparkMax(Constants.INTAKE_ID, MotorType.kBrushless);
     }
@@ -30,5 +32,14 @@ public class Sucker {
     public void run() {
         vIntake = control.getIntake() - control.getOuttake();
         roller.set(vIntake); 
+    }
+
+
+    public static Sucker getInstance() {
+        if (instance == null) {
+            instance = new Sucker();
+        }
+
+        return instance;
     }
 }

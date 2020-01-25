@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.actions.Action;
+import frc.robot.auto.actions.LineUpTowardsTargetWithDriver;
 import frc.robot.auto.actions.LineUpWithTarget;
 
 import frc.robot.auto.pathfinders.PathfinderCore;
@@ -34,31 +35,23 @@ public class Robot extends TimedRobot {
   PathfinderCore pathfinder;
   Action action;
 
+  Action lineUpTowardsTargetWithDriver;
   Action lineUpWithTarget;
 
   @Override
   public void robotInit() {
 
-    driverController = new DriverController();
-
-    dashboard = new Dashboard();
-    navX = new NavX();
-    vision = new Vision();
-    sucker = new Sucker();
-    //shooter = new Shooter();
-    drive = new Drive();
-    //shooter = new Shooter();
+    driverController = DriverController.getInstance();
+    dashboard = Dashboard.getInstance();
+    
+    drive = Drive.getInstance();
+    navX = NavX.getInstance();
+    vision = Vision.getInstance();
+    shooter = Shooter.getInstance();
+    sucker = Sucker.getInstance();
 
     //Pathfinder needs Drive, so put it after
     pathfinder = new PathfinderCore(drive);
-
-    navX.init();
-    driverController.init();
-    vision.init();
-    sucker.init();
-   // shooter.init();
-    dashboard.init();
-    drive.init();
   }
 
   @Override
@@ -75,13 +68,12 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    lineUpWithTarget = new LineUpWithTarget();
+    lineUpTowardsTargetWithDriver = new LineUpTowardsTargetWithDriver();
+    //lineUpWithTarget = new LineUpWithTarget();
   }
 
   @Override
   public void teleopPeriodic() {
-
-    drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle(), false);
     
     if(driverController.getA()) {
 
@@ -89,13 +81,14 @@ public class Robot extends TimedRobot {
     }
 
     if (driverController.getLineUp()) {
-      lineUpWithTarget.run();
+      //lineUpTowardsTargetWithDriver.run(driverController.getForward(), driverController.getStrafe());
+      //lineUpWithTarget.run(0, 0);
     } else {
       drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle() - 45, driverController.isFieldOriented());
     }
 
     vision.loop();
-    sucker.run();
+    //sucker.run();
   }
 
   @Override

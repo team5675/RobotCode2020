@@ -67,5 +67,6 @@ public class Constants {
     public static final double VISION_CAMERA_ANGLE = 25.3778;
 
     //Auto Constants
-    public static final double AUTO_ROTATE_P = 0;
+    public static final double AUTO_ROTATE_P = 0.02;
+    public static final double AUTO_STRAFE_P = 0.02;
 }
