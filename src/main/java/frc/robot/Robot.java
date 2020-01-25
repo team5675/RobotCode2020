@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.actions.Action;
 import frc.robot.auto.actions.LineUpWithTarget;
@@ -16,7 +15,6 @@ import frc.robot.auto.pathfinders.PathfinderCore;
 
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.NavX;
-import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 
 
@@ -37,11 +35,12 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    driverController = new DriverController();
-    dashboard = new Dashboard();
-    navX = new NavX();
 
-    navX = new NavX(SPI.Port.kMXP);
+    driverController = new DriverController();
+
+    dashboard = new Dashboard();
+
+    navX = new NavX();
 
     vision = new Vision();
     //shooter = new Shooter();
@@ -90,7 +89,7 @@ public class Robot extends TimedRobot {
     if (driverController.getLineUp()) {
       lineUpWithTarget.run();
     } else {
-      drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle() - 90, driverController.isFieldOriented());
+      drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle() - 45, driverController.isFieldOriented());
     }
 
     vision.loop();

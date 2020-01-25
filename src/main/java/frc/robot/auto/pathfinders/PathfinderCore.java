@@ -12,13 +12,11 @@ import frc.robot.subsystems.Drive;
 
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
-import jaci.pathfinder.Waypoint;
 import jaci.pathfinder.modifiers.SwerveModifier;
 
 public class PathfinderCore {
 
     File pathFiles;
-    File selectedFile;
 
     File[] pathFilesList;
 
@@ -30,25 +28,16 @@ public class PathfinderCore {
     Trajectory fr;
     Trajectory fl;
 
-    //MAX VELOCITY FOR TEST SWERVE BOT = 3.3528 m/s
     Drive driveBase;
-
-    WheelDrive backRight;
-    WheelDrive backLeft;
-    WheelDrive frontRight;
-    WheelDrive frontLeft;
+    //MAX VELOCITY FOR TEST SWERVE BOT = 3.3528 m/s
 
     SwerveModifier modifier;
 
-    public PathfinderCore(Drive driveBase) {
+    public PathfinderCore(Drive drive) {
 
-        this.driveBase = driveBase;
-
-        this.backRight  = driveBase.getBackRight();
-        this.backLeft   = driveBase.getBackLeft();
-        this.frontRight = driveBase.getFrontRight();
-        this.frontLeft  = driveBase.getFrontLeft();
+        this.driveBase = drive;
     }
+
 
     public void config() {
 
@@ -104,9 +93,9 @@ public class PathfinderCore {
     public void runpathfinder() {
 
             //give this method the modified trajectories and the encoder offset
-            backRight.setModule(br, 3.029);
-            backLeft.setModule(bl, 4.084);
-            frontRight.setModule(fr, 3.302);
-            frontLeft.setModule(fl, 0.057);
+            driveBase.getBackRight().setModule(br, 3.029);
+            driveBase.getBackLeft().setModule(bl, 4.084);
+            driveBase.getFrontRight().setModule(fr, 3.302);
+            driveBase.getFrontLeft().setModule(fl, 0.057);
     }
 }

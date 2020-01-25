@@ -16,8 +16,9 @@ import frc.robot.subsystems.Vision;
  */
 public class Action {
 
-    Drive drive = new Drive();
+    Drive drive   = new Drive();
     Vision vision = new Vision();
+    NavX navX     = new NavX();
 
     
     public void run() {
