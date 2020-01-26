@@ -58,6 +58,13 @@ public class Constants {
     //public static final double CAM_HEIGHT;
     //public static final double CAM_ANGLE;
 
+    //Pizza spinner constants
+    public static final int SPINNER_MOTOR_ID = 0;
+    public static final int SPINNER_TICKS_PER_REV = 0;
+    public static final double SPINNER_REVS_SETPOINT = 0;
+    public static final int SPINNER_ARM_IN_CHANNEL = 0;
+    public static final int SPINNER_ARM_OUT_CHANNEL = 0;
+
     //Intake subsystem constants
     public static final int INTAKE_ID = 0;
 

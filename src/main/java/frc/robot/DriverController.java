@@ -65,6 +65,16 @@ public class DriverController {
         return auxController.getTriggerAxis(Hand.kLeft);
     }
 
+    public boolean getSpinnerDeploy() {
+
+        return auxController.getBButton();
+    }
+
+    public boolean getColorDeploy() {
+
+        return auxController.getXButton();
+    }
+
 
     public static DriverController getInstance() {
 

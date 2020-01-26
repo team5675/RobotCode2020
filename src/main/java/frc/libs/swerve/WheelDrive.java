@@ -75,6 +75,11 @@ boolean first = true;
 		this.D = D;
 	}
 
+	/**
+	 * Use this method for interfacing with pathfinder
+	 * @param traj the module's trajectory
+	 * @param ANGLE_OFFSET the module's encoder offset
+	 */
 	public void setModule(Trajectory traj, double ANGLE_OFFSET) {
 
 		//Run through config once
