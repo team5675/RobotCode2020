@@ -36,7 +36,9 @@ public class Sucker {
 
 
     public static Sucker getInstance() {
+
         if (instance == null) {
+            
             instance = new Sucker();
         }
 

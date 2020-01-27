@@ -67,7 +67,9 @@ public class Vision {
 
 
     public static Vision getInstance() {
+
         if (instance == null) {
+            
             instance = new Vision();
         }
 

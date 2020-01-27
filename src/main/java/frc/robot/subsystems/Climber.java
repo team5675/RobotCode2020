@@ -23,6 +23,7 @@ public class Climber {
     public static Climber getInstance() {
 
         if (instance == null) {
+            
             instance = new Climber();
         }
 

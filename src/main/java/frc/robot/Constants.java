@@ -66,7 +66,7 @@ public class Constants {
     public static final int SPINNER_ARM_OUT_CHANNEL = 0;
 
     //Intake subsystem constants
-    public static final int INTAKE_ID = 0;
+    public static final int INTAKE_ID = 9;
 
     //Vision subsystem constants
     public static final double VISION_TARGET_HEIGHT = 8.1875;

@@ -29,7 +29,6 @@ public class LineUpWithTarget implements Action {
 
     public void run() {
         
-        System.out.println(navX.getAngle() * 0.01);
         drive.move(0, vision.getHorizontalOffset() * Constants.AUTO_STRAFE_P, navX.getAngle() * 0.01, 0, true);
     }
 }

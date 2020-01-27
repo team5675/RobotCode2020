@@ -23,6 +23,7 @@ public class Indexer {
     public static Indexer getInstance() {
 
         if (instance == null) {
+            
             instance = new Indexer();
         }
 

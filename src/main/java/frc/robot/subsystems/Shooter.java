@@ -105,7 +105,9 @@ public class Shooter {
 
 
     public static Shooter getInstance() {
+
         if (instance == null) {
+            
             instance = new Shooter();
         }
 

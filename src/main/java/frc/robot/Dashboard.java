@@ -16,7 +16,9 @@ public class Dashboard {
 
     NetworkTable dashboardTable;
 
+    
     public Dashboard() {
+
         dashboardTable = NetworkTableInstance.getDefault().getTable("dashboardTable");       
     }
 
@@ -24,6 +26,7 @@ public class Dashboard {
     public static Dashboard getInstance() {
 
         if (instance == null) {
+
             instance = new Dashboard();
         }
 

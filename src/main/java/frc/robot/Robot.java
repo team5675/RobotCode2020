@@ -40,6 +40,7 @@ public class Robot extends TimedRobot {
   Action         lineUpTowardsTargetWithDriver;
   Action         lineUpWithTarget;
 
+
   @Override
   public void robotInit() {
 
@@ -57,11 +58,13 @@ public class Robot extends TimedRobot {
     pathfinder = new PathfinderCore(drive);
   }
 
+
   @Override
   public void autonomousInit() {
 
     pathfinder.config();
   }
+
 
   @Override
   public void autonomousPeriodic() {
@@ -69,12 +72,14 @@ public class Robot extends TimedRobot {
     pathfinder.runpathfinder();
   }
 
+
   @Override
   public void teleopInit() {
 
     lineUpTowardsTargetWithDriver = new LineUpTowardsTargetWithDriver();
     //lineUpWithTarget = new LineUpWithTarget();
   }
+
 
   @Override
   public void teleopPeriodic() {
@@ -85,9 +90,11 @@ public class Robot extends TimedRobot {
     }
 
     if (driverController.getLineUp()) {
+
       lineUpTowardsTargetWithDriver.run();
-      //lineUpWithTarget.run(0, 0);
+      //lineUpWithTarget.run();
     } else {
+
       drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle() - 45, driverController.isFieldOriented());
     }
 
@@ -95,12 +102,13 @@ public class Robot extends TimedRobot {
     //sucker.run();
   }
 
+
   @Override
   public void testInit() {
   }
 
+
   @Override
   public void testPeriodic() {
   }
-
 }

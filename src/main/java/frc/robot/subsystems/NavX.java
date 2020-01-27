@@ -37,6 +37,7 @@ public class NavX {
     public static NavX getInstance() {
         
         if (instance == null) {
+            
             instance = new NavX();
         }
 
