@@ -75,6 +75,11 @@ boolean first = true;
 		this.D = D;
 	}
 
+	/**
+	 * Use this method for interfacing with pathfinder
+	 * @param traj the module's trajectory
+	 * @param ANGLE_OFFSET the module's encoder offset
+	 */
 	public void setModule(Trajectory traj, double ANGLE_OFFSET) {
 
 		//Run through config once
@@ -90,7 +95,7 @@ boolean first = true;
 			follower = new DistanceFollower(traj);
 
 			//configure the PIDVAs for ff and fb control
-			follower.configurePIDVA(0.0, 0.0, 0.0, 1/3.3528, 0.0);
+			follower.configurePIDVA(0.0, 0.0, 0.0, 1/3, 0.0);
 
 			//so we only run this once
 			first = false;

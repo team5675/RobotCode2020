@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.actions.Action;
 import frc.robot.auto.actions.LineUpTowardsTargetWithDriver;
@@ -19,6 +20,7 @@ import frc.robot.subsystems.NavX;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Sucker;
+import frc.robot.subsystems.Spinner;
 
 
 public class Robot extends TimedRobot {
@@ -31,6 +33,7 @@ public class Robot extends TimedRobot {
   Shooter shooter;
   Drive drive;
   NavX navX;
+  Spinner spinner;
 
   PathfinderCore pathfinder;
   Action action;
@@ -42,13 +45,14 @@ public class Robot extends TimedRobot {
   public void robotInit() {
 
     driverController = DriverController.getInstance();
-    dashboard = Dashboard.getInstance();
+    dashboard        = Dashboard.getInstance();
     
-    drive = Drive.getInstance();
-    navX = NavX.getInstance();
-    vision = Vision.getInstance();
-    shooter = Shooter.getInstance();
-    sucker = Sucker.getInstance();
+    drive            = Drive.getInstance();
+    navX             = NavX.getInstance();
+    vision           = Vision.getInstance();
+    shooter          = Shooter.getInstance();
+    sucker           = Sucker.getInstance();
+    spinner          = Spinner.getInstance();
 
     //Pathfinder needs Drive, so put it after
     pathfinder = new PathfinderCore(drive);

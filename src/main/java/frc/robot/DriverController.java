@@ -56,11 +56,23 @@ public class DriverController {
     }
 
     public double getIntake() {
+
         return auxController.getTriggerAxis(Hand.kRight);
     }
 
     public double getOuttake() {
+        
         return auxController.getTriggerAxis(Hand.kLeft);
+    }
+
+    public boolean getSpinnerDeploy() {
+
+        return auxController.getBButton();
+    }
+
+    public boolean getColorDeploy() {
+
+        return auxController.getXButton();
     }
 
 
