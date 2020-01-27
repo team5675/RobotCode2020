@@ -26,20 +26,19 @@ import frc.robot.subsystems.Spinner;
 public class Robot extends TimedRobot {
 
   DriverController driverController;
-  Dashboard dashboard;
+  Dashboard        dashboard;
 
-  Vision vision;
-  Sucker sucker;
+  Vision  vision;
+  Sucker  sucker;
   Shooter shooter;
-  Drive drive;
-  NavX navX;
+  Drive   drive;
+  NavX    navX;
   Spinner spinner;
 
   PathfinderCore pathfinder;
-  Action action;
-
-  Action lineUpTowardsTargetWithDriver;
-  Action lineUpWithTarget;
+  Action         action;
+  Action         lineUpTowardsTargetWithDriver;
+  Action         lineUpWithTarget;
 
   @Override
   public void robotInit() {
@@ -72,7 +71,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    
+
     lineUpTowardsTargetWithDriver = new LineUpTowardsTargetWithDriver();
     //lineUpWithTarget = new LineUpWithTarget();
   }
@@ -86,7 +85,7 @@ public class Robot extends TimedRobot {
     }
 
     if (driverController.getLineUp()) {
-      //lineUpTowardsTargetWithDriver.run(driverController.getForward(), driverController.getStrafe());
+      lineUpTowardsTargetWithDriver.run();
       //lineUpWithTarget.run(0, 0);
     } else {
       drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle() - 45, driverController.isFieldOriented());

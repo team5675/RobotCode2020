@@ -8,15 +8,24 @@
 package frc.robot.auto.actions;
 
 import frc.robot.Constants;
+import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.NavX;
+import frc.robot.subsystems.Vision;
 
 /**
  * Uses vision to line up.
  */
 public class LineUpWithTarget implements Action {
 
+    NavX navX = NavX.getInstance();
+    Drive drive = Drive.getInstance();
+    Vision vision = Vision.getInstance();
+    
+
     public LineUpWithTarget() {
 
     }
+
 
     public void run() {
         
