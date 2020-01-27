@@ -14,6 +14,8 @@ import jaci.pathfinder.modifiers.SwerveModifier;
 
 public class PathfinderCore {
 
+    static PathfinderCore instance;
+
     File pathFiles;
 
     File[] pathFilesList;
@@ -31,9 +33,9 @@ public class PathfinderCore {
 
     SwerveModifier modifier;
 
-    public PathfinderCore(Drive drive) {
+    public PathfinderCore() {
 
-        this.driveBase = drive;
+        driveBase = Drive.getInstance();
     }
 
 
@@ -66,6 +68,36 @@ public class PathfinderCore {
 
             System.out.printf("Can't find the pathfinder file! \n %f", e);
         }
+
+        /**
+         * void pf_modify_swerve_default(Segment *original, int length, Segment *front_left, Segment *front_right,
+    Segment *back_left, Segment *back_right, double wheelbase_width, double wheelbase_depth) {
+    
+    int i;
+    for (i = 0; i < length; i++) {
+        Segment seg = original[i];
+        Segment fl = seg;
+        Segment fr = seg;
+        Segment bl = seg;
+        Segment br = seg;
+        
+        fl.x = seg.x - wheelbase_width / 2;
+        fl.y = seg.y + wheelbase_depth / 2;
+        fr.x = seg.x + wheelbase_width / 2;
+        fr.y = seg.y + wheelbase_depth / 2;
+        
+        bl.x = seg.x - wheelbase_width / 2;
+        bl.y = seg.y - wheelbase_depth / 2;
+        br.x = seg.x + wheelbase_width / 2;
+        br.y = seg.y - wheelbase_depth / 2;
+        
+        front_left[i] = fl;
+        front_right[i] = fr;
+        back_left[i] = bl;
+        back_right[i] = br;
+    }
+}
+         */
         
         // Modify so it interfaces with swerve
         // Wheelbase Width = 0.5m, Wheelbase Depth = 0.5m, Swerve Mode = Default
@@ -95,5 +127,15 @@ public class PathfinderCore {
             driveBase.getBackLeft().setModule(bl, 4.084);
             driveBase.getFrontRight().setModule(fr, 3.302);
             driveBase.getFrontLeft().setModule(fl, 0.057);
+    }
+
+    public static PathfinderCore getInstance() {
+
+        if(instance == null) {
+
+            instance = new PathfinderCore();
+        }
+
+        return instance;
     }
 }

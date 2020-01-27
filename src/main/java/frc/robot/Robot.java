@@ -52,9 +52,7 @@ public class Robot extends TimedRobot {
     shooter          = Shooter.getInstance();
     sucker           = Sucker.getInstance();
     spinner          = Spinner.getInstance();
-
-    //Pathfinder needs Drive, so put it after
-    pathfinder = new PathfinderCore(drive);
+    pathfinder       = PathfinderCore.getInstance();
   }
 
   @Override
