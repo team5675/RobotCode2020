@@ -10,9 +10,12 @@ import frc.robot.subsystems.Drive;
 
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
+import jaci.pathfinder.Trajectory.Segment;
 import jaci.pathfinder.modifiers.SwerveModifier;
 
 public class PathfinderCore {
+
+    static PathfinderCore instance;
 
     File pathFiles;
 
@@ -31,9 +34,9 @@ public class PathfinderCore {
 
     SwerveModifier modifier;
 
-    public PathfinderCore(Drive drive) {
+    public PathfinderCore() {
 
-        this.driveBase = drive;
+        driveBase = Drive.getInstance();
     }
 
 
@@ -57,6 +60,11 @@ public class PathfinderCore {
                     //Load the trajectory in
                     trajectory = Pathfinder.readFromCSV(pathFilesList[i]);
 
+                    br = trajectory;
+                    bl = trajectory;
+                    fr = trajectory;
+                    fl = trajectory;
+
                     //Break out early if needed
                     break;
                 }
@@ -66,34 +74,56 @@ public class PathfinderCore {
 
             System.out.printf("Can't find the pathfinder file! \n %f", e);
         }
-        
-        // Modify so it interfaces with swerve
-        // Wheelbase Width = 0.5m, Wheelbase Depth = 0.5m, Swerve Mode = Default
-        modifier = new SwerveModifier(trajectory).modify(0.635, 0.635, SwerveModifier.Mode.SWERVE_DEFAULT);
 
-        //Get individual trajectories from swerve modifier
-        br = modifier.getBackRightTrajectory();
-        bl = modifier.getBackLeftTrajectory();
-        fr = modifier.getFrontRightTrajectory();
-        fl = modifier.getFrontLeftTrajectory();
+        //Create the 4 individual trajectories for swerve
+        for (int i = 0; i < trajectory.length(); i++) {
+            
+            Segment seg = trajectory.get(i);
+            Segment fls = seg;
+            Segment frs = seg;
+            Segment bls = seg;
+            Segment brs = seg;
+            
+            fls.x = seg.x - Constants.WHEEL_BASE_WIDTH / 2;
+            fls.y = seg.y + Constants.WHEEL_BASE_DEPTH / 2;
+            frs.x = seg.x + Constants.WHEEL_BASE_WIDTH / 2;
+            frs.y = seg.y + Constants.WHEEL_BASE_DEPTH / 2;
+            
+            bls.x = seg.x - Constants.WHEEL_BASE_WIDTH / 2;
+            bls.y = seg.y - Constants.WHEEL_BASE_DEPTH / 2;
+            brs.x = seg.x + Constants.WHEEL_BASE_WIDTH / 2;
+            brs.y = seg.y - Constants.WHEEL_BASE_DEPTH / 2;
+            
+            fl.segments[i] = fls;
+            fr.segments[i] = frs;
+            bl.segments[i] = bls;
+            br.segments[i] = brs;
 
-        for(int i = 0; i < trajectory.length(); i++) {
-
-            //yoink the segements from the trajectory
-            seg = trajectory.get(i);
-
-            //Print out segments for debugging
-            System.out.printf("%f,%f,%f\n", 
-            seg.velocity, seg.acceleration, seg.heading);
+            System.out.println(fl.segments[i]);
         }
     }
 
     public void runpathfinder() {
 
             //give this method the modified trajectories and the encoder offset
-            driveBase.getBackRight().setModule(br, 3.029);
-            driveBase.getBackLeft().setModule(bl, 4.084);
-            driveBase.getFrontRight().setModule(fr, 3.302);
-            driveBase.getFrontLeft().setModule(fl, 0.057);
+            for (int i = 0; i < trajectory.length(); i++) {
+
+
+                driveBase.getBackRight().setModule(br, 3.029);
+                driveBase.getBackLeft().setModule(bl, 4.084);
+                driveBase.getFrontRight().setModule(fr, 3.302);
+                driveBase.getFrontLeft().setModule(fl, 0.057);
+            }
+            
+    }
+
+    public static PathfinderCore getInstance() {
+
+        if(instance == null) {
+
+            instance = new PathfinderCore();
+        }
+
+        return instance;
     }
 }

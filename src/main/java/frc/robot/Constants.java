@@ -19,6 +19,10 @@ public class Constants {
     public static final CharSequence SELECTED_AUTO = "DEFAULT";
 
     //Drive subsystem constants
+    
+	public static final int WHEEL_BASE_WIDTH = 25;
+    public static final int WHEEL_BASE_DEPTH = 25;
+    
     public static final int DRIVE_FRONT_LEFT_SPEED_ID = 7;
     public static final int DRIVE_FRONT_LEFT_AZIMUTH_ID = 8;
     public static final double FL_P = 0.86715;
@@ -63,7 +67,7 @@ public class Constants {
     public static final int SPINNER_TICKS_PER_REV = 0;
     public static final double SPINNER_REVS_SETPOINT = 0;
     public static final int SPINNER_ARM_IN_CHANNEL = 0;
-    public static final int SPINNER_ARM_OUT_CHANNEL = 0;
+    public static final int SPINNER_ARM_OUT_CHANNEL = 1;
 
     //Intake subsystem constants
     public static final int INTAKE_ID = 9;
@@ -77,4 +81,7 @@ public class Constants {
     public static final double AUTO_ROTATE_P = 0.02;
     public static final double AUTO_STRAFE_P = 0.05;
     public static final double AUTO_GYRO_P = -0.03;
+	public static final double PATHFINDER_KP = 0;
+	public static final double PATHFINDER_KV = 0;
+	public static final double PATHFINDER_KA = 0;
 }

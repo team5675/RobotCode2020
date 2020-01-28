@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.AutoRunner;
@@ -47,6 +50,11 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
 
+    shooter1 = new CANSparkMax(14, MotorType.kBrushless);
+    shooter2 = new CANSparkMax(15, MotorType.kBrushless);
+
+    shooterIntake = new Spark(0);
+
     driverController = DriverController.getInstance();
     dashboard        = Dashboard.getInstance();
     
@@ -55,10 +63,8 @@ public class Robot extends TimedRobot {
     vision           = Vision.getInstance();
     shooter          = Shooter.getInstance();
     sucker           = Sucker.getInstance();
-    //spinner          = Spinner.getInstance();
-
-    //Pathfinder needs Drive, so put it after
-    pathfinder = new PathfinderCore(drive);
+    spinner          = Spinner.getInstance();
+    pathfinder       = PathfinderCore.getInstance();
   }
 
 
@@ -89,6 +95,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+
+
+    shooter1.set(-1);
+    shooter2.set(1);
+    shooterIntake.set(1);
     
     //Reset Yaw on NavX
     if(driverController.getA()) {

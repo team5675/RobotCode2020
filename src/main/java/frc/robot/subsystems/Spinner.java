@@ -41,7 +41,7 @@ public class Spinner {
 
         spinnerController.setFeedbackDevice(spinEncoder);
 
-        spinDeployArm = new DoubleSolenoid(Constants.SPINNER_ARM_IN_CHANNEL, Constants.SPINNER_ARM_OUT_CHANNEL);
+        //spinDeployArm = new DoubleSolenoid(Constants.SPINNER_ARM_IN_CHANNEL, Constants.SPINNER_ARM_OUT_CHANNEL);
     }
 
 
