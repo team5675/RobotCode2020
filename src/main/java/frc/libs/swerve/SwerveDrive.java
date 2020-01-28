@@ -84,24 +84,12 @@ public class SwerveDrive {
 
 		//Output is 0 to 360 degrees
 		double backRightAngle 	= (((Math.atan2(a, c) / Math.PI) * 2.5) + 2.5) + ANGLE_OFFSET1; 
-
-		if (backRightAngle > 5) {backRightAngle = backRightAngle - 5;}
-		if (backRightAngle < 0) {backRightAngle = 5 - backRightAngle;}
 		
 		double backLeftAngle 	= (((Math.atan2(a, d) / Math.PI) * 2.5) + 2.5) + ANGLE_OFFSET2;
-
-		if (backLeftAngle > 5) {backLeftAngle = backLeftAngle - 5;}
-		if (backLeftAngle < 0) {backLeftAngle = 5 - backLeftAngle;}
 		//									-1 to 1		   -2.5 to 2.5   0 to 5  
 		double frontRightAngle	= (((Math.atan2(b, c) / Math.PI) * 2.5) + 2.5) + ANGLE_OFFSET3;
-		
-		if (frontRightAngle > 5) {frontRightAngle = frontRightAngle - 5;}
-		if (frontRightAngle < 0) {frontRightAngle = 5 - frontRightAngle;}
 
 		double frontLeftAngle	= (((Math.atan2(b, d) / Math.PI) * 2.5) + 2.5) + ANGLE_OFFSET4;
-
-		if (frontLeftAngle > 5) {frontLeftAngle = frontLeftAngle - 5;}
-		if (frontLeftAngle < 0) {frontLeftAngle = 5 - frontLeftAngle;}
 
 		//normalize wheel speeds
         double max = backRightSpeed;

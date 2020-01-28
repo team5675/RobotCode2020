@@ -40,7 +40,10 @@ public class PathfinderCore {
     }
 
 
-    public void config() {
+    /**Use to configure the path
+     * @param pathfinderName The name of the pathfinder file we want to load in
+     */
+    public void config(String pathfinderName) {
 
         //Grabbing all the pathfinder csvs from the RIO directory
         pathFiles = Filesystem.getDeployDirectory();
@@ -55,7 +58,7 @@ public class PathfinderCore {
                 String pathFileName = pathFilesList[i].getCanonicalPath();
 
                 //If the file is the one we want...
-                if (pathFileName.contains(Constants.SELECTED_AUTO)) {
+                if (pathFileName.contains(pathfinderName)) {
 
                     //Load the trajectory in
                     trajectory = Pathfinder.readFromCSV(pathFilesList[i]);
@@ -103,16 +106,20 @@ public class PathfinderCore {
         }
     }
 
-    public void runpathfinder() {
+    /**Sends the trajectory points to the swerve modules
+     * @param traj The trajectory we want to run
+     */
+    public void runpathfinder(Trajectory traj) {
+
 
             //give this method the modified trajectories and the encoder offset
-            for (int i = 0; i < trajectory.length(); i++) {
+            for (int i = 0; i < traj.length(); i++) {
 
 
-                driveBase.getBackRight().setModule(br, 3.029);
-                driveBase.getBackLeft().setModule(bl, 4.084);
-                driveBase.getFrontRight().setModule(fr, 3.302);
-                driveBase.getFrontLeft().setModule(fl, 0.057);
+                driveBase.getBackRight().setModule(br, 3.029, i);
+                driveBase.getBackLeft().setModule(bl, 4.084, i);
+                driveBase.getFrontRight().setModule(fr, 3.302, i);
+                driveBase.getFrontLeft().setModule(fl, 0.057, i);
             }
             
     }
