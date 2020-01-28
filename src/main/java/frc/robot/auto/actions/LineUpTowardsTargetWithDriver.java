@@ -22,8 +22,20 @@ public class LineUpTowardsTargetWithDriver implements Action {
     Vision vision = Vision.getInstance();
 
 
-    public void run() {
+    public void start() {
+
+    }
+
+
+    public boolean run() {
 
         drive.move(driverController.getForward(), driverController.getStrafe(), vision.getHorizontalOffset() * Constants.AUTO_ROTATE_P, 0, true);
+
+        return true;
+    }
+
+    
+    public void stop() {
+
     }
 }

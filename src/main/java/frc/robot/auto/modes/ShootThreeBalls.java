@@ -7,10 +7,22 @@
 
 package frc.robot.auto.modes;
 
+import frc.robot.auto.actions.Action;
+import frc.robot.auto.actions.LineUpWithTarget;
+
 /**
  * Add your docs here.
  */
-public interface Mode {
+public class ShootThreeBalls implements Mode {
 
-    void run();
+    Action lineUpWithTarget = new LineUpWithTarget();
+
+    Action currentAction; 
+
+    public void run() {
+
+        lineUpWithTarget.start();
+        while (lineUpWithTarget.run()) {} //temporary
+        lineUpWithTarget.stop();
+    }
 }

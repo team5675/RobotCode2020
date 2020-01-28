@@ -48,7 +48,7 @@ public class Constants {
     public static final int BR_AZIMUTH_ENCODER_ID = 0;
 
     //Shooter subsystem constants
-    public static final int SHOOTER_ID = 0;
+    public static final int SHOOTER_ID = 17;
     public static final double SHOOTER_SETPOINT = 5000;
     public static final double SHOOTER_FLYWHEEL_KP = 0;
     public static final double SHOOTER_FLYWHEEL_KD = 0; 
@@ -59,7 +59,7 @@ public class Constants {
     //public static final double CAM_ANGLE;
 
     //Pizza spinner constants
-    public static final int SPINNER_MOTOR_ID = 0;
+    public static final int SPINNER_MOTOR_ID = 7;
     public static final int SPINNER_TICKS_PER_REV = 0;
     public static final double SPINNER_REVS_SETPOINT = 0;
     public static final int SPINNER_ARM_IN_CHANNEL = 0;
@@ -75,5 +75,6 @@ public class Constants {
 
     //Auto Constants
     public static final double AUTO_ROTATE_P = 0.02;
-    public static final double AUTO_STRAFE_P = 0.02;
+    public static final double AUTO_STRAFE_P = 0.05;
+    public static final double AUTO_GYRO_P = -0.03;
 }

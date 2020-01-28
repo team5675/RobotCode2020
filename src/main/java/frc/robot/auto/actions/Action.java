@@ -12,5 +12,9 @@ package frc.robot.auto.actions;
  */
 public interface Action {
     
-    void run();
+    void start();
+
+    boolean run();
+
+    void stop();
 }

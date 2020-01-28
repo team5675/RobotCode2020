@@ -9,10 +9,11 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
+import frc.robot.auto.AutoRunner;
 import frc.robot.auto.actions.Action;
 import frc.robot.auto.actions.LineUpTowardsTargetWithDriver;
 import frc.robot.auto.actions.LineUpWithTarget;
-
+import frc.robot.auto.modes.ShootThreeBalls;
 import frc.robot.auto.pathfinders.PathfinderCore;
 
 import frc.robot.subsystems.Drive;
@@ -35,7 +36,9 @@ public class Robot extends TimedRobot {
   NavX    navX;
   Spinner spinner;
 
+  AutoRunner autoRunner;
   PathfinderCore pathfinder;
+
   Action         action;
   Action         lineUpTowardsTargetWithDriver;
   Action         lineUpWithTarget;
@@ -52,7 +55,7 @@ public class Robot extends TimedRobot {
     vision           = Vision.getInstance();
     shooter          = Shooter.getInstance();
     sucker           = Sucker.getInstance();
-    spinner          = Spinner.getInstance();
+    //spinner          = Spinner.getInstance();
 
     //Pathfinder needs Drive, so put it after
     pathfinder = new PathfinderCore(drive);
@@ -63,13 +66,16 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
 
     pathfinder.config();
+
+    autoRunner = new AutoRunner(new ShootThreeBalls());
+    autoRunner.start();
   }
 
 
   @Override
   public void autonomousPeriodic() {
 
-    pathfinder.runpathfinder();
+   // pathfinder.runpathfinder();
   }
 
 
@@ -84,21 +90,22 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     
+    //Reset Yaw on NavX
     if(driverController.getA()) {
 
       navX.resetYaw();
     }
 
+    //Tele-op auto functions or manual drive
     if (driverController.getLineUp()) {
 
       lineUpTowardsTargetWithDriver.run();
-      //lineUpWithTarget.run();
     } else {
 
       drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle() - 45, driverController.isFieldOriented());
     }
 
-    vision.loop();
+    //vision.loop();
     //sucker.run();
   }
 

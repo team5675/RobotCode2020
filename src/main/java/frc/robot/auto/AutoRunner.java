@@ -5,12 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.auto.modes;
+package frc.robot.auto;
+
+import frc.robot.auto.modes.Mode;
 
 /**
  * Add your docs here.
  */
-public interface Mode {
+public class AutoRunner extends Thread {
 
-    void run();
+    Mode mode;
+
+
+    public AutoRunner(Mode newMode) {
+
+        mode = newMode;
+    }
+
+
+    public void run() {
+
+        mode.run();
+    }
 }
