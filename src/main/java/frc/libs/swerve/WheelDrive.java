@@ -6,9 +6,10 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.controller.PIDController;
-
+import frc.robot.Constants;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
+import jaci.pathfinder.Trajectory.Segment;
 import jaci.pathfinder.followers.DistanceFollower;
 
 //import frc.robot.SwerveDrive.Encoder;
@@ -26,6 +27,9 @@ private PIDController anglePID;
 private AnalogInput azimuthEncoder;
 
 DistanceFollower follower;
+
+Segment moduleSegment;
+double speedSetpoint;
 
 final double kV = 1 / 11.1;
 final double kA = 0.000003;
@@ -82,36 +86,18 @@ boolean first = true;
 	 */
 	public void setModule(Trajectory traj, double ANGLE_OFFSET) {
 
-		//Run through config once
-		if(first){
 
-			//set conversion factor to scale rotations to meters
-			driveEncoder.setPositionConversionFactor(1 / kREVS_PER_METER);
+		moduleSegment = traj.get(0);
 
-			//create an offset in case encoders mover before pathfinder starts
-			offset = driveEncoder.getPosition();
+		error = moduleSegment.position - driveEncoder.getPosition();
 
-			//creeate the new distance follower
-			follower = new DistanceFollower(traj);
+		speedSetpoint = Constants.PATHFINDER_KP * error +
+						Constants.PATHFINDER_KV * moduleSegment.velocity +
+						Constants.PATHFINDER_KA *moduleSegment.acceleration;
 
-			//configure the PIDVAs for ff and fb control
-			follower.configurePIDVA(0.0, 0.0, 0.0, 1/3, 0.0);
-
-			//so we only run this once
-			first = false;
-
-			System.out.println("First Done");
-		}
-		
-		//calculates the speed using the configured PIDVAs and the integrated encoder positon (which is scaled)
-		speed = follower.calculate((driveEncoder.getPosition() - offset));
-
-		//calculate the azimuth for the modules
-		angle = ((Pathfinder.boundHalfDegrees(Pathfinder.r2d(follower.getHeading())) / 180) * 2.5) + 2.5 + ANGLE_OFFSET;
-		
 		//using the wheelDrive drive method for simplicity
 		//pass in the speed and angle value calculated, and set no deadband
-		drive(speed, angle, false);
+		drive(speedSetpoint, angle, false);
     }
 
 	public void drive(double speed, double angle, boolean deadband) {

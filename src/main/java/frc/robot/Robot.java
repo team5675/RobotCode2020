@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.actions.Action;
@@ -40,8 +43,17 @@ public class Robot extends TimedRobot {
   Action         lineUpTowardsTargetWithDriver;
   Action         lineUpWithTarget;
 
+  CANSparkMax shooter1;
+  CANSparkMax shooter2;
+  Spark shooterIntake;
+
   @Override
   public void robotInit() {
+
+    shooter1 = new CANSparkMax(14, MotorType.kBrushless);
+    shooter2 = new CANSparkMax(15, MotorType.kBrushless);
+
+    shooterIntake = new Spark(0);
 
     driverController = DriverController.getInstance();
     dashboard        = Dashboard.getInstance();
@@ -76,6 +88,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+
+
+    shooter1.set(-1);
+    shooter2.set(1);
+    shooterIntake.set(1);
     
     if(driverController.getA()) {
 
