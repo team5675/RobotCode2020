@@ -69,14 +69,12 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-
-    pathfinder.config();
   }
 
   @Override
   public void autonomousPeriodic() {
 
-    pathfinder.runpathfinder();
+    pathfinder.runpathfinder(pathfinder.config("DEFAULT"));
   }
 
   @Override

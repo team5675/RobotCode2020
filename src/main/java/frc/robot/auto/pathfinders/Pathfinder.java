@@ -2,7 +2,6 @@ package frc.robot.auto.pathfinders;
 
 
 import frc.robot.auto.pathfinders.PathfinderCore;
-import frc.robot.Constants;
 
 
 public class Pathfinder {
@@ -19,7 +18,10 @@ public class Pathfinder {
         pathfinderCore.config(autoMode);
     }
 
+    public void setPath(){
 
+
+    }
 
 
 

@@ -16,7 +16,10 @@ public class Constants {
         TRENCH
     }
 
-    public static final CharSequence SELECTED_AUTO = "DEFAULT";
+    //Pathfinder constants
+    public static final double PATHFINDER_KP = 0;
+	public static final double PATHFINDER_KV = 0;
+	public static final double PATHFINDER_KA = 0;
 
     //Drive subsystem constants
     
@@ -81,9 +84,5 @@ public class Constants {
     public static final double AUTO_ROTATE_P = 0.02;
     public static final double AUTO_STRAFE_P = 0.02;
 
-	public static final double PATHFINDER_KP = 0;
-
-	public static final double PATHFINDER_KV = 0;
-
-	public static final double PATHFINDER_KA = 0;
+	
 }

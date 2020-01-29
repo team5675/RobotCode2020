@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 
 import frc.robot.Constants;
 
-import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Trajectory.Segment;
 
 //import frc.robot.SwerveDrive.Encoder;
@@ -69,9 +68,9 @@ double speedSetpoint;
 	 * @param ANGLE_OFFSET The module's encoder offset
 	 * @param index Index that the pathfinder is currently on
 	 */
-	public void setModule(Trajectory traj, double ANGLE_OFFSET, int index) {
+	public void setModule(Segment seg, double ANGLE_OFFSET) {
 
-		moduleSegment = traj.get(index);
+		moduleSegment = seg;
 
 		error = moduleSegment.position - driveEncoder.getPosition();
 
