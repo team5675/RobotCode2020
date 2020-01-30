@@ -6,11 +6,10 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.controller.PIDController;
+
 import frc.robot.Constants;
-import jaci.pathfinder.Pathfinder;
-import jaci.pathfinder.Trajectory;
+
 import jaci.pathfinder.Trajectory.Segment;
-import jaci.pathfinder.followers.DistanceFollower;
 
 //import frc.robot.SwerveDrive.Encoder;
 
@@ -26,31 +25,15 @@ private PIDController anglePID;
 
 private AnalogInput azimuthEncoder;
 
-DistanceFollower follower;
-
-Segment moduleSegment;
-double speedSetpoint;
-
-final double kV = 1 / 11.1;
-final double kA = 0.000003;
-final double kP = 0.01;
-
 double P;
 double I;
 double D;
 
-private final double kREVS_PER_METER = 29;
+Segment moduleSegment;
 
 double error;
-double error_last;
-double error_deriv;
-
-double speed;
-double angle;
-double totalDistance;
-double offset;
-
-boolean first = true;
+double angleSetpoint;
+double speedSetpoint;
 
 	/**
 	 * @param angleMotor The CAN ID of the azimuth controller
@@ -81,13 +64,13 @@ boolean first = true;
 
 	/**
 	 * Use this method for interfacing with pathfinder
-	 * @param traj the module's trajectory
-	 * @param ANGLE_OFFSET the module's encoder offset
+	 * @param traj The module's trajectory
+	 * @param ANGLE_OFFSET The module's encoder offset
+	 * @param index Index that the pathfinder is currently on
 	 */
-	public void setModule(Trajectory traj, double ANGLE_OFFSET) {
+	public void setModule(Segment seg, double ANGLE_OFFSET) {
 
-
-		moduleSegment = traj.get(0);
+		moduleSegment = seg;
 
 		error = moduleSegment.position - driveEncoder.getPosition();
 
@@ -95,16 +78,18 @@ boolean first = true;
 						Constants.PATHFINDER_KV * moduleSegment.velocity +
 						Constants.PATHFINDER_KA *moduleSegment.acceleration;
 
+		//			0 to 2PI			-PI to PI    -1 to 1    -2.5  0 to 5
+		angleSetpoint = (((moduleSegment.heading - Math.PI) / Math.PI) * 2.5) + 2.5 + ANGLE_OFFSET;
+
 		//using the wheelDrive drive method for simplicity
 		//pass in the speed and angle value calculated, and set no deadband
-		drive(speedSetpoint, angle, false);
+		drive(speedSetpoint, angleSetpoint, false);
     }
 
 	public void drive(double speed, double angle, boolean deadband) {
 		
-		//normalizes the encoder angle in case offsets caused it to go above 5 or below 0
+		//normalizes the encoder angle in case offsets caused it to go above 5
 		if (angle > 5) {angle = angle - 5;}
-		if (angle < 0) {angle = 5 - angle;}
 
 		if (deadband) {
 

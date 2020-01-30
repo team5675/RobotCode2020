@@ -74,8 +74,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-    pathfinder.config();
-
     modeRunner = new ModeRunner(new ShootThreeBalls());
     modeRunner.start();
     System.out.println("haha poop");
@@ -87,6 +85,7 @@ public class Robot extends TimedRobot {
 
     actionRunner.loop();
    // pathfinder.runpathfinder();
+    pathfinder.runpathfinder(pathfinder.config("DEFAULT"));
   }
 
 
