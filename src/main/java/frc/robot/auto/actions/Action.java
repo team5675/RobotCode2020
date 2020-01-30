@@ -14,7 +14,7 @@ public interface Action {
     
     void start();
 
-    boolean run();
+    boolean loop();
 
     void stop();
 }

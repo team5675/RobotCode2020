@@ -12,12 +12,12 @@ import frc.robot.auto.modes.Mode;
 /**
  * Add your docs here.
  */
-public class AutoRunner extends Thread {
+public class ModeRunner extends Thread {
 
     Mode mode;
 
 
-    public AutoRunner(Mode newMode) {
+    public ModeRunner(Mode newMode) {
 
         mode = newMode;
     }
