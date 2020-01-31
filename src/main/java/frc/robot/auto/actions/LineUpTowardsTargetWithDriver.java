@@ -31,7 +31,7 @@ public class LineUpTowardsTargetWithDriver implements Action {
 
         drive.move(driverController.getForward(), driverController.getStrafe(), vision.getHorizontalOffset() * Constants.AUTO_ROTATE_P, 0, true);
 
-        return true;
+        return true; 
     }
 
     
