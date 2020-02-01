@@ -66,7 +66,7 @@ public class Constants {
     //public static final double CAM_ANGLE;
 
     //Pizza spinner constants
-    public static final int SPINNER_MOTOR_ID = 7;
+    public static final int SPINNER_MOTOR_ID = 17;
     public static final int SPINNER_TICKS_PER_REV = 0;
     public static final double SPINNER_REVS_SETPOINT = 0;
     public static final int SPINNER_ARM_IN_CHANNEL = 0;

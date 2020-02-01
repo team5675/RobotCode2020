@@ -15,7 +15,7 @@ import frc.robot.auto.actions.LineUpWithTarget;
  */
 public class ShootThreeBalls implements Mode {
 
-    ActionRunner actionRunner = ActionRunner.getInstance();
+    static ActionRunner actionRunner = ActionRunner.getInstance();
 
     
     public void run() {

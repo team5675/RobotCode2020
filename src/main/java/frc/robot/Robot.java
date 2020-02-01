@@ -92,6 +92,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
 
+    //actionRunner.forceStop();
+
     lineUpTowardsTargetWithDriver = new LineUpTowardsTargetWithDriver();
     //lineUpWithTarget = new LineUpWithTarget();
   }
@@ -128,9 +130,9 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     feeder.set(-0.3);
-    //left.getPIDController().setReference(-3000, ControlType.kVelocity);
-    //right.getPIDController().setReference(3000, ControlType.kVelocity);
-    left.set(1);
-    right.set(1);
+    left.getPIDController().setReference(-3000, ControlType.kVelocity);
+    right.getPIDController().setReference(3000, ControlType.kVelocity);
+    //left.set(1);
+    //right.set(1);
   }
 }

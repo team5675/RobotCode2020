@@ -17,24 +17,29 @@ public class ActionRunner {
     static ActionRunner instance;
 
     static Action currentAction;
+    static boolean run;
 
 
     public void run(Action action) {
 
         currentAction = action;
 
-        action.start();
+        if (run) {
 
-        while (currentAction != null) {
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            action.start();
+
+            while (currentAction != null) {
+
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
-        }
 
-        action.stop();
+            action.stop();
+        }
     }
 
 
@@ -47,6 +52,13 @@ public class ActionRunner {
                 currentAction = null;
             };
         }
+    }
+    
+
+    public void forceStop() { //possibly changes this so the loop above reads from a state variable instead of firing this funcion
+    
+        currentAction = null;
+        run = false;
     }
     
 
