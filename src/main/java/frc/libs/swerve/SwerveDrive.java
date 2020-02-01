@@ -98,7 +98,7 @@ public class SwerveDrive {
         if (frontLeftSpeed > max)  { max = frontLeftSpeed;}
         if (frontRightSpeed > max) { max = frontRightSpeed;}
 
-        if (max > 1) {
+        if (max > 0.8) {
 
             backRightSpeed  /= max;
             backLeftSpeed   /= max;

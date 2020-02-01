@@ -84,8 +84,9 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
 
     actionRunner.loop();
-   // pathfinder.runpathfinder();
-    pathfinder.runpathfinder(pathfinder.config("DEFAULT"));
+    //pathfinder.runPath(pathfinder.getPath("ROTATE_ROBOT"));
+    //pathfinder.runPath(pathfinder.getPath("TRENCH_TO"));
+    //pathfinder.runPath(pathfinder.getPath("TRENCH_FROM"));
   }
 
 
@@ -99,6 +100,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+
+   System.out.println(drive.getFrontRight().getAzimuth());
     
     //Reset Yaw on NavX
     if(driverController.getA()) {
@@ -127,10 +130,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
-    feeder.set(-0.3);
-    //left.getPIDController().setReference(-3000, ControlType.kVelocity);
-    //right.getPIDController().setReference(3000, ControlType.kVelocity);
-    left.set(1);
-    right.set(1);
+    feeder.set(-1);
+    left.getPIDController().setReference(-3300, ControlType.kVelocity);
+    right.getPIDController().setReference(3300, ControlType.kVelocity);
+    //left.set(-1);
+    //right.set(1);
   }
 }
