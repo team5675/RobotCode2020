@@ -2,14 +2,18 @@ package frc.robot.subsystems;
 
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ColorMatch;
 import com.revrobotics.ControlType;
 import com.revrobotics.EncoderType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
+
+import com.revrobotics.ColorSensorV3;
 
 import frc.robot.Constants;
 
@@ -27,6 +31,12 @@ public class Spinner {
 
     DoubleSolenoid spinDeployArm;
 
+    I2C.Port i2c;
+
+    ColorSensorV3 colorSensor;
+
+    ColorMatch colorMatch;
+
     double revSetpoint;
 
     public Spinner() {
@@ -42,6 +52,12 @@ public class Spinner {
         spinnerController.setFeedbackDevice(spinEncoder);
 
         //spinDeployArm = new DoubleSolenoid(Constants.SPINNER_ARM_IN_CHANNEL, Constants.SPINNER_ARM_OUT_CHANNEL);
+
+        i2c = I2C.Port.kOnboard;
+
+        colorSensor = new ColorSensorV3(i2c);
+
+        colorMatch = new ColorMatch();
     }
 
 

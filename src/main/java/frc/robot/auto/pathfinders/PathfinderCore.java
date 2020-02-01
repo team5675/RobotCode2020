@@ -37,7 +37,7 @@ public class PathfinderCore {
     /**Use to configure the path
      * @param pathfinderName The name of the pathfinder file we want to load in
      */
-    public Trajectory config(String pathfinderName) {
+    public Trajectory getPath(String pathfinderName) {
 
         //Grabbing all the pathfinder csvs from the RIO directory
         pathFiles = Filesystem.getDeployDirectory();
@@ -75,7 +75,7 @@ public class PathfinderCore {
     /**Sends the trajectory points to the swerve modules
      * @param traj The trajectory we want to run
      */
-    public void runpathfinder(Trajectory traj) {
+    public void runPath(Trajectory traj) {
 
         //Create the 4 individual trajectories for swerve
         for (int i = 0; i < trajectory.length(); i++) {
