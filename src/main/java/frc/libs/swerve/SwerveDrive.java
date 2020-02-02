@@ -136,9 +136,9 @@ public class SwerveDrive {
 		double gyroAngleSetpoint = 3.125;
 
 		backRight.drive(gyroSpeedSetpoint, gyroAngleSetpoint + ANGLE_OFFSET1, false);
-		backRight.drive(gyroSpeedSetpoint, gyroAngleSetpoint + ANGLE_OFFSET2, false);
-		backRight.drive(gyroSpeedSetpoint, gyroAngleSetpoint + ANGLE_OFFSET3, false);
-		backRight.drive(gyroSpeedSetpoint, gyroAngleSetpoint + ANGLE_OFFSET4, false);
+		backLeft.drive(gyroSpeedSetpoint, gyroAngleSetpoint + ANGLE_OFFSET2, false);
+		frontRight.drive(gyroSpeedSetpoint, gyroAngleSetpoint + ANGLE_OFFSET3, false);
+		frontLeft.drive(gyroSpeedSetpoint, gyroAngleSetpoint + ANGLE_OFFSET4, false);
 
 	}
 
