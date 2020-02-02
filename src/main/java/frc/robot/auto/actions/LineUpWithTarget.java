@@ -35,25 +35,15 @@ public class LineUpWithTarget implements Action {
 
     public boolean loop() {
         
-        //System.out.println(vision.getHorizontalOffset() * Constants.AUTO_STRAFE_P);
         drive.move(0, vision.getHorizontalOffset() * Constants.AUTO_STRAFE_P, navX.getAngle() * Constants.AUTO_GYRO_P, 0, true);
 
-        /*if (Math.abs(vision.getHorizontalOffset()) < 0.5) { //If conditions are met, stop
+        if (Math.abs(vision.getHorizontalOffset()) < 0.5) { //If conditions are met, stop
 
             return true;
         } else {
 
             return false;
-        }*/
-
-        try {
-			Thread.sleep(50);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-        return true;
+        }
     }
 
     
