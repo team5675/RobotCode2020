@@ -55,6 +55,11 @@ public class DriverController {
         return mainController.getBButton();
     }
 
+    public boolean getX() {
+
+        return mainController.getXButton();
+    }
+
     public double getIntake() {
 
         return auxController.getTriggerAxis(Hand.kRight);

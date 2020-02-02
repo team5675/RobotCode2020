@@ -101,7 +101,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-   System.out.println(drive.getFrontRight().getAzimuth());
+   if (driverController.getX()) {
+
+      drive.getSwerve().rotateToAngle(navX.getAngle(), 0);
+   }
     
     //Reset Yaw on NavX
     if(driverController.getA()) {
