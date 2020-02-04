@@ -1,12 +1,14 @@
 package frc.robot.subsystems;
 
-
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.util.Color;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ControlType;
 import com.revrobotics.EncoderType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -37,7 +39,10 @@ public class Spinner {
 
     ColorMatch colorMatch;
 
-    double revSetpoint;
+    final Color blue;
+    final Color green;
+    final Color red;
+    final Color yellow;
 
     public Spinner() {
         
@@ -58,6 +63,11 @@ public class Spinner {
         colorSensor = new ColorSensorV3(i2c);
 
         colorMatch = new ColorMatch();
+
+        blue = ColorMatch.makeColor(0, 1, 1); // Might be 0 to 255
+        green = ColorMatch.makeColor(0, 1, 0);
+        red = ColorMatch.makeColor(1, 0, 0);
+        yellow = ColorMatch.makeColor(1, 1, 0);
     }
 
 
@@ -100,9 +110,53 @@ public class Spinner {
         /*
         Code for taking in FMS color and reading sensor goes here
         */ 
-        spinnerController.setReference(revSetpoint, ControlType.kPosition);
+        String realTarget = getRealTarget(DriverStation.getInstance().getGameSpecificMessage());
+        if(getCurrentColor().equals("N") 
+           || getCurrentColor().equals(realTarget)) {
+
+        }
+        else {
+            spinMotor.set(Constants.SPINNER_SPEED);
+        }
+
+        //spinnerController.setReference(revSetpoint, ControlType.kPosition);
     }
 
+    public String getCurrentColor() {
+        Color detectedColor = colorSensor.getColor();
+        ColorMatchResult match = colorMatch.matchClosestColor(detectedColor);
+
+        if(match.color == blue) {
+            return "B"; //Different Color accounts for offset
+        }
+        else if( match.color == green) {
+            return "G";
+        }
+        else if(match.color == red) {
+            return "R";
+        }
+        else if( match.color == yellow) {
+            return "Y";
+        }
+        else {
+            return "N";
+        }
+    }
+
+    public static String getRealTarget(String target) {
+        if(target.equals("B")) { //accounts for offset in wheel
+            return "R";
+        }
+        else if(target.equals("G")) {
+            return "Y";
+        }
+        if(target.equals("R")) {
+            return "B";
+        }
+        else {
+            return "G";
+        }
+    }
 
     public static Spinner getInstance() {
 

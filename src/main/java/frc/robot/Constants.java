@@ -71,6 +71,7 @@ public class Constants {
     public static final double SPINNER_REVS_SETPOINT = 0;
     public static final int SPINNER_ARM_IN_CHANNEL = 0;
     public static final int SPINNER_ARM_OUT_CHANNEL = 1;
+    public static final double SPINNER_SPEED = 0.8;
 
     //Intake subsystem constants
     public static final int INTAKE_ID = 9;
