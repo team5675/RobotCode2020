@@ -7,11 +7,8 @@
 
 package frc.robot.auto.actions;
 
-import frc.robot.Constants;
-import frc.robot.DriverController;
 import frc.robot.auto.pathfinders.PathfinderCore;
 import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.Vision;
 
 /**
  * Rotate shooter side of robot towards target with driver forward and strafe input
@@ -29,7 +26,9 @@ public class trenchFinder implements Action {
 
     public boolean loop() {
 
-        return pathfinder.runPath(pathfinder.getPath("TEST")); 
+        pathfinder.runPath(pathfinder.getPath("TEST"));
+
+        return pathfinder.isDone; 
     }
 
     

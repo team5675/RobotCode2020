@@ -30,7 +30,7 @@ public class PathfinderCore {
 
     double percentDone;
 
-    boolean isDone;
+    public boolean isDone;
 
     public PathfinderCore() {
 
@@ -106,6 +106,8 @@ public class PathfinderCore {
             driveBase.getFrontLeft().setModule(fls, 0.057);
 
             percentDone = i / trajectory.length();
+
+            //TODO: PUT percentDone ON DASHBOARD
         }
 
         if (percentDone == 1) {
