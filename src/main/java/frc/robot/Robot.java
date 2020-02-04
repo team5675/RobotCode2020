@@ -84,9 +84,6 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
 
     actionRunner.loop();
-    //pathfinder.runPath(pathfinder.getPath("ROTATE_ROBOT"));
-    //pathfinder.runPath(pathfinder.getPath("TRENCH_TO"));
-    //pathfinder.runPath(pathfinder.getPath("TRENCH_FROM"));
   }
 
 

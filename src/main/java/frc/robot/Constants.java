@@ -9,13 +9,6 @@ package frc.robot;
 
 public class Constants {
 
-    public enum AUTO_MODE {
-
-        SHOOT_THEN_TRENCH,
-        SHOOT,
-        TRENCH
-    }
-
     //Pathfinder constants
     public static final double PATHFINDER_KP = 0;
 	public static final double PATHFINDER_KV = 1/11;

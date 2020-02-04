@@ -28,6 +28,10 @@ public class PathfinderCore {
     Drive driveBase;
     //MAX VELOCITY FOR TEST SWERVE BOT = 3.3528 m/s
 
+    double percentDone;
+
+    boolean isDone;
+
     public PathfinderCore() {
 
         driveBase = Drive.getInstance();
@@ -67,15 +71,15 @@ public class PathfinderCore {
             System.out.printf("Can't find the pathfinder file! \n %f", e);
         }
 
-        
-
         return trajectory;
     }
 
     /**Sends the trajectory points to the swerve modules
      * @param traj The trajectory we want to run
      */
-    public void runPath(Trajectory traj) {
+    public boolean runPath(Trajectory traj) {
+
+        isDone = false;
 
         //Create the 4 individual trajectories for swerve
         for (int i = 0; i < trajectory.length(); i++) {
@@ -100,7 +104,16 @@ public class PathfinderCore {
             driveBase.getBackLeft().setModule(bls, 4.084);
             driveBase.getFrontRight().setModule(frs, 3.302);
             driveBase.getFrontLeft().setModule(fls, 0.057);
+
+            percentDone = i / trajectory.length();
         }
+
+        if (percentDone == 1) {
+
+            isDone = true;
+        }
+
+        return isDone;
     }
 
     public static PathfinderCore getInstance() {

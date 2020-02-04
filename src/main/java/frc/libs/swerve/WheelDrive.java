@@ -76,10 +76,10 @@ double speedSetpoint;
 
 		speedSetpoint = Constants.PATHFINDER_KP * error +
 						Constants.PATHFINDER_KV * moduleSegment.velocity +
-						Constants.PATHFINDER_KA *moduleSegment.acceleration;
+						Constants.PATHFINDER_KA * moduleSegment.acceleration;
 
 		//			0 to 2PI			-PI to PI    -1 to 1    -2.5  0 to 5
-		angleSetpoint = (((moduleSegment.heading - Math.PI) / Math.PI) * 2.5) + 2.5 + ANGLE_OFFSET;
+		angleSetpoint = (((moduleSegment.heading - Math.PI) / Math.PI) * 2.5) + 2.5 + ANGLE_OFFSET - 1.25;
 
 		//using the wheelDrive drive method for simplicity
 		//pass in the speed and angle value calculated, and set no deadband
