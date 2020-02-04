@@ -86,10 +86,6 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
 
     actionRunner.loop();
-    navX.loop();
-    //pathfinder.runPath(pathfinder.getPath("ROTATE_ROBOT"));
-    //pathfinder.runPath(pathfinder.getPath("TRENCH_TO"));
-    //pathfinder.runPath(pathfinder.getPath("TRENCH_FROM"));
   }
 
 
@@ -105,6 +101,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+
+   if (driverController.getX()) {
+
+      drive.getSwerve().rotateToAngle(navX.getAngle(), 0);
+   }
     
     //Reset Yaw on NavX
     if(driverController.getA()) {
