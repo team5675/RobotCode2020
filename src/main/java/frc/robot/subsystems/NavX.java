@@ -2,11 +2,7 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class NavX {
@@ -15,8 +11,6 @@ public class NavX {
     
     AHRS gyro;
 
-    //fix this stuff later
-    NetworkTableEntry gyroEntry = Shuffleboard.getTab("Main").add("Gyro", 0).withWidget(BuiltInWidgets.kGyro).getEntry();
 
     public NavX() {
 
