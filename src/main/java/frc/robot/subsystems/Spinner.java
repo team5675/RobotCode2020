@@ -111,14 +111,7 @@ public class Spinner {
         Code for taking in FMS color and reading sensor goes here
         */ 
         String realTarget = getRealTarget(DriverStation.getInstance().getGameSpecificMessage());
-        if(getCurrentColor().equals("N") 
-           || getCurrentColor().equals(realTarget)) {
-
-        }
-        else {
-            spinMotor.set(Constants.SPINNER_SPEED);
-        }
-
+        
         //spinnerController.setReference(revSetpoint, ControlType.kPosition);
     }
 
