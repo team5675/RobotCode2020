@@ -75,6 +75,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
 
     modeRunner = new ModeRunner(new ShootThreeBalls());
+
+    actionRunner.start();
     modeRunner.start();
     System.out.println("haha poop");
   }
@@ -84,6 +86,7 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
 
     actionRunner.loop();
+    navX.loop();
     //pathfinder.runPath(pathfinder.getPath("ROTATE_ROBOT"));
     //pathfinder.runPath(pathfinder.getPath("TRENCH_TO"));
     //pathfinder.runPath(pathfinder.getPath("TRENCH_FROM"));
@@ -93,7 +96,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
 
-    //actionRunner.forceStop();
+    actionRunner.forceStop();
 
     lineUpTowardsTargetWithDriver = new LineUpTowardsTargetWithDriver();
     //lineUpWithTarget = new LineUpWithTarget();
@@ -102,8 +105,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-
-   System.out.println(drive.getFrontRight().getAzimuth());
     
     //Reset Yaw on NavX
     if(driverController.getA()) {
@@ -120,7 +121,17 @@ public class Robot extends TimedRobot {
       drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle() - 45, driverController.isFieldOriented());
     }
 
-    //vision.loop();
+    //Start/stop vision assist driving
+    if (driverController.getOnLineUpPressed()) {
+
+      lineUpTowardsTargetWithDriver.start();
+    } else if (driverController.getOnLineUpReleased()) {
+
+      lineUpTowardsTargetWithDriver.stop();
+    }
+
+    navX.loop();
+    vision.loop();
     //sucker.run();
   }
 

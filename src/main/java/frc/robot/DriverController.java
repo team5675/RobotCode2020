@@ -55,6 +55,16 @@ public class DriverController {
         return mainController.getBButton();
     }
 
+    public boolean getOnLineUpPressed() {
+
+        return mainController.getBButtonPressed();
+    }
+
+    public boolean getOnLineUpReleased() {
+
+        return mainController.getBButtonReleased();
+    }
+
     public double getIntake() {
 
         return auxController.getTriggerAxis(Hand.kRight);

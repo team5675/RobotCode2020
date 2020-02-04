@@ -24,6 +24,7 @@ public class LineUpTowardsTargetWithDriver implements Action {
 
     public void start() {
 
+        vision.lightOn();
     }
 
 
@@ -37,5 +38,6 @@ public class LineUpTowardsTargetWithDriver implements Action {
     
     public void stop() {
 
+        vision.lightOff();
     }
 }

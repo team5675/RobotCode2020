@@ -29,6 +29,7 @@ public class LineUpWithTarget implements Action {
 
     public void start() {
 
+        System.out.println("turning on thing");
         vision.lightOn();
     }
 
@@ -37,13 +38,15 @@ public class LineUpWithTarget implements Action {
         
         drive.move(0, vision.getHorizontalOffset() * Constants.AUTO_STRAFE_P, navX.getAngle() * Constants.AUTO_GYRO_P, 0, true);
 
-        if (Math.abs(vision.getHorizontalOffset()) < 0.5) { //If conditions are met, stop
+        /*if (Math.abs(vision.getHorizontalOffset()) < 0.5) { //If conditions are met, stop
 
             return true;
         } else {
 
             return false;
-        }
+        }*/
+
+        return true;
     }
 
     

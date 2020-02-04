@@ -17,7 +17,7 @@ public class ActionRunner {
     static ActionRunner instance;
 
     static Action currentAction;
-    static boolean run;
+    static boolean run = true;
 
 
     public void run(Action action) {
@@ -47,7 +47,7 @@ public class ActionRunner {
 
         if (currentAction != null) {
             
-            if (currentAction.loop() == false) {
+            if (currentAction.loop() == false) { //Run action loop and get results
 
                 currentAction = null;
             };
@@ -55,8 +55,19 @@ public class ActionRunner {
     }
     
 
+    public void start() { //So we can run in testing
+
+        run = true;
+    }
+
+
     public void forceStop() { //possibly changes this so the loop above reads from a state variable instead of firing this funcion
     
+        if (currentAction != null) {
+
+            currentAction.stop();
+        }
+
         currentAction = null;
         run = false;
     }
