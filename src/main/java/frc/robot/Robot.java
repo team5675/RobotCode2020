@@ -102,10 +102,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-   if (driverController.getX()) {
+   /*if (driverController.getX()) {
 
       drive.getSwerve().rotateToAngle(navX.getAngle(), 0);
-   }
+   }*/ //Need to get different button
     
     //Reset Yaw on NavX
     if(driverController.getA()) {
