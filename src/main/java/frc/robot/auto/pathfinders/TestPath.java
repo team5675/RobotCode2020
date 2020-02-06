@@ -10,7 +10,7 @@ public class TestPath {
     double angleSetpoint;
     double speedsetpoint;
 
-    public Pose[] poseArray;
+    public PoseArray poseArray;
 
     int i;
 
@@ -18,18 +18,14 @@ public class TestPath {
     public TestPath() {
     }
 
-    public double getAngle(int i) {
-
-        this.i = i;
-
-        angleSetpoint = ((Math.atan2(poseArray[i].getAdjustedPose(i).getY(), poseArray[i].getAdjustedPose(i).getX()) / Math.PI) * 2.5) + 2.5;
-
-        return angleSetpoint;
-    }
-
-    public double getSpeed() {
+    public double setSpeed() {
 
         return 0.7;
+    }
+
+    public double setAngle() {
+
+        return poseArray.getAngle();
     }
 
     public static TestPath getInstance() {

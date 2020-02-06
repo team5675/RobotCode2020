@@ -8,10 +8,10 @@
 package frc.robot.auto.actions;
 
 import frc.robot.auto.pathfinders.PathfinderCore;
-import frc.robot.auto.pathfinders.Pose;
+import frc.robot.auto.pathfinders.TestPath;
+
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.NavX;
-import frc.robot.auto.pathfinders.TestPath;
 
 /**
  * Rotate shooter side of robot towards target with driver forward and strafe input
@@ -29,9 +29,6 @@ public class trenchFinder implements Action {
 
     public void start() {
 
-        i = 0;
-
-        
     }
 
 
@@ -39,13 +36,11 @@ public class trenchFinder implements Action {
 
         drive.getSwerve().rotateToAngle(navX.getAngle(), 0);
         
-        for(int j = 0; j < path.poseArray.length; j++){
+        for (int j = 0; j < path.poseArray.length(); j++) {
 
-        drive.getBackRight().drive(path.getSpeed(), path.getAngle(i), false);
-
+        drive.getBackRight().drive(path.setSpeed(), path.setAngle(), false);
         }
 
-        i++;
         drive.getSwerve().rotateToAngle(navX.getAngle(), 90);
 
         return true;

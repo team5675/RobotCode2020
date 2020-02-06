@@ -126,14 +126,13 @@ public class SwerveDrive {
 				//Output is 0 to 1
 		double gyroSpeedSetpoint = gyroError * kP;
 
-		//3.125 = the roraion angle required
+		//3.125 = the rotaion angle required
 		double gyroAngleSetpoint = 3.125;
 
 		backRight.drive(gyroSpeedSetpoint, gyroAngleSetpoint + backRight.getOffset(), false);
 		backLeft.drive(gyroSpeedSetpoint, gyroAngleSetpoint + backLeft.getOffset(), false);
 		frontRight.drive(gyroSpeedSetpoint, gyroAngleSetpoint + frontRight.getOffset(), false);
 		frontLeft.drive(gyroSpeedSetpoint, gyroAngleSetpoint + frontLeft.getOffset(), false);
-
 	}
 
 
