@@ -25,6 +25,7 @@ public class Constants {
     public static final double FL_I = 0.0003;
     public static final double FL_D = 0.01;
     public static final int FL_AZIMUTH_ENCODER_ID = 3;
+	public static double FL_ANGLE_OFFSET = 0.297;
 
     public static final int DRIVE_FRONT_RIGHT_SPEED_ID = 6;
     public static final int DRIVE_FRONT_RIGHT_AZIMUTH_ID = 5;
@@ -32,13 +33,15 @@ public class Constants {
     public static final double FR_I = 0.0005;
     public static final double FR_D = 0.01;
     public static final int FR_AZIMUTH_ENCODER_ID = 2;
+	public static double FR_ANGLE_OFFSET = 3.647;
 
     public static final int DRIVE_BACK_LEFT_SPEED_ID = 2;
     public static final int DRIVE_BACK_LEFT_AZIMUTH_ID = 1;
     public static final double BL_P = 0.80715;
     public static final double BL_I = 0.0006;
     public static final double BL_D = 0.01;
-    public static final int BL_AZIMUTH_ENCODER_ID = 1;
+    public static final int BL_AZIMUTH_ENCODER_ID = 1;  
+	public static double BL_ANGLE_OFFSET = 4.086;
 
     public static final int DRIVE_BACK_RIGHT_SPEED_ID = 4;
     public static final int DRIVE_BACK_RIGHT_AZIMUTH_ID = 3;
@@ -46,6 +49,7 @@ public class Constants {
     public static final double BR_I = 0.0004;
     public static final double BR_D = 0.01;
     public static final int BR_AZIMUTH_ENCODER_ID = 0;
+    public static double BR_ANGLE_OFFSET = 3.035;
 
     //Shooter subsystem constants
     public static final int SHOOTER_ID = 17;
