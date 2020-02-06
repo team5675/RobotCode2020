@@ -9,12 +9,6 @@ public class SwerveDrive {
 
 	double r;
 
-	//backright backleft frontright frontleft
-	public double ANGLE_OFFSET1 = 3.035;//3.769; //from 0 to 5
-	public double ANGLE_OFFSET2 = 4.086;//0.531;
-	public double ANGLE_OFFSET3 = 3.647;//1.976;
-	public double ANGLE_OFFSET4 = 0.297;//3.883;
-
 	public final double CONTROLLER_DEADBAND = .05;
 	
 	/**
@@ -85,13 +79,13 @@ public class SwerveDrive {
 		
 
 		//Output is 0 to 360 degrees
-		double backRightAngle 	= (((Math.atan2(a, c) / Math.PI) * 2.5) + 2.5) + ANGLE_OFFSET1; 
+		double backRightAngle 	= (((Math.atan2(a, c) / Math.PI) * 2.5) + 2.5) + backRight.getOffset(); 
 		
-		double backLeftAngle 	= (((Math.atan2(a, d) / Math.PI) * 2.5) + 2.5) + ANGLE_OFFSET2;
+		double backLeftAngle 	= (((Math.atan2(a, d) / Math.PI) * 2.5) + 2.5) + backLeft.getOffset();
 		//									-1 to 1		   -2.5 to 2.5   0 to 5  
-		double frontRightAngle	= (((Math.atan2(b, c) / Math.PI) * 2.5) + 2.5) + ANGLE_OFFSET3;
+		double frontRightAngle	= (((Math.atan2(b, c) / Math.PI) * 2.5) + 2.5) + frontRight.getOffset();
 
-		double frontLeftAngle	= (((Math.atan2(b, d) / Math.PI) * 2.5) + 2.5) + ANGLE_OFFSET4;
+		double frontLeftAngle	= (((Math.atan2(b, d) / Math.PI) * 2.5) + 2.5) + frontLeft.getOffset();
 
 		//normalize wheel speeds
         double max = backRightSpeed;
@@ -135,10 +129,10 @@ public class SwerveDrive {
 		//3.125 = the roraion angle required
 		double gyroAngleSetpoint = 3.125;
 
-		backRight.drive(gyroSpeedSetpoint, gyroAngleSetpoint + ANGLE_OFFSET1, false);
-		backLeft.drive(gyroSpeedSetpoint, gyroAngleSetpoint + ANGLE_OFFSET2, false);
-		frontRight.drive(gyroSpeedSetpoint, gyroAngleSetpoint + ANGLE_OFFSET3, false);
-		frontLeft.drive(gyroSpeedSetpoint, gyroAngleSetpoint + ANGLE_OFFSET4, false);
+		backRight.drive(gyroSpeedSetpoint, gyroAngleSetpoint + backRight.getOffset(), false);
+		backLeft.drive(gyroSpeedSetpoint, gyroAngleSetpoint + backLeft.getOffset(), false);
+		frontRight.drive(gyroSpeedSetpoint, gyroAngleSetpoint + frontRight.getOffset(), false);
+		frontLeft.drive(gyroSpeedSetpoint, gyroAngleSetpoint + frontLeft.getOffset(), false);
 
 	}
 
@@ -150,21 +144,6 @@ public class SwerveDrive {
 		private WheelDrive frontRight;
 		
 		private WheelDrive frontLeft;
-
-		public void zeroEncoders(){
-
-			ANGLE_OFFSET1 = backRight.getAzimuth();
-	
-			ANGLE_OFFSET2 = backLeft.getAzimuth();
-	
-			ANGLE_OFFSET3 = frontRight.getAzimuth();
-	
-			ANGLE_OFFSET4 = frontLeft.getAzimuth();
-	
-			System.out.println(ANGLE_OFFSET1 + " " + ANGLE_OFFSET2 + " " + ANGLE_OFFSET3 + " " + ANGLE_OFFSET4);
-			System.out.println("Encoder Angles Set!");
-		}
-
 		
 		
 		public SwerveDrive (WheelDrive backRight, WheelDrive backLeft, WheelDrive frontRight, WheelDrive frontLeft ) {

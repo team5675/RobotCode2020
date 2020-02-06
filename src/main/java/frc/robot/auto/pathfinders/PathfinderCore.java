@@ -14,6 +14,8 @@ import jaci.pathfinder.Trajectory.Segment;
 
 public class PathfinderCore {
 
+    TestPath testPath;
+
     static PathfinderCore instance;
 
     File pathFiles;
@@ -79,6 +81,8 @@ public class PathfinderCore {
      */
     public boolean runPath(Trajectory traj) {
 
+
+
         isDone = false;
 
         //Create the 4 individual trajectories for swerve
@@ -100,10 +104,10 @@ public class PathfinderCore {
             brs.x = seg.x + Constants.WHEEL_BASE_WIDTH / 2;
             brs.y = seg.y - Constants.WHEEL_BASE_DEPTH / 2;
 
-            driveBase.getBackRight().setModule(brs, 3.029);
-            driveBase.getBackLeft().setModule(bls, 4.084);
-            driveBase.getFrontRight().setModule(frs, 3.302);
-            driveBase.getFrontLeft().setModule(fls, 0.057);
+            driveBase.getBackRight().setModule(brs);
+            driveBase.getBackLeft().setModule(bls);
+            driveBase.getFrontRight().setModule(frs);
+            driveBase.getFrontLeft().setModule(fls);
 
             percentDone = i / trajectory.length();
 

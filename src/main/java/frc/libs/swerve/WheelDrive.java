@@ -29,6 +29,8 @@ double P;
 double I;
 double D;
 
+double ANGLE_OFFSET;
+
 Segment moduleSegment;
 
 double error;
@@ -42,8 +44,9 @@ double speedSetpoint;
 	 * @param P          Proportional error for the PID loop
 	 * @param I          Integrated error for the PID loop
 	 * @param D          Derivative error for the PID loop
+	 * @param ANGLE_OFFSET The module's encoder offset
 	 */
-	public WheelDrive(int angleMotor, int speedMotor, int analogIn, double P, double I, double D) {
+	public WheelDrive(int angleMotor, int speedMotor, int analogIn, double P, double I, double D, double ANGLE_OFFSET) {
 
 		// create our "wheels"
 		this.angleMotor = new CANSparkMax(angleMotor, MotorType.kBrushless);
@@ -60,6 +63,8 @@ double speedSetpoint;
 		this.P = P;
 		this.I = I;
 		this.D = D;
+
+		this.ANGLE_OFFSET = ANGLE_OFFSET;
 	}
 
 	/**
@@ -68,7 +73,7 @@ double speedSetpoint;
 	 * @param ANGLE_OFFSET The module's encoder offset
 	 * @param index Index that the pathfinder is currently on
 	 */
-	public void setModule(Segment seg, double ANGLE_OFFSET) {
+	public void setModule(Segment seg) {
 
 		moduleSegment = seg;
 
@@ -113,5 +118,10 @@ double speedSetpoint;
 
 		speedMotor.set(0);
 		angleMotor.set(0);
+	}
+
+	public double getOffset() {
+
+		return ANGLE_OFFSET;
 	}
 }
