@@ -109,6 +109,14 @@ double speedSetpoint;
 		return azimuthEncoder.getVoltage();
 	}
 
+	public double getSpeedPosition() {
+		return driveEncoder.getPosition();
+	}
+
+	public void resetSpeedDistance() {
+		driveEncoder.setPosition(0);
+	}
+
 	public void stop() {
 
 		speedMotor.set(0);

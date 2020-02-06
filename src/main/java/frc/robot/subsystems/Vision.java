@@ -27,11 +27,13 @@ public class Vision {
     static NetworkTableEntry distanceFromTarget;
     static NetworkTable dashboardTable;
 
+    double distance;
+
 
     public Vision() {
 
         limelightTable = NetworkTableInstance.getDefault().getTable("limelight");
-        dashboardTable = NetworkTableInstance.getDefault().getTable("limelight");
+        dashboardTable = NetworkTableInstance.getDefault().getTable("dashboard");
         ledMode = limelightTable.getEntry("ledMode");
         horizontalOffset = limelightTable.getEntry("tx");
         verticalOffset = limelightTable.getEntry("ty");
@@ -76,8 +78,14 @@ public class Vision {
 
     public void loop() {
         
-        double distance = (Constants.VISION_TARGET_HEIGHT - Constants.VISION_CAMERA_HEIGHT) / Math.tan(Math.toRadians(Constants.VISION_CAMERA_ANGLE + getVerticalOffset()));
+        distance = (Constants.VISION_TARGET_HEIGHT - Constants.VISION_CAMERA_HEIGHT) / Math.tan(Math.toRadians(Constants.VISION_CAMERA_ANGLE + getVerticalOffset()));
         distanceFromTarget.setDouble(distance);
+    }
+
+
+    public double getDistanceFromTarget() {
+
+        return distance;
     }
 
 

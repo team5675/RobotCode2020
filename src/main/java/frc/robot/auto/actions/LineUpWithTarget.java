@@ -29,15 +29,18 @@ public class LineUpWithTarget implements Action {
 
     public void start() {
 
-        System.out.println("turning on thing");
         vision.lightOn();
     }
 
 
     public boolean loop() {
         
-        drive.move(0, vision.getHorizontalOffset() * Constants.AUTO_STRAFE_P, navX.getAngle() * Constants.AUTO_GYRO_P, 0, true);
+        double distanceError = 10 - vision.getDistanceFromTarget();
+        
+        drive.move(distanceError * Constants.AUTO_FORWARD_P, vision.getHorizontalOffset() * Constants.AUTO_STRAFE_P, navX.getAngle() * Constants.AUTO_GYRO_P, 0, true);
 
+
+        System.out.println(distanceError * Constants.AUTO_FORWARD_P);
         /*if (Math.abs(vision.getHorizontalOffset()) < 0.5) { //If conditions are met, stop
 
             return true;
