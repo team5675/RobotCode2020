@@ -50,6 +50,11 @@ public class DriverController {
         return mainController.getAButton();
     }
 
+    public boolean getX() {
+
+        return mainController.getXButton();
+    }
+
     public boolean getLineUp() {
 
         return mainController.getBButton();

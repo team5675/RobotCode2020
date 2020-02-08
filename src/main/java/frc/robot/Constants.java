@@ -11,7 +11,7 @@ public class Constants {
 
     //Pathfinder constants
     public static final double PATHFINDER_KP = 0;
-	public static final double PATHFINDER_KV = 1/11;
+	public static final double PATHFINDER_KV = 0.0909090909;
 	public static final double PATHFINDER_KA = 0.011;
 
     //Drive subsystem constants
@@ -59,6 +59,7 @@ public class Constants {
     public static final double SHOOTER_FLYWHEEL_KF = 0; 
     public static final double SHOOTER_HEIGHT = 2;    //ft
     public static final double SHOOTER_WHEEL_DIAMTER = 1/3; //ft
+	public static final double SHOOTER_RPM_CONSTANT = 0;
     //public static final double CAM_HEIGHT;
     //public static final double CAM_ANGLE;
 

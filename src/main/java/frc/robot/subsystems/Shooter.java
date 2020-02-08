@@ -39,6 +39,7 @@ public class Shooter {
     PIDController speedPID;
 
     public Shooter() {
+        
         vision = new Vision();
         shootMotor = new CANSparkMax(Constants.SHOOTER_ID, MotorType.kBrushless);
 
@@ -52,55 +53,46 @@ public class Shooter {
         RPMController.setOutputRange(-1, 1);
     }
 
-    /**
-     * Sets the launcher's hood to an angle
-     * @param hoodAngle the angle setpoint (in radians)
-     */
-    public void setAngle(double hoodAngle){
-    }
-
-    /**
-     * Sets the launcher's RPM
-     * @param velocityRPM The setpoint velocity for the shooter
-     */
-    public void setRPM(double velocityRPM){
-
-        RPMController.setReference(velocityRPM, ControlType.kVelocity);
-    }
-
     public void autoAimAtTarget() { //Distance, angle, and velocity
         //angle = vision.getVerticalOffset() + Constants.CAM_ANGLE;
         //distanceLimelight = (Constants.PORT_HEIGHT - Constants.CAM_HEIGHT) / Math.tan(angle);
 
-        double angleSetpoint = getHoodAngle(distanceLimelight);
+        double angleSetpoint = setAngle(distanceLimelight);
 
-        setAngle(angleSetpoint);
+        double speedSetpoint = setRPM(angleSetpoint);
+
+        RPMController.setReference(speedSetpoint, ControlType.kVelocity);
     }
 
 
     public void shoot() {
 
-        setRPM(Constants.SHOOTER_SETPOINT);
+
     }
     /**
      * Returns the hood angle based on the distance from port
-     * Note 
      * @return angle in radians 
      * 
      * @param distance The distance from the port. (Use limelight generated distance)
      */
-    public double getHoodAngle(double distance) {
-
-        //delcaring our distances as the same so no weird mixups
-        this.distance = distance;
-
-        //getting adjusted height
-        height = (Constants.VISION_TARGET_HEIGHT - Constants.SHOOTER_HEIGHT);
+    public double setAngle(double distance) {
 
         //angle calculated by modeling a triangle approx to the parabola
-        theta = Math.atan(2 * height / distance);
+        theta = Math.atan(2 * (Constants.VISION_TARGET_HEIGHT - Constants.SHOOTER_HEIGHT) / distance);
 
         return theta;
+    }
+
+    /**
+     * Returns RPM setpoint
+     * @param hoodAngle The current angle of the hood
+     * @return The desired RPM of the shooter
+     */
+    public double setRPM(double hoodAngle){
+
+        double RPM = hoodAngle * Constants.SHOOTER_RPM_CONSTANT;
+
+        return RPM;
     }
 
 
