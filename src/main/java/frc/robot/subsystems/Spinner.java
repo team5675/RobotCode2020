@@ -129,6 +129,11 @@ public class Spinner {
         spinnerController.setReference(getRevs(), ControlType.kPosition);
     }
 
+    /**
+     * Gives the current closest color from coloSensor
+     * 
+     * @return color
+     */
     public String getCurrentColor() {
         ColorMatchResult match = colorMatch.matchClosestColor(colorSensor.getColor());
 
@@ -146,11 +151,15 @@ public class Spinner {
         }
     }
 
+    /**
+     * Gives revolutions to target color
+     * 
+     * @return revs to target
+     */
     public double getRevs() {
         return Constants.ONE_COLOR_REVS * 
         Math.abs(colors.indexOf(realTarget) - colors.indexOf(getCurrentColor()));
-        
-        
+
     }
 
     public static Spinner getInstance() {
