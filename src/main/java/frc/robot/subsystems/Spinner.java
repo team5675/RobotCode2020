@@ -39,6 +39,9 @@ public class Spinner {
 
     ColorMatch colorMatch;
 
+    String target;
+    String realTarget;
+
     final Color blue;
     final Color green;
     final Color red;
@@ -107,17 +110,13 @@ public class Spinner {
     }
 
     public void spinWheelColor() {
-        /*
-        Code for taking in FMS color and reading sensor goes here
-        */ 
-        String realTarget = getRealTarget(DriverStation.getInstance().getGameSpecificMessage());
+        getRealTarget();
         
-        //spinnerController.setReference(revSetpoint, ControlType.kPosition);
+        spinnerController.setReference(getRevs(), ControlType.kPosition);
     }
 
     public String getCurrentColor() {
-        Color detectedColor = colorSensor.getColor();
-        ColorMatchResult match = colorMatch.matchClosestColor(detectedColor);
+        ColorMatchResult match = colorMatch.matchClosestColor(colorSensor.getColor());
 
         if(match.color == blue) {
             return "B"; //Different Color accounts for offset
@@ -136,19 +135,29 @@ public class Spinner {
         }
     }
 
-    public static String getRealTarget(String target) {
+    public void getRealTarget() {
+        target = DriverStation.getInstance().getGameSpecificMessage();
+
         if(target.equals("B")) { //accounts for offset in wheel
-            return "R";
+            realTarget = "R";
         }
         else if(target.equals("G")) {
-            return "Y";
+            realTarget = "Y";
         }
         if(target.equals("R")) {
-            return "B";
+            realTarget = "B";
         }
         else {
-            return "G";
+            realTarget = "G";
         }
+    }
+
+    public double getRevs() {
+        String colors = "BYRG";
+        return Constants.ONE_COLOR_REVS * 
+        Math.abs(colors.indexOf(realTarget) - colors.indexOf(getCurrentColor()));
+        
+        
     }
 
     public static Spinner getInstance() {
