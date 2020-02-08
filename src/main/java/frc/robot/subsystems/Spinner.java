@@ -46,6 +46,7 @@ public class Spinner {
     final Color green;
     final Color red;
     final Color yellow;
+    final String colors = "BYRG";
 
     public Spinner() {
         
@@ -110,32 +111,6 @@ public class Spinner {
     }
 
     public void spinWheelColor() {
-        getRealTarget();
-        
-        spinnerController.setReference(getRevs(), ControlType.kPosition);
-    }
-
-    public String getCurrentColor() {
-        ColorMatchResult match = colorMatch.matchClosestColor(colorSensor.getColor());
-
-        if(match.color == blue) {
-            return "B"; //Different Color accounts for offset
-        }
-        else if( match.color == green) {
-            return "G";
-        }
-        else if(match.color == red) {
-            return "R";
-        }
-        else if( match.color == yellow) {
-            return "Y";
-        }
-        else {
-            return "N";
-        }
-    }
-
-    public void getRealTarget() {
         target = DriverStation.getInstance().getGameSpecificMessage();
 
         if(target.equals("B")) { //accounts for offset in wheel
@@ -150,10 +125,28 @@ public class Spinner {
         else {
             realTarget = "G";
         }
+        
+        spinnerController.setReference(getRevs(), ControlType.kPosition);
+    }
+
+    public String getCurrentColor() {
+        ColorMatchResult match = colorMatch.matchClosestColor(colorSensor.getColor());
+
+        if(match.color == blue) {
+            return "B"; 
+        }
+        else if( match.color == green) {
+            return "G";
+        }
+        else if(match.color == red) {
+            return "R";
+        }
+        else {
+            return "Y";
+        }
     }
 
     public double getRevs() {
-        String colors = "BYRG";
         return Constants.ONE_COLOR_REVS * 
         Math.abs(colors.indexOf(realTarget) - colors.indexOf(getCurrentColor()));
         
