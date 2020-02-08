@@ -14,7 +14,6 @@ public class Climber {
 
     static Climber instance;
 
-
     public Climber() {
 
     }

@@ -39,10 +39,14 @@ public class Spinner {
 
     ColorMatch colorMatch;
 
+    String target;
+    String realTarget;
+
     final Color blue;
     final Color green;
     final Color red;
     final Color yellow;
+    final String colors = "BYRG";
 
     public Spinner() {
         
@@ -107,20 +111,34 @@ public class Spinner {
     }
 
     public void spinWheelColor() {
-        /*
-        Code for taking in FMS color and reading sensor goes here
-        */ 
-        String realTarget = getRealTarget(DriverStation.getInstance().getGameSpecificMessage());
+        target = DriverStation.getInstance().getGameSpecificMessage();
+
+        if(target.equals("B")) { //accounts for offset in wheel
+            realTarget = "R";
+        }
+        else if(target.equals("G")) {
+            realTarget = "Y";
+        }
+        if(target.equals("R")) {
+            realTarget = "B";
+        }
+        else {
+            realTarget = "G";
+        }
         
-        //spinnerController.setReference(revSetpoint, ControlType.kPosition);
+        spinnerController.setReference(getRevs(), ControlType.kPosition);
     }
 
+    /**
+     * Gives the current closest color from coloSensor
+     * 
+     * @return color
+     */
     public String getCurrentColor() {
-        Color detectedColor = colorSensor.getColor();
-        ColorMatchResult match = colorMatch.matchClosestColor(detectedColor);
+        ColorMatchResult match = colorMatch.matchClosestColor(colorSensor.getColor());
 
         if(match.color == blue) {
-            return "B"; //Different Color accounts for offset
+            return "B"; 
         }
         else if( match.color == green) {
             return "G";
@@ -128,27 +146,20 @@ public class Spinner {
         else if(match.color == red) {
             return "R";
         }
-        else if( match.color == yellow) {
-            return "Y";
-        }
         else {
-            return "N";
+            return "Y";
         }
     }
 
-    public static String getRealTarget(String target) {
-        if(target.equals("B")) { //accounts for offset in wheel
-            return "R";
-        }
-        else if(target.equals("G")) {
-            return "Y";
-        }
-        if(target.equals("R")) {
-            return "B";
-        }
-        else {
-            return "G";
-        }
+    /**
+     * Gives revolutions to target color
+     * 
+     * @return revs to target
+     */
+    public double getRevs() {
+        return Constants.ONE_COLOR_REVS * 
+        Math.abs(colors.indexOf(realTarget) - colors.indexOf(getCurrentColor()));
+
     }
 
     public static Spinner getInstance() {
