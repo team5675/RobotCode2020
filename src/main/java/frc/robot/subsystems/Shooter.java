@@ -54,14 +54,15 @@ public class Shooter {
     }
 
     public void autoAimAtTarget() { //Distance, angle, and velocity
-        //angle = vision.getVerticalOffset() + Constants.CAM_ANGLE;
-        //distanceLimelight = (Constants.PORT_HEIGHT - Constants.CAM_HEIGHT) / Math.tan(angle);
+        angle = vision.getVerticalOffset() + Constants.VISION_CAMERA_ANGLE;
+        distanceLimelight = (Constants.VISION_TARGET_HEIGHT - Constants.VISION_CAMERA_HEIGHT)
+                            / Math.tan(angle);
 
-        double angleSetpoint = setAngle(distanceLimelight);
+        double angleSetpoint = getAngle(distanceLimelight);
 
-        double speedSetpoint = setRPM(angleSetpoint);
+        double speedSetpoint = getRPM(angleSetpoint);
 
-        RPMController.setReference(speedSetpoint, ControlType.kVelocity);
+        setRPM(speedSetpoint);
     }
 
 
@@ -76,7 +77,7 @@ public class Shooter {
      * 
      * @param distance The distance from the port. (Use limelight generated distance)
      */
-    public double setAngle(double distance) {
+    public double getAngle(double distance) {
 
         //angle calculated by modeling a triangle approx to the parabola
         theta = Math.atan(2 * (Constants.VISION_TARGET_HEIGHT - Constants.SHOOTER_HEIGHT) / distance);
@@ -86,7 +87,12 @@ public class Shooter {
 
     public double getRPM(double theta) {
         return (Math.sqrt((64 * Constants.VISION_TARGET_HEIGHT) / (theta * theta))
-        / (Math.PI * 0.5 * Constants.SHOOTER_WHEEL_DIAMETER)) * 60;
+        / (Math.PI * 0.5 * Constants.SHOOTER_WHEEL_DIAMETER)) * 60; //* 60 is for sec to min
+    }
+
+    public void setRPM(double RPM){
+
+        RPMController.setReference(RPM, ControlType.kVelocity);
     }
 
     public static Shooter getInstance() {
