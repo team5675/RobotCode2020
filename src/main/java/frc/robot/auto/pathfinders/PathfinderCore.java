@@ -81,8 +81,6 @@ public class PathfinderCore {
      */
     public boolean runPath(Trajectory traj) {
 
-
-
         isDone = false;
 
         //Create the 4 individual trajectories for swerve
