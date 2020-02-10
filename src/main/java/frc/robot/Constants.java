@@ -58,7 +58,7 @@ public class Constants {
     public static final double SHOOTER_FLYWHEEL_KD = 0; 
     public static final double SHOOTER_FLYWHEEL_KF = 0; 
     public static final double SHOOTER_HEIGHT = 2;    //ft
-    public static final double SHOOTER_WHEEL_DIAMTER = 1/3; //ft
+    public static final double SHOOTER_WHEEL_DIAMETER = 1/3; //ft
     //public static final double CAM_HEIGHT;
     //public static final double CAM_ANGLE;
 

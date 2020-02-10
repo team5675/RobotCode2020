@@ -111,6 +111,11 @@ public class Spinner {
     }
 
     public void spinWheelColor() {
+        spinnerController.setReference(getRevs(), ControlType.kPosition);
+    }
+
+    public void setTargets()
+    {
         target = DriverStation.getInstance().getGameSpecificMessage();
 
         if(target.equals("B")) { //accounts for offset in wheel
@@ -125,12 +130,10 @@ public class Spinner {
         else {
             realTarget = "G";
         }
-        
-        spinnerController.setReference(getRevs(), ControlType.kPosition);
     }
 
     /**
-     * Gives the current closest color from coloSensor
+     * Gives the current closest color from colorSensor
      * 
      * @return color
      */
@@ -157,6 +160,8 @@ public class Spinner {
      * @return revs to target
      */
     public double getRevs() {
+        setTargets();
+        
         return Constants.ONE_COLOR_REVS * 
         Math.abs(colors.indexOf(realTarget) - colors.indexOf(getCurrentColor()));
 

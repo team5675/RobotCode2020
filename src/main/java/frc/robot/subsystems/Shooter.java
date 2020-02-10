@@ -82,6 +82,7 @@ public class Shooter {
 
         setRPM(Constants.SHOOTER_SETPOINT);
     }
+    
     /**
      * Returns the hood angle based on the distance from port
      * Note 
@@ -103,6 +104,10 @@ public class Shooter {
         return theta;
     }
 
+    public double getRPM(double theta) {
+        return (Math.sqrt((64 * Constants.VISION_TARGET_HEIGHT) / (theta * theta))
+        / (Math.PI * 0.5 * Constants.SHOOTER_WHEEL_DIAMETER)) * 60;
+    }
 
     public static Shooter getInstance() {
 
