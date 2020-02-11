@@ -1,12 +1,10 @@
 ![alt text](https://i0.wp.com/www.mattawanwiredcats.org/wp-content/uploads/2019/11/wiredlogo.png?zoom=1&fit=1080%2C532)
   
     
--NAME OF ROBOT HERE-
-======================
+# -NAME OF ROBOT HERE-
 
 ![alt text](https://i0.wp.com/www.mattawanwiredcats.org/wp-content/uploads/2018/05/18Apr_Robotics-011-min.jpg)
 
-5675's 2020 Robot
 
 ### Electrical Control Structure
 
@@ -33,25 +31,36 @@ Launcher Subsystem
 |-----------|:----------|-------------:|
 |9          |Neo        |Launcher 1    |
 |10         |Neo        |Launcher 2    |
-|11         |775        |Feeder        |
-|12         |BAG        |Hood Adjust   |
+
+
+|PWM ID     |Motor Type |Function      |
+|-----------|:----------|-------------:|
+|0          |775        |Feeder        |
 
 
 Indexer / Intake Subsystem
 
-|CAN ID     |Motor Type |Function      |
+|PWM ID     |Motor Type |Function      |
 |-----------|:----------|-------------:|
-|13         |BAG        |Indexer Rotate|
-|14         |BAG        |Intake        |
+|1          |BAG        |Indexer Rotate|
+|2          |BAG        |Intake        |
 
 
 Climber Subsystem
 
 
-|CAN ID     |Motor Type |Function      |
+|PWM ID     |Motor Type |Function      |
 |-----------|:----------|-------------:|
-|15         |775        |Winch         |
-|16         |Snowblower |Balancer      |
+|3          |775        |Winch         |
+|4          |Snowblower |Balancer      |
+
+
+Spinner Subsystem
+
+
+|PWM ID     |Motor Type |Function      |
+|-----------|:----------|-------------:|
+|5          |JE         |Wheel spinner |
 
 
 ### Pneumatic Control Structure
@@ -62,7 +71,7 @@ Intake Subsystem
 
 |SOLENOID ID|Function   |
 |-----------|:----------|
-|0          |Intake arms|
+|0-1        |Intake arms|
 
 
 Climber Subsystem
@@ -70,8 +79,16 @@ Climber Subsystem
 
 |SOLENOID ID|Function   |
 |-----------|:----------|
-|1          |Deploy high|
-|2          |deploy low |
+|2-3        |Deploy high|
+|4-5        |deploy low |
+
+
+Spinner Subsystem
+
+
+|SOLENOID ID|Function   |
+|-----------|:----------|
+|6-7        |deploy spin|
 
 
 
