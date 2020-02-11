@@ -9,11 +9,6 @@ package frc.robot;
 
 public class Constants {
 
-    //Pathfinder constants
-    public static final double PATHFINDER_KP = 0;
-	public static final double PATHFINDER_KV = 0.0909090909;
-	public static final double PATHFINDER_KA = 0.011;
-
     //Drive subsystem constants
     
 	public static final int WHEEL_BASE_WIDTH = 25;
