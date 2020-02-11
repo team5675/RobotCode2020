@@ -7,6 +7,7 @@
 
 package frc.robot.auto;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.NavX;
 
@@ -32,11 +33,11 @@ public class Pathfinder {
     }
 
 
-    public void translate(double xFeet, double yFeet, double rotation) {
+    public void translate(double xFeet, double yFeet, double angle) {
 
         xFeetGoal = xFeet;
         yFeetGoal = yFeet;
-        rotationGoal = rotation;
+        rotationGoal = angle;
         hypDistance = Math.hypot(xFeetGoal, yFeetGoal);
 
         drive.getFrontLeft().resetSpeedDistance();
@@ -76,7 +77,9 @@ public class Pathfinder {
             double xSpeed = xFeetGoal / hypDistance;
             double ySpeed = yFeetGoal / hypDistance;
 
-            drive.move(xSpeed, ySpeed, 0, navX.getAngle(), false);
+            double rotationSpeed = (rotationGoal - (navX.getAngle() % 360)) / 360;
+
+            drive.move(xSpeed, ySpeed, rotationSpeed, navX.getAngle(), false);
 
             System.out.println(distanceTraveled + ">" + hypDistance);
             
