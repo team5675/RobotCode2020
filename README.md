@@ -8,7 +8,11 @@
 
 5675's 2020 Robot
 
-### Control Structure
+### Electrical Control Structure
+
+
+Drivetrain Subsystem
+
 
 |CAN ID     |Motor Type |Function      |
 |-----------|:----------|-------------:|
@@ -20,5 +24,55 @@
 |6          |Neo        |Swerve Azimuth|
 |7          |Neo        |Swerve Drive  |
 |8          |Neo        |Swerve Azimuth|
+
+
+Launcher Subsystem
+
+
+|CAN ID     |Motor Type |Function      |
+|-----------|:----------|-------------:|
+|9          |Neo        |Launcher 1    |
+|10         |Neo        |Launcher 2    |
+|11         |775        |Feeder        |
+|12         |BAG        |Hood Adjust   |
+
+
+Indexer / Intake Subsystem
+
+|CAN ID     |Motor Type |Function      |
+|-----------|:----------|-------------:|
+|13         |BAG        |Indexer Rotate|
+|14         |BAG        |Intake        |
+
+
+Climber Subsystem
+
+
+|CAN ID     |Motor Type |Function      |
+|-----------|:----------|-------------:|
+|15         |775        |Winch         |
+|16         |Snowblower |Balancer      |
+
+
+### Pneumatic Control Structure
+
+
+Intake Subsystem
+
+
+|SOLENOID ID|Function   |
+|-----------|:----------|
+|0          |Intake arms|
+
+
+Climber Subsystem
+
+
+|SOLENOID ID|Function   |
+|-----------|:----------|
+|1          |Deploy high|
+|2          |deploy low |
+
+
 
 
