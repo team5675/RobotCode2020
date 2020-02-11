@@ -15,10 +15,10 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.ActionRunner;
 import frc.robot.auto.ModeRunner;
+import frc.robot.auto.Pathfinder;
 import frc.robot.auto.actions.Action;
 import frc.robot.auto.actions.LineUpTowardsTargetWithDriver;
 import frc.robot.auto.modes.ShootThreeBalls;
-import frc.robot.auto.pathfinders.PathfinderCore;
 
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.NavX;
@@ -40,8 +40,9 @@ public class Robot extends TimedRobot {
   NavX             navX;
   Spinner          spinner;
 
+  Pathfinder pathfinder;
+
   ModeRunner       modeRunner;
-  PathfinderCore   pathfinder;
 
   ActionRunner     actionRunner;
   Action           action;
@@ -67,18 +68,21 @@ public class Robot extends TimedRobot {
     spinner          = Spinner.getInstance();
 
     actionRunner     = ActionRunner.getInstance();
-    pathfinder       = PathfinderCore.getInstance();
+    //pathfinder       = PathfinderCore.getInstance();
+    pathfinder = Pathfinder.getInstance();
   }
 
 
   @Override
   public void autonomousInit() {
 
-    modeRunner = new ModeRunner(new ShootThreeBalls());
+    //modeRunner = new ModeRunner(new ShootThreeBalls());
 
     actionRunner.start();
-    modeRunner.start();
+    //modeRunner.start();
     System.out.println("haha poop");
+
+    pathfinder.translate(1, 1, 0);
   }
 
 
@@ -87,6 +91,7 @@ public class Robot extends TimedRobot {
 
     vision.loop();
     actionRunner.loop();
+    pathfinder.loop();
   }
 
 
@@ -146,8 +151,8 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     feeder.set(-1);
-    left.getPIDController().setReference(-3300, ControlType.kVelocity);
-    right.getPIDController().setReference(3300, ControlType.kVelocity);
+    left.getPIDController().setReference(-2850, ControlType.kVelocity);
+    right.getPIDController().setReference(2850, ControlType.kVelocity);
     //left.set(-1);
     //right.set(1);
   }
