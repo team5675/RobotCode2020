@@ -24,6 +24,8 @@ public class ActionRunner {
 
         currentAction = action;
 
+        System.out.println("Starting " + action.getClass().getName() + " action!");
+
         if (run) {
 
             action.start();
@@ -40,6 +42,8 @@ public class ActionRunner {
 
             action.stop();
         }
+
+        System.out.println("Stopped " + action.getClass().getName() + " action!");
     }
 
 
