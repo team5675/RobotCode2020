@@ -162,7 +162,7 @@ public class Spinner {
     public double getRevs() {
         setTargets();
         
-        return Constants.ONE_COLOR_REVS * 
+        return Constants.ONE_COLOR_REVS * //
         Math.abs(colors.indexOf(realTarget) - colors.indexOf(getCurrentColor()));
 
     }
