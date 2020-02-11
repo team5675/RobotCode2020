@@ -86,7 +86,7 @@ public class Shooter {
     }
 
     public double getRPM(double theta) {
-        return (Math.sqrt((64 * Constants.VISION_TARGET_HEIGHT) / (theta * theta))
+        return (Math.sqrt((64 * Constants.VISION_TARGET_HEIGHT) / Math.pow(Math.sin(theta), 2))
         / (Math.PI * 0.5 * Constants.SHOOTER_WHEEL_DIAMETER)) * 60; //* 60 is for sec to min
     }
 
