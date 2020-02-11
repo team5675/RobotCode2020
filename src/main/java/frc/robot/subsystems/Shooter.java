@@ -39,6 +39,7 @@ public class Shooter {
     PIDController speedPID;
 
     public Shooter() {
+        
         vision = new Vision();
         shootMotor = new CANSparkMax(Constants.SHOOTER_ID, MotorType.kBrushless);
 
@@ -52,57 +53,47 @@ public class Shooter {
         RPMController.setOutputRange(-1, 1);
     }
 
-    /**
-     * Sets the launcher's hood to an angle
-     * @param hoodAngle the angle setpoint (in radians)
-     */
-    public void setAngle(double hoodAngle){
-    }
-
-    /**
-     * Sets the launcher's RPM
-     * @param velocityRPM The setpoint velocity for the shooter
-     */
-    public void setRPM(double velocityRPM){
-
-        RPMController.setReference(velocityRPM, ControlType.kVelocity);
-    }
-
     public void autoAimAtTarget() { //Distance, angle, and velocity
-        //angle = vision.getVerticalOffset() + Constants.CAM_ANGLE;
-        //distanceLimelight = (Constants.PORT_HEIGHT - Constants.CAM_HEIGHT) / Math.tan(angle);
+        angle = vision.getVerticalOffset() + Constants.VISION_CAMERA_ANGLE;
+        distanceLimelight = (Constants.VISION_TARGET_HEIGHT - Constants.VISION_CAMERA_HEIGHT)
+                            / Math.tan(angle);
 
-        double angleSetpoint = getHoodAngle(distanceLimelight);
+        double angleSetpoint = getAngle(distanceLimelight);
 
-        setAngle(angleSetpoint);
+        double speedSetpoint = getRPM(angleSetpoint);
+
+        setRPM(speedSetpoint);
     }
 
 
     public void shoot() {
 
-        setRPM(Constants.SHOOTER_SETPOINT);
+
     }
+    
     /**
      * Returns the hood angle based on the distance from port
-     * Note 
      * @return angle in radians 
      * 
      * @param distance The distance from the port. (Use limelight generated distance)
      */
-    public double getHoodAngle(double distance) {
-
-        //delcaring our distances as the same so no weird mixups
-        this.distance = distance;
-
-        //getting adjusted height
-        height = (Constants.VISION_TARGET_HEIGHT - Constants.SHOOTER_HEIGHT);
+    public double getAngle(double distance) {
 
         //angle calculated by modeling a triangle approx to the parabola
-        theta = Math.atan(2 * height / distance);
+        theta = Math.atan(2 * (Constants.VISION_TARGET_HEIGHT - Constants.SHOOTER_HEIGHT) / distance);
 
         return theta;
     }
 
+    public double getRPM(double theta) { //line 1 is ball velocity
+        return (Math.sqrt((64 * Constants.VISION_TARGET_HEIGHT) / Math.pow(Math.sin(theta), 2)) 
+        / (Math.PI * 0.5 * Constants.SHOOTER_WHEEL_DIAMETER)) * 60; //* 60 is for sec to min
+    }
+
+    public void setRPM(double RPM){
+
+        RPMController.setReference(RPM, ControlType.kVelocity);
+    }
 
     public static Shooter getInstance() {
 

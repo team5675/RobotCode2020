@@ -8,7 +8,6 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Spark;
@@ -50,8 +49,8 @@ public class Robot extends TimedRobot {
   Action           lineUpWithTarget;
 
   Spark feeder = new Spark(0);
-  CANSparkMax left = new CANSparkMax(10, MotorType.kBrushless);
-  CANSparkMax right = new CANSparkMax(12, MotorType.kBrushless);
+  CANSparkMax left = new CANSparkMax(10, MotorType.kBrushed);
+  CANSparkMax right = new CANSparkMax(12, MotorType.kBrushed);
 
 
   @Override
@@ -65,7 +64,7 @@ public class Robot extends TimedRobot {
     vision           = Vision.getInstance();
     shooter          = Shooter.getInstance();
     sucker           = Sucker.getInstance();
-    spinner          = Spinner.getInstance();
+   // spinner          = Spinner.getInstance();
 
     actionRunner     = ActionRunner.getInstance();
     //pathfinder       = PathfinderCore.getInstance();
@@ -150,9 +149,19 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
+<<<<<<< HEAD
     feeder.set(-1);
     left.getPIDController().setReference(-2850, ControlType.kVelocity);
     right.getPIDController().setReference(2850, ControlType.kVelocity);
+=======
+
+
+    left.set(-1);
+    right.set(-1);
+    //feeder.set(-1);
+    //left.getPIDController().setReference(-3300, ControlType.kVelocity);
+    //right.getPIDController().setReference(3300, ControlType.kVelocity);
+>>>>>>> 18d171ef203ab73ed5a3d1be8b380162e308ad92
     //left.set(-1);
     //right.set(1);
   }

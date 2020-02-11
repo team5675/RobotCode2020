@@ -11,7 +11,7 @@ public class Constants {
 
     //Pathfinder constants
     public static final double PATHFINDER_KP = 0;
-	public static final double PATHFINDER_KV = 1/11;
+	public static final double PATHFINDER_KV = 0.0909090909;
 	public static final double PATHFINDER_KA = 0.011;
 
     //Drive subsystem constants
@@ -58,17 +58,17 @@ public class Constants {
     public static final double SHOOTER_FLYWHEEL_KD = 0; 
     public static final double SHOOTER_FLYWHEEL_KF = 0; 
     public static final double SHOOTER_HEIGHT = 2;    //ft
-    public static final double SHOOTER_WHEEL_DIAMTER = 1/3; //ft
-    //public static final double CAM_HEIGHT;
-    //public static final double CAM_ANGLE;
+    public static final double SHOOTER_WHEEL_DIAMETER = 0.5025; //ft
+    public static final double CAM_HEIGHT = 0;
+    public static final double CAM_ANGLE = 0;
 
     //Pizza spinner constants
     public static final int SPINNER_MOTOR_ID = 17;
     public static final int SPINNER_TICKS_PER_REV = 0;
     public static final double SPINNER_REVS_SETPOINT = 0;
+    public static final double ONE_COLOR_REVS = 0;
     public static final int SPINNER_ARM_IN_CHANNEL = 0;
     public static final int SPINNER_ARM_OUT_CHANNEL = 1;
-    public static final double SPINNER_SPEED = 0.8;
 
     //Intake subsystem constants
     public static final int INTAKE_ID = 9;
