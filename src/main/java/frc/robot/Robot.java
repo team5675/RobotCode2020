@@ -18,7 +18,6 @@ import frc.robot.auto.ModeRunner;
 import frc.robot.auto.Pathfinder;
 import frc.robot.auto.actions.Action;
 import frc.robot.auto.actions.LineUpTowardsTargetWithDriver;
-import frc.robot.auto.modes.ShootThreeBalls;
 
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.NavX;
