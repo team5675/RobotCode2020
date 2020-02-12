@@ -41,14 +41,13 @@ public class Robot extends TimedRobot {
   Spinner          spinner;
 
   Pathfinder pathfinder;
-
   ModeRunner       modeRunner;
-
   ActionRunner     actionRunner;
   Action           action;
   Action           lineUpTowardsTargetWithDriver;
   Action           lineUpWithTarget;
 
+  // for testing
   Spark feeder = new Spark(0);
   CANSparkMax left = new CANSparkMax(10, MotorType.kBrushed);
   CANSparkMax right = new CANSparkMax(12, MotorType.kBrushed);
@@ -65,22 +64,20 @@ public class Robot extends TimedRobot {
     vision           = Vision.getInstance();
     shooter          = Shooter.getInstance();
     sucker           = Sucker.getInstance();
-   // spinner          = Spinner.getInstance();
+    spinner          = Spinner.getInstance();
 
     actionRunner     = ActionRunner.getInstance();
-    //pathfinder       = PathfinderCore.getInstance();
-    pathfinder = Pathfinder.getInstance();
+    pathfinder       = Pathfinder.getInstance();
   }
 
 
   @Override
   public void autonomousInit() {
 
-    //modeRunner = new ModeRunner(new ShootThreeBalls());
+    modeRunner = new ModeRunner(new ShootThreeBalls());
 
     actionRunner.start();
-    //modeRunner.start();
-    System.out.println("haha poop");
+    modeRunner.start();
 
     pathfinder.translate(1, 1, 0);
   }
@@ -150,10 +147,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
+
     feeder.set(-1);
     left.getPIDController().setReference(-2850, ControlType.kVelocity);
     right.getPIDController().setReference(2850, ControlType.kVelocity);
-    //left.set(-1);
-    //right.set(1);
   }
 }
