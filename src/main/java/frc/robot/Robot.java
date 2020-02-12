@@ -39,12 +39,13 @@ public class Robot extends TimedRobot {
   NavX             navX;
   Spinner          spinner;
 
-  Pathfinder pathfinder;
+  Pathfinder       pathfinder;
   ModeRunner       modeRunner;
   ActionRunner     actionRunner;
   Action           action;
   Action           lineUpTowardsTargetWithDriver;
   Action           lineUpWithTarget;
+  AutoChooser      autoChooser;
 
   // for testing
   Spark feeder = new Spark(0);
@@ -67,18 +68,16 @@ public class Robot extends TimedRobot {
 
     actionRunner     = ActionRunner.getInstance();
     pathfinder       = Pathfinder.getInstance();
+    autoChooser      = AutoChooser.getInstance();
   }
 
 
   @Override
   public void autonomousInit() {
 
-    modeRunner = new ModeRunner(new ShootThreeBalls());
-
+    autoChooser.runMode();
     actionRunner.start();
     modeRunner.start();
-
-    pathfinder.translate(1, 1, 0);
   }
 
 
