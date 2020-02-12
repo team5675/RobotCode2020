@@ -7,8 +7,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.controller.PIDController;
 
-import frc.robot.Constants;
-
 import jaci.pathfinder.Trajectory.Segment;
 
 //import frc.robot.SwerveDrive.Encoder;
@@ -79,9 +77,7 @@ double speedSetpoint;
 
 		error = moduleSegment.position - driveEncoder.getPosition();
 
-		speedSetpoint = Constants.PATHFINDER_KP * error +
-						Constants.PATHFINDER_KV * moduleSegment.velocity +
-						Constants.PATHFINDER_KA * moduleSegment.acceleration;
+		speedSetpoint = 0;
 
 		//			0 to 2PI			-PI to PI    -1 to 1    -2.5  0 to 5
 		angleSetpoint = (((moduleSegment.heading - Math.PI) / Math.PI) * 2.5) + 2.5 + ANGLE_OFFSET - 1.25;

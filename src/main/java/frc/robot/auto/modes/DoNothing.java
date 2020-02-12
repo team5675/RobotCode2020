@@ -7,22 +7,12 @@
 
 package frc.robot.auto.modes;
 
-import frc.robot.auto.ActionRunner;
-import frc.robot.auto.Pathfinder;
-import frc.robot.auto.actions.LineUpWithTarget;
-
 /**
  * Add your docs here.
  */
-public class ShootEightBalls implements Mode {
-
-    ActionRunner actionRunner = ActionRunner.getInstance();
-    Pathfinder pathfinder = Pathfinder.getInstance();
-
+public class DoNothing implements Mode {
 
     public void run() {
-        
-        actionRunner.run(new LineUpWithTarget());
-        pathfinder.translate(10, 10, 0);
+
     }
 }

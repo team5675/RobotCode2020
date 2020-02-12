@@ -18,7 +18,6 @@ import frc.robot.auto.ModeRunner;
 import frc.robot.auto.Pathfinder;
 import frc.robot.auto.actions.Action;
 import frc.robot.auto.actions.LineUpTowardsTargetWithDriver;
-import frc.robot.auto.modes.ShootThreeBalls;
 
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.NavX;
@@ -40,15 +39,15 @@ public class Robot extends TimedRobot {
   NavX             navX;
   Spinner          spinner;
 
-  Pathfinder pathfinder;
-
+  Pathfinder       pathfinder;
   ModeRunner       modeRunner;
-
   ActionRunner     actionRunner;
   Action           action;
   Action           lineUpTowardsTargetWithDriver;
   Action           lineUpWithTarget;
+  AutoChooser      autoChooser;
 
+  // for testing
   Spark feeder = new Spark(0);
   CANSparkMax left = new CANSparkMax(10, MotorType.kBrushless);
   CANSparkMax right = new CANSparkMax(12, MotorType.kBrushless);
@@ -65,24 +64,20 @@ public class Robot extends TimedRobot {
     vision           = Vision.getInstance();
     shooter          = Shooter.getInstance();
     sucker           = Sucker.getInstance();
-   // spinner          = Spinner.getInstance();
+    spinner          = Spinner.getInstance();
 
     actionRunner     = ActionRunner.getInstance();
-    //pathfinder       = PathfinderCore.getInstance();
-    pathfinder = Pathfinder.getInstance();
+    pathfinder       = Pathfinder.getInstance();
+    autoChooser      = AutoChooser.getInstance();
   }
 
 
   @Override
   public void autonomousInit() {
 
-    //modeRunner = new ModeRunner(new ShootThreeBalls());
-
+    autoChooser.runMode();
     actionRunner.start();
-    //modeRunner.start();
-    System.out.println("haha poop");
-
-    pathfinder.translate(1, 1, 0);
+    modeRunner.start();
   }
 
 
@@ -150,10 +145,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
+
     feeder.set(-1);
-    left.getPIDController().setReference(-2750, ControlType.kVelocity);
-    right.getPIDController().setReference(2750, ControlType.kVelocity);
-    //left.set(-1);
-    //right.set(1);
+    left.getPIDController().setReference(-2850, ControlType.kVelocity);
+    right.getPIDController().setReference(2850, ControlType.kVelocity);
   }
 }
