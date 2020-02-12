@@ -50,8 +50,8 @@ public class Robot extends TimedRobot {
   Action           lineUpWithTarget;
 
   Spark feeder = new Spark(0);
-  CANSparkMax left = new CANSparkMax(10, MotorType.kBrushed);
-  CANSparkMax right = new CANSparkMax(12, MotorType.kBrushed);
+  CANSparkMax left = new CANSparkMax(10, MotorType.kBrushless);
+  CANSparkMax right = new CANSparkMax(12, MotorType.kBrushless);
 
 
   @Override
@@ -151,8 +151,8 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     feeder.set(-1);
-    left.getPIDController().setReference(-2650, ControlType.kVelocity);
-    right.getPIDController().setReference(2650, ControlType.kVelocity);
+    left.getPIDController().setReference(-2750, ControlType.kVelocity);
+    right.getPIDController().setReference(2750, ControlType.kVelocity);
     //left.set(-1);
     //right.set(1);
   }
