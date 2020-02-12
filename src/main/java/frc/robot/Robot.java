@@ -151,8 +151,8 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     feeder.set(-1);
-    left.getPIDController().setReference(-2850, ControlType.kVelocity);
-    right.getPIDController().setReference(2850, ControlType.kVelocity);
+    left.getPIDController().setReference(-2650, ControlType.kVelocity);
+    right.getPIDController().setReference(2650, ControlType.kVelocity);
     //left.set(-1);
     //right.set(1);
   }
