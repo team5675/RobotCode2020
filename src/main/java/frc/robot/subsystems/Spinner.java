@@ -89,7 +89,16 @@ public class Spinner {
 
         deploySpinnerMotor();
 
-        spinWheelColor();
+        setTargets();
+
+        if(getCurrentColor() != realTarget) {
+            spinMotor.set(0.5);
+        }
+        else {
+            spinMotor.set(0);
+        }
+
+        //spinWheelColor();
 
         retractSpinnerMotor();
     }
@@ -112,12 +121,6 @@ public class Spinner {
 
     public void spinWheelColor() {
         spinnerController.setReference(getRevs(), ControlType.kPosition);
-    }
-
-    public void spinWheelColorSimple() {
-        if(getCurrentColor() != realTarget) {
-            spinMotor.set(Constants.SPINNER_SPEED);
-        }
     }
 
     public void setTargets()
