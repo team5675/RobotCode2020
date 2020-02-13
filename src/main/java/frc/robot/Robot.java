@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
     vision           = Vision.getInstance();
     shooter          = Shooter.getInstance();
     sucker           = Sucker.getInstance();
-    //spinner          = Spinner.getInstance();
+    spinner          = Spinner.getInstance();
 
     actionRunner     = ActionRunner.getInstance();
     pathfinder       = Pathfinder.getInstance();
@@ -147,8 +147,11 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
 
-    feeder.set(-1);
-    left.getPIDController().setReference(-2850, ControlType.kVelocity);
-    right.getPIDController().setReference(2850, ControlType.kVelocity);
+    if(driverController.getColorDeploy()) {
+      spinner.spinWheelColor();
+    }
+    //feeder.set(-1);
+    //left.getPIDController().setReference(-2850, ControlType.kVelocity);
+    //right.getPIDController().setReference(2850, ControlType.kVelocity);
   }
 }

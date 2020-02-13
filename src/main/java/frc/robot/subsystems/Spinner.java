@@ -60,7 +60,7 @@ public class Spinner {
 
         spinnerController.setFeedbackDevice(spinEncoder);
 
-        //spinDeployArm = new DoubleSolenoid(Constants.SPINNER_ARM_IN_CHANNEL, Constants.SPINNER_ARM_OUT_CHANNEL);
+        spinDeployArm = new DoubleSolenoid(Constants.SPINNER_ARM_IN_CHANNEL, Constants.SPINNER_ARM_OUT_CHANNEL);
 
         i2c = I2C.Port.kOnboard;
 
@@ -91,12 +91,11 @@ public class Spinner {
 
         setTargets();
 
-        if(getCurrentColor() != realTarget) {
+        while(getCurrentColor() != realTarget) {
             spinMotor.set(0.5);
         }
-        else {
-            spinMotor.set(0);
-        }
+
+        spinMotor.set(0);
 
         //spinWheelColor();
 
