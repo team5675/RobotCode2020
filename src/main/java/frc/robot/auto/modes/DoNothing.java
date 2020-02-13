@@ -10,7 +10,7 @@ package frc.robot.auto.modes;
 /**
  * Add your docs here.
  */
-public class DoNothing implements Mode {
+public class DoNothing extends Mode {
 
     public void run() {
 

@@ -10,7 +10,12 @@ package frc.robot.auto.modes;
 /**
  * Add your docs here.
  */
-public interface Mode {
+public class Mode {
 
-    void run();
+    public int waitTime = 0;
+    public double startOffset = 0;
+
+    public void run() {
+
+    }
 }

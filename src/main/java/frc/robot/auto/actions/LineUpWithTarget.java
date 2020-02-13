@@ -40,15 +40,15 @@ public class LineUpWithTarget implements Action {
         drive.move(distanceError * Constants.AUTO_FORWARD_P, vision.getHorizontalOffset() * Constants.AUTO_STRAFE_P, navX.getAngle() * Constants.AUTO_GYRO_P, 0, true);
 
 
-        /*if (Math.abs(vision.getHorizontalOffset()) < 0.5) { //If conditions are met, stop
-
-            return true;
-        } else {
+        if (Math.abs(vision.getHorizontalOffset()) < 0.5 && //If conditions are met, stop
+            Math.abs(distanceError) < 0 &&
+            Math.abs(navX.getAngle()) < 3) {
 
             return false;
-        }*/
+        } else {
 
-        return true;
+            return true;
+        }
     }
 
     

@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.auto.modes.DoNothing;
@@ -22,6 +25,9 @@ public class AutoChooser {
     static AutoChooser instance;
 
     SendableChooser<Modes> modeSelector;
+    NetworkTable autoTable;
+    NetworkTableEntry waitTime;
+    NetworkTableEntry startOffset;
 
     enum Modes {
         DoNothing,
@@ -32,6 +38,9 @@ public class AutoChooser {
     public AutoChooser() {
 
         modeSelector = new SendableChooser<Modes>();
+        autoTable = NetworkTableInstance.getDefault().getTable("auto");
+        waitTime = autoTable.getEntry("waitTime");
+        startOffset = autoTable.getEntry("startOffset");
 
         modeSelector.addOption("Do nothing", Modes.DoNothing);
         modeSelector.addOption("Shoot Three Balls", Modes.ShootThreeBalls);
@@ -44,15 +53,19 @@ public class AutoChooser {
     public Mode getMode() {
 
         Modes result = modeSelector.getSelected();
+        Mode modeToReturn = new DoNothing();
         
         switch (result) {
             case ShootThreeBalls:
-                return new ShootThreeBalls();
+                modeToReturn = new ShootThreeBalls();
             case ShootEightBalls:
-                return new ShootEightBalls();
+                modeToReturn = new ShootEightBalls();
         }
 
-        return new DoNothing();
+        modeToReturn.waitTime = (int) waitTime.getNumber(0) * 1000;
+        modeToReturn.startOffset = startOffset.getDouble(0);
+        
+        return modeToReturn;
     }
     
 

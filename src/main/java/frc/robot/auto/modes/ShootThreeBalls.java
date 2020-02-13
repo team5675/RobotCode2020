@@ -9,23 +9,19 @@ package frc.robot.auto.modes;
 
 import frc.robot.auto.ActionRunner;
 import frc.robot.auto.actions.LineUpWithTarget;
+import frc.robot.auto.actions.ShootAllBalls;
 
 /**
  * Add your docs here.
  */
-public class ShootThreeBalls implements Mode {
-
+public class ShootThreeBalls extends Mode {
+    
     static ActionRunner actionRunner = ActionRunner.getInstance();
 
-    public ShootThreeBalls() {
-        System.out.println("I'm running no");
-    }
     
     public void run() {
-        System.out.println("Starting mode");
 
         actionRunner.run(new LineUpWithTarget());
-
-        System.out.println("Mode complete!");
+        actionRunner.run(new ShootAllBalls());
     }
 }

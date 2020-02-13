@@ -16,15 +16,20 @@ public class ModeRunner extends Thread {
 
     Mode mode;
 
-
     public ModeRunner(Mode newMode) {
 
         mode = newMode;
     }
 
-
     public void run() {
 
+        try {
+            Thread.sleep(mode.waitTime);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
         mode.run();
     }
 }

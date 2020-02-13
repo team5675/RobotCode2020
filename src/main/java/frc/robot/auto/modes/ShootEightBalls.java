@@ -10,26 +10,28 @@ package frc.robot.auto.modes;
 import frc.robot.auto.ActionRunner;
 import frc.robot.auto.Pathfinder;
 import frc.robot.auto.actions.LineUpWithTarget;
+import frc.robot.auto.actions.ShootAllBalls;
 
 /**
  * Add your docs here.
  */
-public class ShootEightBalls implements Mode {
+public class ShootEightBalls extends Mode {
 
+    public static double waitTime;
+    public static double startOffset;
+    
     ActionRunner actionRunner = ActionRunner.getInstance();
     Pathfinder pathfinder = Pathfinder.getInstance();
-
-    public ShootEightBalls() {
-        System.out.println("im also running");
-    }
 
 
     public void run() {
         
-        //actionRunner.run(new LineUpWithTarget());
+        actionRunner.run(new LineUpWithTarget());
         pathfinder.translate(5.67, -3.5, 0);
         pathfinder.translate(0, -12.75, 0);
         pathfinder.translate(0, 12.75, 0);
         pathfinder.translate(-5.67, 3.5, 0);
+        actionRunner.run(new LineUpWithTarget());
+        actionRunner.run(new ShootAllBalls());
     }
 }
