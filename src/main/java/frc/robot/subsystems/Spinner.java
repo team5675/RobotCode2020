@@ -114,6 +114,12 @@ public class Spinner {
         spinnerController.setReference(getRevs(), ControlType.kPosition);
     }
 
+    public void spinWheelColorSimple() {
+        if(getCurrentColor() != realTarget) {
+            spinMotor.set(Constants.SPINNER_SPEED);
+        }
+    }
+
     public void setTargets()
     {
         target = DriverStation.getInstance().getGameSpecificMessage();
@@ -161,9 +167,9 @@ public class Spinner {
      */
     public double getRevs() {
         setTargets();
-        
-        return Constants.ONE_COLOR_REVS * //
-        Math.abs(colors.indexOf(realTarget) - colors.indexOf(getCurrentColor()));
+
+        return Constants.ONE_COLOR_REVS * //this gets the distance in wedges between current and target
+        Math.abs(colors.indexOf(realTarget) - colors.indexOf(getCurrentColor())); 
 
     }
 

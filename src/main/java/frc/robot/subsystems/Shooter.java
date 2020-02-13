@@ -55,6 +55,7 @@ public class Shooter {
 
     public void autoAimAtTarget() { //Distance, angle, and velocity
         angle = vision.getVerticalOffset() + Constants.VISION_CAMERA_ANGLE;
+        
         distanceLimelight = (Constants.VISION_TARGET_HEIGHT - Constants.VISION_CAMERA_HEIGHT)
                             / Math.tan(angle);
 
