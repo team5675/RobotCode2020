@@ -7,8 +7,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.controller.PIDController;
 
-import jaci.pathfinder.Trajectory.Segment;
-
 //import frc.robot.SwerveDrive.Encoder;
 
 public class WheelDrive {
@@ -29,7 +27,6 @@ double D;
 
 double ANGLE_OFFSET;
 
-Segment moduleSegment;
 
 double error;
 double angleSetpoint;
@@ -65,27 +62,6 @@ double speedSetpoint;
 		this.ANGLE_OFFSET = ANGLE_OFFSET;
 	}
 
-	/**
-	 * Use this method for interfacing with pathfinder
-	 * @param traj The module's trajectory
-	 * @param ANGLE_OFFSET The module's encoder offset
-	 * @param index Index that the pathfinder is currently on
-	 */
-	public void setModule(Segment seg) {
-
-		moduleSegment = seg;
-
-		error = moduleSegment.position - driveEncoder.getPosition();
-
-		speedSetpoint = 0;
-
-		//			0 to 2PI			-PI to PI    -1 to 1    -2.5  0 to 5
-		angleSetpoint = (((moduleSegment.heading - Math.PI) / Math.PI) * 2.5) + 2.5 + ANGLE_OFFSET - 1.25;
-
-		//using the wheelDrive drive method for simplicity
-		//pass in the speed and angle value calculated, and set no deadband
-		drive(speedSetpoint, angleSetpoint, false);
-    }
 
 	public void drive(double speed, double angle, boolean deadband) {
 		

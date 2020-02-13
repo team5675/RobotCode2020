@@ -19,10 +19,17 @@ public class ShootEightBalls implements Mode {
     ActionRunner actionRunner = ActionRunner.getInstance();
     Pathfinder pathfinder = Pathfinder.getInstance();
 
+    public ShootEightBalls() {
+        System.out.println("im also running");
+    }
+
 
     public void run() {
         
-        actionRunner.run(new LineUpWithTarget());
-        pathfinder.translate(10, 10, 0);
+        //actionRunner.run(new LineUpWithTarget());
+        pathfinder.translate(5.67, -3.5, 0);
+        pathfinder.translate(0, -12.75, 0);
+        pathfinder.translate(0, 12.75, 0);
+        pathfinder.translate(-5.67, 3.5, 0);
     }
 }

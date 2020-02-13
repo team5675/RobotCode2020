@@ -17,6 +17,9 @@ public class ShootThreeBalls implements Mode {
 
     static ActionRunner actionRunner = ActionRunner.getInstance();
 
+    public ShootThreeBalls() {
+        System.out.println("I'm running no");
+    }
     
     public void run() {
         System.out.println("Starting mode");

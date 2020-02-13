@@ -28,7 +28,10 @@ public class Pathfinder {
 
 
     public Pathfinder() {
-
+        drive.getFrontLeft().resetSpeedDistance();
+        drive.getFrontRight().resetSpeedDistance();
+        drive.getBackLeft().resetSpeedDistance();
+        drive.getBackRight().resetSpeedDistance();
     }
 
 
@@ -46,17 +49,16 @@ public class Pathfinder {
 
         run = true;
 
-        if (run) {
+        System.out.println("Running path");
+        while (run) {
 
-            /*while (run) {
-
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }*/
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+        System.out.println("Stopping path");
     }
 
     
@@ -77,14 +79,17 @@ public class Pathfinder {
 
             double rotationSpeed = (rotationGoal - (navX.getAngle() % 360)) / 360;
 
-            drive.move(xSpeed, ySpeed, rotationSpeed, navX.getAngle(), false);
+            drive.move(xSpeed, ySpeed, 0 - navX.getAngle() * 0.03, navX.getAngle(), false);
 
-            System.out.println(distanceTraveled + ">" + hypDistance);
+            //System.out.println(distanceTraveled + ">" + hypDistance);
+            //System.out.println("xSpeed: " + xSpeed);
+            //System.out.println("ySpeed: " + ySpeed);
             
             if (distanceTraveled > hypDistance) {
 
                 run = false;
                 System.out.println("stoped!");
+                drive.move(0, 0, 0, navX.getAngle(), false);
             }
         }        
     }
