@@ -33,19 +33,18 @@ public class Spinner {
 
     DoubleSolenoid spinDeployArm;
 
-    I2C.Port i2c;
+    I2C.Port i2c = I2C.Port.kOnboard;
 
     ColorSensorV3 colorSensor;
 
     ColorMatch colorMatch;
 
-    String target;
     String realTarget;
 
-    final Color blue;
-    final Color green;
-    final Color red;
-    final Color yellow;
+    final Color blue = ColorMatch.makeColor(0.143, 0.427, 0.429);
+    final Color green = ColorMatch.makeColor(0.197, 0.561, 0.240);
+    final Color red = ColorMatch.makeColor(0.561, 0.232, 0.114);
+    final Color yellow = ColorMatch.makeColor(0.361, 0.524, 0.113);
     final String colors = "BYRG";
 
     public Spinner() {
@@ -62,16 +61,14 @@ public class Spinner {
 
         spinDeployArm = new DoubleSolenoid(Constants.SPINNER_ARM_IN_CHANNEL, Constants.SPINNER_ARM_OUT_CHANNEL);
 
-        i2c = I2C.Port.kOnboard;
-
-        colorSensor = new ColorSensorV3(i2c);
+        colorSensor = new ColorSensorV3(i2c); //try instantiating outside of contructor
 
         colorMatch = new ColorMatch();
 
-        blue = ColorMatch.makeColor(0, 1, 1); // Might be 0 to 255
-        green = ColorMatch.makeColor(0, 1, 0);
-        red = ColorMatch.makeColor(1, 0, 0);
-        yellow = ColorMatch.makeColor(1, 1, 0);
+        colorMatch.addColorMatch(blue);
+        colorMatch.addColorMatch(green);
+        colorMatch.addColorMatch(red);
+        colorMatch.addColorMatch(yellow);
     }
 
 
@@ -91,13 +88,9 @@ public class Spinner {
 
         setTargets();
 
-        while(getCurrentColor() != realTarget) {
-            spinMotor.set(0.5);
-        }
+        //System.out.println("Target: " + realTarget + ", currentColor: " + getCurrentColor() + ", Encoder: " + spinEncoder.getPosition());
 
-        spinMotor.set(0);
-
-        //spinWheelColor();
+        spinWheelColor();
 
         retractSpinnerMotor();
     }
@@ -124,7 +117,7 @@ public class Spinner {
 
     public void setTargets()
     {
-        target = DriverStation.getInstance().getGameSpecificMessage();
+        String target = DriverStation.getInstance().getGameSpecificMessage();
 
         if(target.equals("B")) { //accounts for offset in wheel
             realTarget = "R";
@@ -151,14 +144,17 @@ public class Spinner {
         if(match.color == blue) {
             return "B"; 
         }
-        else if( match.color == green) {
-            return "G";
+        else if( match.color == yellow) {
+            return "Y";
         }
         else if(match.color == red) {
             return "R";
         }
+        else if(match.color == green) {
+            return "G";
+        }
         else {
-            return "Y";
+            return realTarget;
         }
     }
 
@@ -168,11 +164,9 @@ public class Spinner {
      * @return revs to target
      */
     public double getRevs() {
-        setTargets();
-
-        return Constants.ONE_COLOR_REVS * //this gets the distance in wedges between current and target
+        return Constants.ONE_COLOR_REVS * 
         Math.abs(colors.indexOf(realTarget) - colors.indexOf(getCurrentColor())); 
-
+        //this gets the distance in wedges between current and target
     }
 
     public static Spinner getInstance() {
