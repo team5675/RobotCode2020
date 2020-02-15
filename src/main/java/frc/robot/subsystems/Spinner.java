@@ -75,24 +75,24 @@ public class Spinner {
     
     public void runRotationSequence() {
 
-        deploySpinnerMotor();
+        //deploySpinnerMotor();
 
         spinWheel();
 
-        retractSpinnerMotor();
+        //retractSpinnerMotor();
     }
 
     public void runColorSequence() {
 
-        deploySpinnerMotor();
+        //deploySpinnerMotor();
 
         setTargets();
 
-        //System.out.println("Target: " + realTarget + ", currentColor: " + getCurrentColor() + ", Encoder: " + spinEncoder.getPosition());
+        System.out.println("Target: " + realTarget + ", currentColor: " + getCurrentColor() + ", Encoder: " + spinEncoder.getPosition());
 
         spinWheelColor();
 
-        retractSpinnerMotor();
+        //retractSpinnerMotor();
     }
 
 
