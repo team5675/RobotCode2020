@@ -168,7 +168,7 @@ public class Spinner {
      * @return revs to target
      */
     public double getRevs() {
-        int wedges =  Math.abs(colors.indexOf(realTarget) - colors.indexOf(getCurrentColor()));
+        int wedges = (4 + Math.abs(colors.indexOf(realTarget) - colors.indexOf(getCurrentColor()))) % 4;
 
         return Constants.ONE_COLOR_REVS * wedges; 
         //this gets the distance in wedges between current and target
