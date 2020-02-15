@@ -148,7 +148,12 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
 
     if(driverController.getColorDeploy()) {
-      spinner.spinWheelColor();
+      if(Math.abs(driverController.getColorManual()) > 0.2) {
+        spinner.manualSpin(driverController.getColorManual());
+      }
+      else {
+        spinner.spinWheelColor();
+      }
     }
     //feeder.set(-1);
     //left.getPIDController().setReference(-2850, ControlType.kVelocity);

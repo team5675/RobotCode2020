@@ -106,6 +106,10 @@ public class Spinner {
         spinDeployArm.set(Value.kReverse);
     }
     
+    public void manualSpin(double speed) {
+        spinMotor.set(speed);
+    }
+
     public void spinWheel() {
 
         spinnerController.setReference(Constants.SPINNER_REVS_SETPOINT, ControlType.kPosition);
@@ -119,13 +123,13 @@ public class Spinner {
     {
         String target = DriverStation.getInstance().getGameSpecificMessage();
 
-        if(target.equals("B")) { //accounts for offset in wheel
+        if(target.equals("B")) { //accounts for offset in sensor and target color
             realTarget = "R";
         }
         else if(target.equals("G")) {
             realTarget = "Y";
         }
-        if(target.equals("R")) {
+        else if(target.equals("R")) {
             realTarget = "B";
         }
         else {
