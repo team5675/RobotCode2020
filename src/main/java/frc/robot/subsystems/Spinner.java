@@ -111,7 +111,6 @@ public class Spinner {
     }
 
     public void spinWheel() {
-
         spinnerController.setReference(Constants.SPINNER_REVS_SETPOINT, ControlType.kPosition);
     }
 
@@ -143,7 +142,8 @@ public class Spinner {
      * @return color
      */
     public String getCurrentColor() {
-        ColorMatchResult match = colorMatch.matchClosestColor(colorSensor.getColor());
+        Color detected = colorSensor.getColor();
+        ColorMatchResult match = colorMatch.matchClosestColor(detected);
 
         if(match.color == blue) {
             return "B"; 
@@ -168,8 +168,9 @@ public class Spinner {
      * @return revs to target
      */
     public double getRevs() {
-        return Constants.ONE_COLOR_REVS * 
-        Math.abs(colors.indexOf(realTarget) - colors.indexOf(getCurrentColor())); 
+        int wedges =  Math.abs(colors.indexOf(realTarget) - colors.indexOf(getCurrentColor()));
+
+        return Constants.ONE_COLOR_REVS * wedges; 
         //this gets the distance in wedges between current and target
     }
 
