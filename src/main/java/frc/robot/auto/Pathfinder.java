@@ -7,6 +7,7 @@
 
 package frc.robot.auto;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.NavX;
 
@@ -25,6 +26,9 @@ public class Pathfinder {
     static double rotationGoal;
     static double hypDistance;
     static boolean run = false;
+    static double totalDistance;
+    static double xSpeed;
+    static double ySpeed;
 
 
     public Pathfinder() {
@@ -42,10 +46,11 @@ public class Pathfinder {
         rotationGoal = angle;
         hypDistance = Math.hypot(xFeetGoal, yFeetGoal);
 
-        drive.getFrontLeft().resetSpeedDistance();
-        drive.getFrontRight().resetSpeedDistance();
-        drive.getBackLeft().resetSpeedDistance();
-        drive.getBackRight().resetSpeedDistance();
+        double distanceFrontLeft = drive.getFrontLeft().getSpeedPosition();
+        double distanceFrontRight = drive.getFrontRight().getSpeedPosition();
+        double distanceBackLeft = drive.getBackLeft().getSpeedPosition();
+        double distanceBackRight = drive.getBackRight().getSpeedPosition();
+        totalDistance = (distanceFrontLeft + distanceFrontRight + distanceBackLeft + distanceBackRight) / 4;
 
         run = true;
 
@@ -72,25 +77,22 @@ public class Pathfinder {
             double distanceBackLeft = drive.getBackLeft().getSpeedPosition();
             double distanceBackRight = drive.getBackRight().getSpeedPosition();
             double averageDistance = (distanceFrontLeft + distanceFrontRight + distanceBackLeft + distanceBackRight) / 4;
-            double distanceTraveled = averageDistance / 6 * 9.42 / 12;
+            double distanceTraveled = (averageDistance - totalDistance) / 6 * 9.42 / 12 - 1;
 
-            double xSpeed = xFeetGoal / hypDistance;
-            double ySpeed = yFeetGoal / hypDistance;
+            xSpeed = xFeetGoal / hypDistance;
+            ySpeed = yFeetGoal / hypDistance;
 
             double rotationSpeed = (rotationGoal - (navX.getAngle() % 360)) / 360;
-
-            drive.move(xSpeed, ySpeed, 0 - navX.getAngle() * 0.03, navX.getAngle(), false);
 
             //System.out.println(distanceTraveled + ">" + hypDistance);
             //System.out.println("xSpeed: " + xSpeed);
             //System.out.println("ySpeed: " + ySpeed);
             
-            if (distanceTraveled > hypDistance) {
-
-                run = false;
-                System.out.println("stoped!");
-                drive.move(0, 0, 0, navX.getAngle(), false);
+            if (distanceTraveled + Constants.PATHFINDER_SLOWDOWN > hypDistance) {
+                xSpeed = xSpeed - (hypDistance - distanceTraveled) * Constants.PATHFINDER_SLOWDOWN_P;
             }
+
+            drive.move(xSpeed, ySpeed, 0 - navX.getAngle() * 0.01, navX.getAngle(), false);
         }        
     }
 

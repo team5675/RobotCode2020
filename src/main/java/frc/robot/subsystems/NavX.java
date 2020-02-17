@@ -20,7 +20,9 @@ public class NavX {
 		} catch (RuntimeException ex) {
 
 			System.out.println("Error instantiating navX-MXP:  " + ex.getMessage());
-		}
+        }
+        
+        gyro.reset();
     }
 
     public double getAngle() {

@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
   Shooter          shooter;
   Drive            drive;
   NavX             navX;
-  Spinner          spinner;
+  //Spinner          spinner;
 
   Pathfinder       pathfinder;
   ModeRunner       modeRunner;
@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
     vision           = Vision.getInstance();
     shooter          = Shooter.getInstance();
     sucker           = Sucker.getInstance();
-    spinner          = Spinner.getInstance();
+    //spinner          = Spinner.getInstance();
 
     actionRunner     = ActionRunner.getInstance();
     pathfinder       = Pathfinder.getInstance();
@@ -75,6 +75,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
+    navX.resetYaw();
+    
     modeRunner = new ModeRunner(autoChooser.getMode());
 
     actionRunner.start();
