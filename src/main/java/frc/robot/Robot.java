@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
   Shooter          shooter;
   Drive            drive;
   NavX             navX;
-  //Spinner          spinner;
+  Spinner          spinner;
 
   Pathfinder       pathfinder;
   ModeRunner       modeRunner;
@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
     vision           = Vision.getInstance();
     shooter          = Shooter.getInstance();
     sucker           = Sucker.getInstance();
-    //spinner          = Spinner.getInstance();
+    spinner          = Spinner.getInstance();
 
     actionRunner     = ActionRunner.getInstance();
     pathfinder       = Pathfinder.getInstance();
@@ -133,6 +133,18 @@ public class Robot extends TimedRobot {
 
       lineUpTowardsTargetWithDriver.stop();
     }
+    /** 
+    if(driverController.getSpinnerDeploy()) {
+      spinner.deploySpinner();      
+    }
+
+    if(driverController.getSpin()) {
+      spinner.runRotation();
+    }
+
+    if(driverController.getColor()){
+      spinner.runColor();
+    }*/
 
     navX.loop();
     vision.loop();

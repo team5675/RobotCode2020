@@ -82,12 +82,16 @@ public class DriverController {
 
     public boolean getSpinnerDeploy() {
 
-        return auxController.getBButton();
+        return auxController.getAButton();
     }
 
-    public boolean getColorDeploy() {
+    public boolean getColor() {
 
         return auxController.getXButton();
+    }
+
+    public boolean getSpin() {
+        return auxController.getBButton();
     }
 
     public double getColorManual() {
