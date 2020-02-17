@@ -90,6 +90,10 @@ public class DriverController {
         return auxController.getXButton();
     }
 
+    public double getColorManual() {
+        return auxController.getRawAxis(0);
+    }
+
 
     public static DriverController getInstance() {
 
