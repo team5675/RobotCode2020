@@ -56,13 +56,15 @@ public class AutoChooser {
         Mode modeToReturn = new DoNothing();
         
         switch (result) {
-            case ShootThreeBalls:
-                modeToReturn = new ShootThreeBalls();
             case ShootEightBalls:
                 modeToReturn = new ShootEightBalls();
+                break;
+            case ShootThreeBalls:
+                modeToReturn = new ShootThreeBalls();
+                break;
         }
 
-        modeToReturn.waitTime = (int) waitTime.getNumber(0) * 1000;
+        //modeToReturn.waitTime = (int) waitTime.getNumber(0) * 1000;
         modeToReturn.startOffset = startOffset.getDouble(0);
         
         return modeToReturn;

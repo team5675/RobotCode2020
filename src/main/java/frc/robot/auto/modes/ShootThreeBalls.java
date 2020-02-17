@@ -21,6 +21,7 @@ public class ShootThreeBalls extends Mode {
     
     public void run() {
 
+        System.out.println("wrong!");
         actionRunner.run(new LineUpWithTarget());
         actionRunner.run(new ShootAllBalls());
     }

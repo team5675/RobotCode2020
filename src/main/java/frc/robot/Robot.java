@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
   Shooter          shooter;
   Drive            drive;
   NavX             navX;
-  Spinner          spinner;
+  //Spinner          spinner;
 
   Pathfinder       pathfinder;
   ModeRunner       modeRunner;
@@ -51,6 +51,7 @@ public class Robot extends TimedRobot {
   Spark feeder = new Spark(0);
   CANSparkMax left = new CANSparkMax(10, MotorType.kBrushless);
   CANSparkMax right = new CANSparkMax(12, MotorType.kBrushless);
+  CANSparkMax reeeeee = new CANSparkMax(4, MotorType.kBrushed);
 
 
   @Override
@@ -75,6 +76,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
+    navX.resetYaw();
+    
     modeRunner = new ModeRunner(autoChooser.getMode());
 
     actionRunner.start();
@@ -103,6 +106,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+
+    reeeeee.set(1);
 
    /*if (driverController.getX()) {
 
@@ -148,7 +153,8 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
 
     feeder.set(-1);
-    left.getPIDController().setReference(-2850, ControlType.kVelocity);
-    right.getPIDController().setReference(2850, ControlType.kVelocity);
+    //left.getPIDController().setReference(-2850, ControlType.kVelocity);
+    //right.getPIDController().setReference(2850, ControlType.kVelocity);
+    reeeeee.set(1);
   }
 }
