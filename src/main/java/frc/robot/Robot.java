@@ -48,9 +48,9 @@ public class Robot extends TimedRobot {
   AutoChooser      autoChooser;
 
   // for testing
-  Spark feeder = new Spark(0);
-  CANSparkMax left = new CANSparkMax(10, MotorType.kBrushless);
-  CANSparkMax right = new CANSparkMax(12, MotorType.kBrushless);
+  //Spark feeder = new Spark(0);
+  CANSparkMax left = new CANSparkMax(10, MotorType.kBrushed);
+  CANSparkMax right = new CANSparkMax(12, MotorType.kBrushed);
 
 
   @Override
@@ -104,10 +104,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-   /*if (driverController.getX()) {
-
-      drive.getSwerve().rotateToAngle(navX.getAngle(), 0);
-   }*/ //Need to get different button
+   //System.out.format("BR: %f \nBL: %f \nFR: %f \nFL: %f\n", drive.getBackRight().getAzimuth(), drive.getBackLeft().getAzimuth(), drive.getFrontRight().getAzimuth(), drive.getFrontLeft().getAzimuth());
     
     //Reset Yaw on NavX
     if(driverController.getA()) {
@@ -115,13 +112,15 @@ public class Robot extends TimedRobot {
       navX.resetYaw();
     }
 
+    sucker.run();
+
     //Tele-op auto functions or manual drive
     if (driverController.getLineUp()) {
 
       lineUpTowardsTargetWithDriver.loop();
     } else {
 
-      drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle() - 45, driverController.isFieldOriented());
+      drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle() + 90, driverController.isFieldOriented());
     }
 
     //Start/stop vision assist driving
@@ -146,12 +145,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
-
-    if(driverController.getColorDeploy()) {
-      spinner.spinWheelColor();
-    }
+    
     //feeder.set(-1);
-    //left.getPIDController().setReference(-2850, ControlType.kVelocity);
-    //right.getPIDController().setReference(2850, ControlType.kVelocity);
+    left.set(0.5);
+    right.set(0.5);
+    //left.getPIDController().setReference(-0.5, ControlType.kVelocity);
+    //right.getPIDController().setReference(-0.5, ControlType.kVelocity);
   }
 }

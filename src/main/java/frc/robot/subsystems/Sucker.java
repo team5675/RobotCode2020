@@ -10,6 +10,8 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.Constants;
 import frc.robot.DriverController;
 
@@ -24,12 +26,27 @@ public class Sucker {
     CANSparkMax roller;
     double vIntake;
 
+    DoubleSolenoid intakeArm;
+
     public Sucker() {
         control = new DriverController();
-        roller = new CANSparkMax(Constants.INTAKE_ID, MotorType.kBrushless);
+        roller = new CANSparkMax(Constants.INTAKE_ID, MotorType.kBrushed);
+
+        intakeArm = new DoubleSolenoid(2, 3);
     }
 
     public void run() {
+
+        if(control.getIntake() > 0 || control.getOuttake() > 0) {
+
+            intakeArm.set(Value.kForward);
+        }
+
+        else{
+
+            intakeArm.set(Value.kReverse);
+        }
+        
         vIntake = control.getIntake() - control.getOuttake();
         roller.set(vIntake); 
     }

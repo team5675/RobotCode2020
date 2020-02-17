@@ -52,7 +52,7 @@ public class Spinner {
         
         spinMotor = new CANSparkMax(Constants.SPINNER_MOTOR_ID, MotorType.kBrushed);
 
-        spinEncoder = spinMotor.getEncoder(EncoderType.kQuadrature, Constants.SPINNER_TICKS_PER_REV);
+        spinEncoder = spinMotor.getEncoder(EncoderType.kHallSensor, Constants.SPINNER_TICKS_PER_REV);
 
         spinnerController = spinMotor.getPIDController();
 
@@ -115,7 +115,9 @@ public class Spinner {
     
     public void spinWheel() {
 
-        spinnerController.setReference(Constants.SPINNER_REVS_SETPOINT, ControlType.kPosition);
+       System.out.println(spinEncoder.getPosition() + ", " + colorSensor.getColor() + colorSensor.getBlue());
+
+       spinnerController.setReference(Constants.SPINNER_REVS_SETPOINT, ControlType.kPosition);
     }
 
     public void spinWheelColor() {
@@ -132,7 +134,7 @@ public class Spinner {
         else if(target.equals("G")) {
             realTarget = "Y";
         }
-        if(target.equals("R")) {
+        else if(target.equals("R")) {
             realTarget = "B";
         }
         else {
