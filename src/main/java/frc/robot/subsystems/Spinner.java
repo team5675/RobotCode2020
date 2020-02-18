@@ -41,7 +41,7 @@ public class Spinner {
     String current = "";
     boolean isOut = false;
 
-    int changes;
+    public int changes = 0;
 
     String realTarget;
 
@@ -60,8 +60,6 @@ public class Spinner {
         colorSensor = new ColorSensorV3(i2c); //try instantiating outside of contructor
 
         colorMatch = new ColorMatch();
-
-        int changes = 0;
 
         colorMatch.addColorMatch(blue);
         colorMatch.addColorMatch(green);
@@ -82,7 +80,7 @@ public class Spinner {
         }
 
         if(changes < 30) {
-            spinMotor.set(0.6);
+            spinMotor.set(1);
         }
         else {
             spinMotor.set(0);
@@ -92,11 +90,12 @@ public class Spinner {
     }
 
     public void runColor() {
+        System.out.println("Target: " + realTarget + ", Current: " + getCurrentColor());
         if(getCurrentColor().equals(realTarget)) {
             spinMotor.set(0);
         }
         else {
-            spinMotor.set(0.6);
+            spinMotor.set(0.4);
         }
     }
 
