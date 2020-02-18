@@ -71,9 +71,9 @@ double speedSetpoint;
 		//If the angle difference is greather than 90 degrees...
 		if (Math.abs(angle - azimuthEncoder.getVoltage()) > 1.25) {
 
-			//Rotate to the closer point
+			//Invert so less than 90 away
 			angle += 2.5;
-			//Invert speed
+			//Invert speed to match
 			speed *= -1;
 		}
 
