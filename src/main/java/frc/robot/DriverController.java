@@ -47,7 +47,7 @@ public class DriverController {
 
     public boolean getResetYaw() {
 
-        return mainController.getYButton();
+        return mainController.getRawButton(4);
     }
 
     public boolean getStayStraight() {

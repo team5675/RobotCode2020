@@ -79,11 +79,12 @@ public class Pathfinder {
             double averageDistance = (distanceFrontLeft + distanceFrontRight + distanceBackLeft + distanceBackRight) / 4;
             double distanceTraveled = (averageDistance - totalDistance) / 6 * 9.42 / 12 - 1;
 
-            xSpeed = xFeetGoal * 0.5/ hypDistance;
-            ySpeed = yFeetGoal * 0.5/ hypDistance;
+            xSpeed = xFeetGoal/ hypDistance;
+            ySpeed = yFeetGoal/ hypDistance;
 
             double rotationSpeed = (rotationGoal - (navX.getAngle() % 360)) / 360;
 
+            System.out.println(distanceTraveled);
             if (distanceTraveled > hypDistance) {
                 drive.move(0, 0, 0, navX.getAngle(), false);
                 run = false;
