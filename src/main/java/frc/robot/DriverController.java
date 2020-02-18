@@ -45,7 +45,12 @@ public class DriverController {
         return mainController.getBumper(Hand.kRight);
     }
 
-    public boolean getA() {
+    public boolean getResetYaw() {
+
+        return mainController.getYButton();
+    }
+
+    public boolean getStayStraight() {
 
         return mainController.getAButton();
     }

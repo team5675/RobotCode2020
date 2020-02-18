@@ -115,7 +115,7 @@ public class Robot extends TimedRobot {
    }*/ //Need to get different button
     
     //Reset Yaw on NavX
-    if(driverController.getA()) {
+    if(driverController.getResetYaw()) {
 
       navX.resetYaw();
     }
@@ -124,6 +124,9 @@ public class Robot extends TimedRobot {
     if (driverController.getLineUp()) {
 
       lineUpTowardsTargetWithDriver.loop();
+    } else if (driverController.getStayStraight()) {
+
+      drive.move(driverController.getForward(), driverController.getStrafe(), navX.getAngle() * -0.01, navX.getAngle(), driverController.isFieldOriented());
     } else {
 
       drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle() - 45, driverController.isFieldOriented());
