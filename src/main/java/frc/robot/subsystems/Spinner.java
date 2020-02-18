@@ -3,15 +3,13 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.util.Color;
 
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ControlType;
-import com.revrobotics.EncoderType;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 
@@ -28,7 +26,7 @@ public class Spinner {
     static Spinner instance;
 
     CANEncoder spinEncoder;
-    CANSparkMax spinMotor;
+    Spark spinMotor;
     CANPIDController spinnerController;
 
     DoubleSolenoid spinDeployArm;
@@ -38,6 +36,12 @@ public class Spinner {
     ColorSensorV3 colorSensor;
 
     ColorMatch colorMatch;
+
+    String past = "";
+    String current = "";
+    boolean isOut = false;
+
+    public int changes = 0;
 
     String realTarget;
 
@@ -49,15 +53,7 @@ public class Spinner {
 
     public Spinner() {
         
-        spinMotor = new CANSparkMax(Constants.SPINNER_MOTOR_ID, MotorType.kBrushed);
-
-        spinEncoder = spinMotor.getEncoder(EncoderType.kQuadrature, Constants.SPINNER_TICKS_PER_REV);
-
-        spinnerController = spinMotor.getPIDController();
-
-        spinnerController.setP(0.457);
-
-        spinnerController.setFeedbackDevice(spinEncoder);
+        spinMotor = new Spark(Constants.SPINNER_MOTOR_ID);
 
         spinDeployArm = new DoubleSolenoid(Constants.SPINNER_ARM_IN_CHANNEL, Constants.SPINNER_ARM_OUT_CHANNEL);
 
@@ -73,35 +69,47 @@ public class Spinner {
 
 
     
-    public void runRotationSequence() {
+    public void runRotation() {
 
-        //deploySpinnerMotor();
+        current = getCurrentColor();
 
-        spinWheel();
+        System.out.println("Changes: " + changes + "Current: " + getCurrentColor());
 
-        //retractSpinnerMotor();
+        if(!current.equals(past)) {
+            changes++;
+        }
+
+        if(changes < 30) {
+            spinMotor.set(1);
+        }
+        else {
+            spinMotor.set(0);
+        }
+
+        past = current;
     }
 
-    public void runColorSequence() {
-
-        //deploySpinnerMotor();
-
-        setTargets();
-
-        System.out.println("Target: " + realTarget + ", currentColor: " + getCurrentColor() + ", Encoder: " + spinEncoder.getPosition());
-
-        spinWheelColor();
-
-        //retractSpinnerMotor();
+    public void runColor() {
+        System.out.println("Target: " + realTarget + ", Current: " + getCurrentColor());
+        if(getCurrentColor().equals(realTarget)) {
+            spinMotor.set(0);
+        }
+        else {
+            spinMotor.set(0.4);
+        }
     }
 
-
-    public void deploySpinnerMotor() {
-
-        spinDeployArm.set(Value.kForward);
+    public void deploySpinner() {
+        if(isOut) {
+            retractSpinner();
+        }
+        else{
+            deploySpinner();
+        }
+        isOut = !isOut;
     }
 
-    public void retractSpinnerMotor() {
+    public void retractSpinner() {
 
         spinDeployArm.set(Value.kReverse);
     }
@@ -115,7 +123,6 @@ public class Spinner {
     }
 
     public void spinWheelColor() {
-        spinnerController.setReference(getRevs(), ControlType.kPosition);
     }
 
     public void setTargets()
@@ -160,18 +167,6 @@ public class Spinner {
         else {
             return realTarget;
         }
-    }
-
-    /**
-     * Gives revolutions to target color
-     * 
-     * @return revs to target
-     */
-    public double getRevs() {
-        int wedges = (4 + Math.abs(colors.indexOf(realTarget) - colors.indexOf(getCurrentColor()))) % 4;
-
-        return Constants.ONE_COLOR_REVS * wedges; 
-        //this gets the distance in wedges between current and target
     }
 
     public static Spinner getInstance() {

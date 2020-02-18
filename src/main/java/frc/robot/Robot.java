@@ -93,21 +93,23 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-   /*if (driverController.getX()) {
-
-      drive.getSwerve().rotateToAngle(navX.getAngle(), 0);
-   }*/ //Need to get different button
+   System.out.format("BR: %f \nBL: %f \nFR: %f \nFL: %f\n", drive.getBackRight().getAzimuth(), drive.getBackLeft().getAzimuth(), drive.getFrontRight().getAzimuth(), drive.getFrontLeft().getAzimuth());
     
     //Reset Yaw on NavX
-    if(driverController.getA()) {
+    if(driverController.getResetYaw()) {
 
       navX.resetYaw();
     }
+
+    //sucker.run();
 
     //Tele-op auto functions or manual drive
     if (driverController.getLineUp()) {
 
       lineUpTowardsTargetWithDriver.loop();
+    } else if (driverController.getStayStraight()) {
+
+      drive.move(driverController.getForward(), driverController.getStrafe(), navX.getAngle() * -0.01, navX.getAngle(), driverController.isFieldOriented());
     } else {
 
       drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle(), driverController.isFieldOriented());
@@ -121,6 +123,21 @@ public class Robot extends TimedRobot {
 
       lineUpTowardsTargetWithDriver.stop();
     }
+    /** 
+    if(driverController.getSpinnerDeploy()) {
+      spinner.deploySpinner();      
+    }
+
+    if(driverController.getSpin()) {
+      spinner.runRotation();
+    }
+    else {
+      spinner.changes = 0;
+    }
+
+    if(driverController.getColor()){
+      spinner.runColor();
+    }*/
 
     navX.loop();
     vision.loop();
@@ -134,6 +151,5 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
-
   }
 }

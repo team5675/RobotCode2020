@@ -45,7 +45,12 @@ public class DriverController {
         return mainController.getBumper(Hand.kRight);
     }
 
-    public boolean getA() {
+    public boolean getResetYaw() {
+
+        return mainController.getRawButton(4);
+    }
+
+    public boolean getStayStraight() {
 
         return mainController.getAButton();
     }
@@ -80,14 +85,28 @@ public class DriverController {
         return auxController.getTriggerAxis(Hand.kLeft);
     }
 
-    public boolean getSpinnerDeploy() {
+    public boolean getIntakeDeploy() {
 
-        return auxController.getBButton();
+        return auxController.getBumper(Hand.kLeft);
     }
 
-    public boolean getColorDeploy() {
+    public boolean getIntakeRetract() {
+
+        return auxController.getBumper(Hand.kRight);
+    }
+
+    public boolean getSpinnerDeploy() {
+
+        return auxController.getAButton();
+    }
+
+    public boolean getColor() {
 
         return auxController.getXButton();
+    }
+
+    public boolean getSpin() {
+        return auxController.getBButton();
     }
 
     public double getColorManual() {
