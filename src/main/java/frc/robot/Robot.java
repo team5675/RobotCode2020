@@ -141,6 +141,9 @@ public class Robot extends TimedRobot {
     if(driverController.getSpin()) {
       spinner.runRotation();
     }
+    else {
+      spinner.changes = 0;
+    }
 
     if(driverController.getColor()){
       spinner.runColor();
@@ -161,8 +164,8 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
     
     //feeder.set(-1);
-    left.set(0.5);
-    right.set(0.5);
+    //left.set(0.5);
+    //right.set(0.5);
     //left.getPIDController().setReference(-0.5, ControlType.kVelocity);
     //right.getPIDController().setReference(-0.5, ControlType.kVelocity);
   }
