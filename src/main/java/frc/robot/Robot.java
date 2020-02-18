@@ -48,8 +48,8 @@ public class Robot extends TimedRobot {
   AutoChooser      autoChooser;
 
   // for testing
-  //Spark feeder = new Spark(0);
-  CANSparkMax left = new CANSparkMax(10, MotorType.kBrushed);
+  //Spark feeder = new Spark(0);     11
+  CANSparkMax left = new CANSparkMax(13, MotorType.kBrushed);
   CANSparkMax right = new CANSparkMax(12, MotorType.kBrushed);
 
 
@@ -106,7 +106,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-   //System.out.format("BR: %f \nBL: %f \nFR: %f \nFL: %f\n", drive.getBackRight().getAzimuth(), drive.getBackLeft().getAzimuth(), drive.getFrontRight().getAzimuth(), drive.getFrontLeft().getAzimuth());
+   System.out.format("BR: %f \nBL: %f \nFR: %f \nFL: %f\n", drive.getBackRight().getAzimuth(), drive.getBackLeft().getAzimuth(), drive.getFrontRight().getAzimuth(), drive.getFrontLeft().getAzimuth());
     
     //Reset Yaw on NavX
     if(driverController.getA()) {
@@ -114,7 +114,7 @@ public class Robot extends TimedRobot {
       navX.resetYaw();
     }
 
-    sucker.run();
+    //sucker.run();
 
     //Tele-op auto functions or manual drive
     if (driverController.getLineUp()) {
@@ -122,7 +122,7 @@ public class Robot extends TimedRobot {
       lineUpTowardsTargetWithDriver.loop();
     } else {
 
-      drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle() + 90, driverController.isFieldOriented());
+      drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle() - 90, driverController.isFieldOriented());
     }
 
     //Start/stop vision assist driving

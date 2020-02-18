@@ -37,8 +37,8 @@ public class SwerveDrive {
 	
 		if (robotCentric) {
 
-			forward = -x1;
-			strafe  = y1;
+			forward = x1;
+			strafe  = -y1;
 		}
 
 		else {

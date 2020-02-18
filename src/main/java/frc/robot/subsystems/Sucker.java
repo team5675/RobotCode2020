@@ -29,7 +29,7 @@ public class Sucker {
     DoubleSolenoid intakeArm;
 
     public Sucker() {
-        control = new DriverController();
+        control = DriverController.getInstance();
         roller = new CANSparkMax(Constants.INTAKE_ID, MotorType.kBrushed);
 
         intakeArm = new DoubleSolenoid(2, 3);
@@ -37,17 +37,17 @@ public class Sucker {
 
     public void run() {
 
-        if(control.getIntake() > 0 || control.getOuttake() > 0) {
+        if (control.getIntakeDeploy()) {
 
             intakeArm.set(Value.kForward);
         }
 
-        else{
+        if (control.getIntakeRetract()) {
 
             intakeArm.set(Value.kReverse);
         }
         
-        vIntake = control.getIntake() - control.getOuttake();
+        vIntake = control.getOuttake() - control.getIntake();
         roller.set(vIntake); 
     }
 
