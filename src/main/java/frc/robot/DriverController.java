@@ -80,6 +80,16 @@ public class DriverController {
         return auxController.getTriggerAxis(Hand.kLeft);
     }
 
+    public boolean getIntakeDeploy() {
+
+        return auxController.getBumper(Hand.kLeft);
+    }
+
+    public boolean getIntakeRetract() {
+
+        return auxController.getBumper(Hand.kRight);
+    }
+
     public boolean getSpinnerDeploy() {
 
         return auxController.getAButton();
