@@ -102,7 +102,7 @@ public class SwerveDrive {
             frontRightSpeed /= max;
 		}
 		
-			backRight.drive(backRightSpeed * -1, backRightAngle, deadband); //just using a class to organize modules together
+			backRight.drive(backRightSpeed, backRightAngle, deadband); //just using a class to organize modules together
 		
 			backLeft.drive(backLeftSpeed, backLeftAngle, deadband);
 		

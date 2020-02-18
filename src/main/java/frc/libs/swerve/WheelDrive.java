@@ -66,7 +66,19 @@ double speedSetpoint;
 	public void drive(double speed, double angle, boolean deadband) {
 		
 		//normalizes the encoder angle in case offsets caused it to go above 5
-		if (angle > 5) {angle = angle - 5;}
+
+		//Azimuth algorithm
+		//If the angle difference is greather than 90 degrees...
+		if (Math.abs(angle - azimuthEncoder.getVoltage()) > 1.25) {
+
+			//Rotate to the closer point
+			angle += 2.5;
+			//Invert speed
+			speed *= -1;
+		}
+
+		if (angle > 5) {angle -= 5;}
+		if (angle < 0) {angle += 5;}
 
 		if (deadband) {
 

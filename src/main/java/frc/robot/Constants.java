@@ -48,7 +48,7 @@ public class Constants {
     public static final double BR_I = 0.0;
     public static final double BR_D = 0.0;
     public static final int BR_AZIMUTH_ENCODER_ID = 0;
-    public static double BR_ANGLE_OFFSET = 2.573;
+    public static double BR_ANGLE_OFFSET = 2.573; //maybe 0.073
 
     //Shooter subsystem constants
     public static final int SHOOTER_ID = 17;

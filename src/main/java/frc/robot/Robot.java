@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
+import frc.robot.AutoChooser;
 import frc.robot.auto.ActionRunner;
 import frc.robot.auto.ModeRunner;
 import frc.robot.auto.Pathfinder;
