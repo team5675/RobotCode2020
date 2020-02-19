@@ -51,7 +51,9 @@ public class Constants {
     public static double BR_ANGLE_OFFSET = 2.573;
 
     //Shooter subsystem constants
-    public static final int SHOOTER_ID = 17;
+    public static final int GATE_ID = 4;
+    public static final int SHOOTER_ID_1 = 3;
+    public static final int SHOOTER_ID_1 = 4;
     public static final double SHOOTER_SETPOINT = 5000;
     public static final double SHOOTER_FLYWHEEL_KP = 0;
     public static final double SHOOTER_FLYWHEEL_KD = 0; 
