@@ -14,7 +14,6 @@ import com.revrobotics.CANEncoder;
 import com.revrobotics.CANPIDController;
 
 import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.controller.PIDController;
 
 import frc.robot.DriverController;
 import frc.robot.Constants;
@@ -47,8 +46,6 @@ public class Shooter {
 
     double RPM_TARGET;
 
-    int i;
-
     public Shooter() {
         
         vision        = Vision.getInstance();
@@ -63,71 +60,51 @@ public class Shooter {
         RPMController = shootMotor1.getPIDController();
         RPMEncoder    = shootMotor1.getEncoder();
 
-        RPMController.setP(Constants.SHOOTER_FLYWHEEL_KP);
-        RPMController.setD(Constants.SHOOTER_FLYWHEEL_KD);
-        RPMController.setFF(Constants.SHOOTER_FLYWHEEL_KF);
+        RPMController.setP(Constants.SHOOTER_KP);
+        RPMController.setD(Constants.SHOOTER_KD);
+        RPMController.setFF(Constants.SHOOTER_KF);
         RPMController.setOutputRange(-1, 1);
 
-        i = 0;
-    }
-
-    public void autoAimAtTarget() { //Distance, angle, and velocity
-        angle = vision.getVerticalOffset() + Constants.VISION_CAMERA_ANGLE;
-        
         distanceLimelight = (Constants.VISION_TARGET_HEIGHT - Constants.VISION_CAMERA_HEIGHT)
-                            / Math.tan(angle);
+        / Math.tan(angle);
+    }
+
+    public void shoot(double RPM_TARGET) {
+
+        setRPM(RPM_TARGET);
+
+        if (controller.getShoot()) {
+
+            if(getRPM() >= RPM_TARGET) {
+
+                gateMotor.set(-1);
+            }
+
+            else {
+
+                gateMotor.set(0);
+            }
+        }
+
+        gateMotor.set(0);
     }
 
 
-    public void shoot() {
+    public void setRPM(double RPM_TARGET){
 
+        this.RPM_TARGET = RPM_TARGET;
 
-        if(getRPM() >= RPM_TARGET && i > 10){
-
-            gateMotor.set(-1);
-
-            i = 0;
-        }
-
-        else {
-
-            i++;
-        }
-        
-    }
-
-    public void setRPM(double RPM){
-
-        RPMController.setReference(RPM, ControlType.kVelocity);
+        RPMController.setReference(RPM_TARGET, ControlType.kVelocity);
         shootMotor2.follow(shootMotor1, false);
     }
+
 
     public double getRPM() {
 
         return shootMotor1.getEncoder().getVelocity();
     }
 
-    /*
-    public double getRPM(double theta) { //line 1 is ball velocity
-        return (Math.sqrt((64 * Constants.VISION_TARGET_HEIGHT) / Math.pow(Math.sin(theta), 2)) 
-        / (Math.PI * 0.5 * Constants.SHOOTER_WHEEL_DIAMETER)) * 60; //* 60 is for sec to min
-    }
-       
-    /** 
-     * Returns the hood angle based on the distance from port
-     * @return angle in radians 
-     * 
-     * @param distance The distance from the port. (Use limelight generated distance)
-     *
-    public double getAngle(double distance) {
-
-        //angle calculated by modeling a triangle approx to the parabola
-        theta = Math.atan(2 * (Constants.VISION_TARGET_HEIGHT - Constants.SHOOTER_HEIGHT) / distance);
-
-        return theta;
-    }
-*/
-
+    
     public static Shooter getInstance() {
 
         if (instance == null) {
