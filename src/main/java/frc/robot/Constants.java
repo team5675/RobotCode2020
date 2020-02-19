@@ -73,6 +73,8 @@ public class Constants {
 
     //Intake subsystem constants
     public static final int INTAKE_ID = 4;
+    public static final int DEPLOY_ID_1 = 2;
+    public static final int DEPLOY_ID_2 = 3;
 
     //Vision subsystem constants
     public static final double VISION_TARGET_HEIGHT = 8.1875;
@@ -89,4 +91,6 @@ public class Constants {
     public static final double PATHFINDER_SLOWDOWN = 0;
     public static final double PATHFINDER_SLOWDOWN_END = 0.1;
     public static final double PATHFINDER_SLOWDOWN_P = -0.1;
+
+    //62 Constants
 }

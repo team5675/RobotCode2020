@@ -93,15 +93,11 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-   System.out.format("BR: %f \nBL: %f \nFR: %f \nFL: %f\n", drive.getBackRight().getAzimuth(), drive.getBackLeft().getAzimuth(), drive.getFrontRight().getAzimuth(), drive.getFrontLeft().getAzimuth());
-    
     //Reset Yaw on NavX
     if(driverController.getResetYaw()) {
 
       navX.resetYaw();
     }
-
-    //sucker.run();
 
     //Tele-op auto functions or manual drive
     if (driverController.getLineUp()) {
@@ -123,22 +119,9 @@ public class Robot extends TimedRobot {
 
       lineUpTowardsTargetWithDriver.stop();
     }
-    /** 
-    if(driverController.getSpinnerDeploy()) {
-      spinner.deploySpinner();      
-    }
 
-    if(driverController.getSpin()) {
-      spinner.runRotation();
-    }
-    else {
-      spinner.changes = 0;
-    }
-
-    if(driverController.getColor()){
-      spinner.runColor();
-    }*/
-
+    
+    sucker.run();
     navX.loop();
     vision.loop();
   }
