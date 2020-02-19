@@ -7,11 +7,6 @@
 
 package frc.robot;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.ActionRunner;
 import frc.robot.auto.ModeRunner;
@@ -42,15 +37,8 @@ public class Robot extends TimedRobot {
   Pathfinder       pathfinder;
   ModeRunner       modeRunner;
   ActionRunner     actionRunner;
-  Action           action;
   Action           lineUpTowardsTargetWithDriver;
-  Action           lineUpWithTarget;
   AutoChooser      autoChooser;
-
-  // for testing
-  //Spark feeder = new Spark(0);     11
-  CANSparkMax left = new CANSparkMax(13, MotorType.kBrushed);
-  CANSparkMax right = new CANSparkMax(12, MotorType.kBrushed);
 
 
   @Override
@@ -99,7 +87,6 @@ public class Robot extends TimedRobot {
     actionRunner.forceStop();
 
     lineUpTowardsTargetWithDriver = new LineUpTowardsTargetWithDriver();
-    //lineUpWithTarget = new LineUpWithTarget();
   }
 
 
@@ -109,7 +96,7 @@ public class Robot extends TimedRobot {
    System.out.format("BR: %f \nBL: %f \nFR: %f \nFL: %f\n", drive.getBackRight().getAzimuth(), drive.getBackLeft().getAzimuth(), drive.getFrontRight().getAzimuth(), drive.getFrontLeft().getAzimuth());
     
     //Reset Yaw on NavX
-    if(driverController.getA()) {
+    if(driverController.getResetYaw()) {
 
       navX.resetYaw();
     }
@@ -120,9 +107,12 @@ public class Robot extends TimedRobot {
     if (driverController.getLineUp()) {
 
       lineUpTowardsTargetWithDriver.loop();
+    } else if (driverController.getStayStraight()) {
+
+      drive.move(driverController.getForward(), driverController.getStrafe(), navX.getAngle() * -0.01, navX.getAngle(), driverController.isFieldOriented());
     } else {
 
-      drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle() - 90, driverController.isFieldOriented());
+      drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle(), driverController.isFieldOriented());
     }
 
     //Start/stop vision assist driving
@@ -141,6 +131,9 @@ public class Robot extends TimedRobot {
     if(driverController.getSpin()) {
       spinner.runRotation();
     }
+    else {
+      spinner.changes = 0;
+    }
 
     if(driverController.getColor()){
       spinner.runColor();
@@ -148,7 +141,6 @@ public class Robot extends TimedRobot {
 
     navX.loop();
     vision.loop();
-    //sucker.run();
   }
 
 
@@ -159,11 +151,5 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
-    
-    //feeder.set(-1);
-    left.set(0.5);
-    right.set(0.5);
-    //left.getPIDController().setReference(-0.5, ControlType.kVelocity);
-    //right.getPIDController().setReference(-0.5, ControlType.kVelocity);
   }
 }

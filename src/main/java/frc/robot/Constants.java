@@ -86,7 +86,7 @@ public class Constants {
     public static final double AUTO_GYRO_P = -0.03;
 
     //Pathfinder Constants
-    public static final double PATHFINDER_SLOWDOWN = 2;
-    public static final double PATHFINDER_SLOWDOWN_END = 0.2;
-    public static final double PATHFINDER_SLOWDOWN_P = -0.05;
+    public static final double PATHFINDER_SLOWDOWN = 0;
+    public static final double PATHFINDER_SLOWDOWN_END = 0.1;
+    public static final double PATHFINDER_SLOWDOWN_P = -0.1;
 }

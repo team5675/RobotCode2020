@@ -7,43 +7,13 @@
 
 package frc.robot.subsystems;
 
-
 /**
- * Sucks
+ * Add your docs here.
  */
-
- 
-public class Sucker {
-
-    static Sucker instance;
+public class Pneumatics {
 
 
-    public void expand() {
+    public Pneumatics() {
 
-    }
-
-
-    public void collapse() {
-
-    }
-
-
-    public void suck() {
-
-    }
-
-    
-    public void blow() {
-
-    }
-
-    public static Sucker getInstance() {
-
-        if (instance == null) {
-            
-            instance = new Sucker();
-        }
-
-        return instance;
     }
 }
