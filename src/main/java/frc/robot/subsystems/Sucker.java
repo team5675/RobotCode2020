@@ -36,6 +36,21 @@ public class Sucker {
         intake         = new Spark(Constants.INTAKE_ID);
     }
 
+    public void run() {
+
+        if(controller.getIntakeDeploy()) {
+
+            expand();
+        }
+
+        if(controller.getIntakeRetract()) {
+
+            collapse();
+        }
+
+        suck();
+    }
+
 
     public void expand() {
 
