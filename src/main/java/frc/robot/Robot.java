@@ -121,36 +121,40 @@ public class Robot extends TimedRobot {
     
     //Reset Yaw on NavX
     if(driverController.getResetYaw()) {
-
       navX.resetYaw();
+      
     }
 
-    //sucker.run();
-
     //Tele-op auto functions or manual drive
+    double forward = driverController.getForward();
+    double strafe = driverController.getStrafe();
+    double rotation = driverController.getRotation();
+    double angle = navX.getAngle();
+    boolean isFieldOriented = driverController.isFieldOriented();
+
     if (driverController.getLineUp()) {
-
       lineUpTowardsTargetWithDriver.loop();
+
     } else if (driverController.getStayStraight()) {
+      drive.move(forward, strafe, navX.getAngle() * -0.01, angle, isFieldOriented);
 
-      drive.move(driverController.getForward(), driverController.getStrafe(), navX.getAngle() * -0.01, navX.getAngle(), driverController.isFieldOriented());
     } else {
+      drive.move(forward, strafe, rotation, angle, isFieldOriented);
 
-      drive.move(driverController.getForward(), driverController.getStrafe(), driverController.getRotation(), navX.getAngle(), driverController.isFieldOriented());
     }
 
     //Start/stop vision assist driving
     if (driverController.getOnLineUpPressed()) {
-
       lineUpTowardsTargetWithDriver.start();
-    } else if (driverController.getOnLineUpReleased()) {
 
+    } else if (driverController.getOnLineUpReleased()) {
       lineUpTowardsTargetWithDriver.stop();
+
     }
     
     //Sucker
     sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
-    
+
     /** 
     if(driverController.getSpinnerDeploy()) {
       spinner.deploySpinner();      
