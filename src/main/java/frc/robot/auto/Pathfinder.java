@@ -39,7 +39,7 @@ public class Pathfinder {
     }
 
 
-    public void translate(double xFeet, double yFeet, double angle) {
+    public void translate(double xFeet, double yFeet, double angle, double speedMultiplier) {
 
         xFeetGoal = xFeet;
         yFeetGoal = yFeet;
@@ -49,7 +49,7 @@ public class Pathfinder {
         double distanceFrontLeft = drive.getFrontLeft().getSpeedPosition();
         double distanceFrontRight = drive.getFrontRight().getSpeedPosition();
         double distanceBackLeft = drive.getBackLeft().getSpeedPosition();
-        double distanceBackRight = drive.getBackRight().getSpeedPosition();
+        double distanceBackRight = drive.getBackRight().getSpeedPosition() * -1;
         totalDistance = (distanceFrontLeft + distanceFrontRight + distanceBackLeft + distanceBackRight) / 4;
 
         run = true;
@@ -75,21 +75,21 @@ public class Pathfinder {
             double distanceFrontLeft = drive.getFrontLeft().getSpeedPosition();
             double distanceFrontRight = drive.getFrontRight().getSpeedPosition();
             double distanceBackLeft = drive.getBackLeft().getSpeedPosition();
-            double distanceBackRight = drive.getBackRight().getSpeedPosition();
+            double distanceBackRight = drive.getBackRight().getSpeedPosition() * -1;
             double averageDistance = (distanceFrontLeft + distanceFrontRight + distanceBackLeft + distanceBackRight) / 4;
             double distanceTraveled = (averageDistance - totalDistance) / 6 * 9.42 / 12 - 1;
 
-            xSpeed = xFeetGoal/ hypDistance;
-            ySpeed = yFeetGoal/ hypDistance;
+            xSpeed = xFeetGoal * 0.5 / hypDistance;
+            ySpeed = yFeetGoal * 0.5 / hypDistance;
 
             double rotationSpeed = (rotationGoal - (navX.getAngle() % 360)) / 360;
 
-            System.out.println(distanceTraveled);
+
             if (distanceTraveled > hypDistance) {
                 drive.move(0, 0, 0, navX.getAngle(), false);
                 run = false;
             } else {
-                drive.move(xSpeed, ySpeed, 0 - navX.getAngle() * 0.01, navX.getAngle(), false);
+                drive.move(xSpeed, ySpeed, (rotationGoal - navX.getAngle()) * 0.01, navX.getAngle() + 90, false);
             }
         }        
     }
