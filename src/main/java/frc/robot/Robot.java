@@ -16,6 +16,7 @@ import frc.robot.auto.actions.LineUpTowardsTargetWithDriver;
 
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.NavX;
+import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Sucker;
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot {
   Drive            drive;
   NavX             navX;
   Spinner          spinner;
+  Pneumatics       pneumatics;
 
   Pathfinder       pathfinder;
   ModeRunner       modeRunner;
@@ -53,10 +55,22 @@ public class Robot extends TimedRobot {
     shooter          = Shooter.getInstance();
     sucker           = Sucker.getInstance();
     spinner          = Spinner.getInstance();
+    pneumatics       = Pneumatics.getInstance();
 
     actionRunner     = ActionRunner.getInstance();
     pathfinder       = Pathfinder.getInstance();
     autoChooser      = AutoChooser.getInstance();
+  }
+
+  
+  @Override
+  public void disabledPeriodic() {
+    //run disabled code here like leds and stuff
+
+    if (driverController.getRunCompressor()) {
+      
+      pneumatics.runCompressor();
+    }
   }
 
 

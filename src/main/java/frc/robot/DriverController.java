@@ -106,11 +106,18 @@ public class DriverController {
     }
 
     public boolean getSpin() {
+
         return auxController.getBButton();
     }
 
     public double getColorManual() {
+
         return auxController.getRawAxis(0);
+    }
+
+    public boolean getRunCompressor() {
+
+        return mainController.getStartButtonPressed();
     }
 
 

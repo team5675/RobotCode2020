@@ -8,10 +8,6 @@
 package frc.robot;
 
 public class Constants {
-    
-    public static final double PATHFINDER_KP = 0;
-	public static final double PATHFINDER_KV = 0.0909090909;
-	public static final double PATHFINDER_KA = 0.011;
    
     //Drive subsystem constants
     
@@ -50,6 +46,10 @@ public class Constants {
     public static final int BR_AZIMUTH_ENCODER_ID = 0;
     public static double BR_ANGLE_OFFSET = 2.573;
 
+    public static final double PATHFINDER_KP = 0;
+	public static final double PATHFINDER_KV = 0.0909090909;
+	public static final double PATHFINDER_KA = 0.011;
+
     //Shooter subsystem constants
     public static final int SHOOTER_ID = 17;
     public static final double SHOOTER_SETPOINT = 5000;
@@ -76,6 +76,9 @@ public class Constants {
     public static final double VISION_TARGET_HEIGHT = 8.1875;
     public static final double VISION_CAMERA_HEIGHT = 1.7493;
     public static final double VISION_CAMERA_ANGLE = 25.3778;
+
+    //Pneumatics constants
+    public static final int COMPRESSOR_ID = 0;
 
     //Auto Constants
     public static final double AUTO_FORWARD_P = 0.2;
