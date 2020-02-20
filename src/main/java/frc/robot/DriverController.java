@@ -109,6 +109,17 @@ public class DriverController {
         return auxController.getBButton();
     }
 
+    public boolean getWinch() {
+
+        return auxController.getYButton();
+    }
+
+    public boolean getShoot() {
+
+        //TODO: We out of buttons, help
+        return false;
+    }
+
     public double getColorManual() {
         return auxController.getRawAxis(0);
     }
