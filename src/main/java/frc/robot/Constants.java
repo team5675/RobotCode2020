@@ -51,11 +51,13 @@ public class Constants {
 	public static final double PATHFINDER_KA = 0.011;
 
     //Shooter subsystem constants
-    public static final int SHOOTER_ID = 17;
+    public static final int GATE_ID = 4;
+    public static final int SHOOTER_ID_1 = 3;
+    public static final int SHOOTER_ID_2 = 4;
     public static final double SHOOTER_SETPOINT = 5000;
-    public static final double SHOOTER_FLYWHEEL_KP = 0;
-    public static final double SHOOTER_FLYWHEEL_KD = 0; 
-    public static final double SHOOTER_FLYWHEEL_KF = 0; 
+    public static final double SHOOTER_KP = 0;
+    public static final double SHOOTER_KD = 0; 
+    public static final double SHOOTER_KF = 0; 
     public static final double SHOOTER_HEIGHT = 2;    //ft
     public static final double SHOOTER_WHEEL_DIAMETER = 0.5025; //ft
     public static final double CAM_HEIGHT = 0;
@@ -71,6 +73,8 @@ public class Constants {
 
     //Intake subsystem constants
     public static final int INTAKE_ID = 4;
+    public static final int DEPLOY_ID_1 = 2;
+    public static final int DEPLOY_ID_2 = 3;
 
     //Vision subsystem constants
     public static final double VISION_TARGET_HEIGHT = 8.1875;
@@ -90,4 +94,6 @@ public class Constants {
     public static final double PATHFINDER_SLOWDOWN = 0;
     public static final double PATHFINDER_SLOWDOWN_END = 0.1;
     public static final double PATHFINDER_SLOWDOWN_P = -0.1;
+
+    //62 Constants
 }

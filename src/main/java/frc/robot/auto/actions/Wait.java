@@ -5,30 +5,37 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.auto;
-
-import frc.robot.auto.modes.Mode;
+package frc.robot.auto.actions;
 
 /**
  * Add your docs here.
  */
-public class ModeRunner extends Thread {
+public class Wait implements Action {
 
-    Mode mode;
-
-    public ModeRunner(Mode newMode) {
-
-        mode = newMode;
-    }
-
-    public void run() {
+    
+    public Wait(int time) {
 
         try {
-            Thread.sleep(mode.waitTime);
+            Thread.sleep(time);
         } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+
+    public void start() {
         
-        mode.run();
+    }
+
+
+    public boolean loop() {
+
+        return false;
+    }
+
+
+    public void stop() {
+
     }
 }

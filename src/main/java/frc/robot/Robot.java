@@ -7,6 +7,11 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.ActionRunner;
 import frc.robot.auto.ModeRunner;
@@ -41,6 +46,11 @@ public class Robot extends TimedRobot {
   ActionRunner     actionRunner;
   Action           lineUpTowardsTargetWithDriver;
   AutoChooser      autoChooser;
+
+  Spark feeder = new Spark(0);
+  CANSparkMax left = new CANSparkMax(10, MotorType.kBrushless);
+  CANSparkMax right = new CANSparkMax(12, MotorType.kBrushless);
+
 
 
   @Override
@@ -107,7 +117,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-   System.out.format("BR: %f \nBL: %f \nFR: %f \nFL: %f\n", drive.getBackRight().getAzimuth(), drive.getBackLeft().getAzimuth(), drive.getFrontRight().getAzimuth(), drive.getFrontLeft().getAzimuth());
+   //System.out.format("BR: %f \nBL: %f \nFR: %f \nFL: %f\n", drive.getBackRight().getAzimuth(), drive.getBackLeft().getAzimuth(), drive.getFrontRight().getAzimuth(), drive.getFrontLeft().getAzimuth());
     
     //Reset Yaw on NavX
     if(driverController.getResetYaw()) {
@@ -137,6 +147,7 @@ public class Robot extends TimedRobot {
 
       lineUpTowardsTargetWithDriver.stop();
     }
+    
     /** 
     if(driverController.getSpinnerDeploy()) {
       spinner.deploySpinner();      
@@ -165,5 +176,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
+    //feeder.set(1);
+    //left.getPIDController().setReference(-3000, ControlType.kVelocity);
+    //right.getPIDController().setReference(-3000, ControlType.kVelocity);
+    //left.set(-0.75);
+    //right.set(-0.75);
   }
 }
