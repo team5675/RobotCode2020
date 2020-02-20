@@ -148,6 +148,9 @@ public class Robot extends TimedRobot {
       lineUpTowardsTargetWithDriver.stop();
     }
     
+    //Sucker
+    sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
+    
     /** 
     if(driverController.getSpinnerDeploy()) {
       spinner.deploySpinner();      
