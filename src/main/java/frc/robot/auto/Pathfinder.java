@@ -79,8 +79,8 @@ public class Pathfinder {
             double averageDistance = (distanceFrontLeft + distanceFrontRight + distanceBackLeft + distanceBackRight) / 4;
             double distanceTraveled = (averageDistance - totalDistance) / 6 * 9.42 / 12 - 1;
 
-            xSpeed = xFeetGoal * 0.5 / hypDistance;
-            ySpeed = yFeetGoal * 0.5 / hypDistance;
+            xSpeed = xFeetGoal * 0.75 / hypDistance;
+            ySpeed = yFeetGoal * 0.75 / hypDistance;
 
             double rotationSpeed = (rotationGoal - (navX.getAngle() % 360)) / 360;
 
