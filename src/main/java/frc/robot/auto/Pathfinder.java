@@ -7,7 +7,6 @@
 
 package frc.robot.auto;
 
-import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.NavX;
 
@@ -82,7 +81,10 @@ public class Pathfinder {
             xSpeed = xFeetGoal * 0.5 / hypDistance;
             ySpeed = yFeetGoal * 0.5 / hypDistance;
 
-            double rotationSpeed = (rotationGoal - (navX.getAngle() % 360)) / 360;
+            //Accounts for rotation movements
+            double rotationOffset = 222.144 * ((rotationGoal % 360) / 360);
+            //Shave it off total distance
+            distanceTraveled -= rotationOffset;
 
 
             if (distanceTraveled > hypDistance) {
