@@ -69,7 +69,7 @@ double speedSetpoint;
 
 		//Azimuth algorithm
 		//If the angle difference is greather than 90 degrees...
-		if (Math.abs(angle - azimuthEncoder.getVoltage()) > 1.25) {
+		if (Math.abs(azimuthEncoder.getVoltage() - angle) > 1.25) {
 
 			//Invert so less than 90 away
 			angle += 2.5;

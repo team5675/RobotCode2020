@@ -82,7 +82,10 @@ public class Pathfinder {
             xSpeed = xFeetGoal / hypDistance;
             ySpeed = yFeetGoal / hypDistance;
 
-            double rotationSpeed = (rotationGoal - (navX.getAngle() % 360)) / 360;
+
+            // For determining how much a rotation contributes to overall distance
+            //                      2PI * r
+            double rotationOffset = 222.144 * ((rotationGoal % 360) / 360);
 
             //System.out.println(distanceTraveled + ">" + hypDistance);
             //System.out.println("xSpeed: " + xSpeed);

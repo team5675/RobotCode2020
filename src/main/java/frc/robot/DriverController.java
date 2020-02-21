@@ -42,7 +42,7 @@ public class DriverController {
 
     public boolean isFieldOriented() {
 
-        return mainController.getBumper(Hand.kRight);
+        return false;//mainController.getBumper(Hand.kRight);
     }
 
     public boolean getA() {
@@ -72,22 +72,22 @@ public class DriverController {
 
     public double getIntake() {
 
-        return auxController.getTriggerAxis(Hand.kRight);
+        return mainController.getTriggerAxis(Hand.kRight);
     }
 
     public double getOuttake() {
         
-        return auxController.getTriggerAxis(Hand.kLeft);
+        return mainController.getTriggerAxis(Hand.kLeft);
     }
 
     public boolean getIntakeDeploy() {
 
-        return auxController.getBumper(Hand.kLeft);
+        return mainController.getBumper(Hand.kLeft);
     }
 
     public boolean getIntakeRetract() {
 
-        return auxController.getBumper(Hand.kRight);
+        return mainController.getBumper(Hand.kRight);
     }
 
     public boolean getSpinnerDeploy() {
