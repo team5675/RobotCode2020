@@ -120,11 +120,6 @@ public class DriverController {
         return false;
     }
 
-    public double getColorManual() {
-
-        return auxController.getRawAxis(0);
-    }
-
     public boolean getRunCompressor() {
 
         return mainController.getStartButtonPressed();
