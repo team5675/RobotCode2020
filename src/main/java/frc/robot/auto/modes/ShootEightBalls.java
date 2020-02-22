@@ -9,8 +9,6 @@ package frc.robot.auto.modes;
 
 import frc.robot.auto.ActionRunner;
 import frc.robot.auto.Pathfinder;
-import frc.robot.auto.actions.LineUpWithTarget;
-import frc.robot.auto.actions.ShootAllBalls;
 import frc.robot.auto.actions.Wait;
 
 /**

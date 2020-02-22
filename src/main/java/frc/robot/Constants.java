@@ -54,6 +54,7 @@ public class Constants {
     public static final int GATE_ID = 0;
     public static final int SHOOTER_ID_1 = 3;
     public static final int SHOOTER_ID_2 = 4;
+    public static final double SHOOTER_RPM_GAIN = 145;
     public static final double SHOOTER_SETPOINT = 5000;
     public static final double SHOOTER_KP = 0;
     public static final double SHOOTER_KD = 0; 

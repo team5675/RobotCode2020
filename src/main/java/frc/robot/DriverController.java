@@ -117,7 +117,6 @@ public class DriverController {
 
     public boolean getShoot() {
 
-        //TODO: We out of buttons, help
         return false;
     }
 

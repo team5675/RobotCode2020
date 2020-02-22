@@ -51,7 +51,6 @@ public class Shooter {
         vision        = Vision.getInstance();
         controller    = DriverController.getInstance();
 
-
         shootMotor1   = new CANSparkMax(Constants.SHOOTER_ID_1, MotorType.kBrushless);
         shootMotor2   = new CANSparkMax(Constants.SHOOTER_ID_2, MotorType.kBrushless);
 
@@ -65,13 +64,18 @@ public class Shooter {
         RPMController.setFF(Constants.SHOOTER_KF);
         RPMController.setOutputRange(-1, 1);
 
-        distanceLimelight = (Constants.VISION_TARGET_HEIGHT - Constants.VISION_CAMERA_HEIGHT)
-        / Math.tan(angle);
+        distanceLimelight = vision.getDistanceFromTarget();
     }
 
-    public void shoot(double RPM_TARGET) {
+    /**
+     * Method that controls shooter and feeder timing
+     * @param distanceLimelight limelight generated distance
+     */
+    public void shoot(double distanceLimelight) {
 
-        setRPM(RPM_TARGET);
+        this.distanceLimelight = distanceLimelight;
+
+        setRPM(distanceLimelight);
 
         if (controller.getShoot()) {
 
@@ -86,16 +90,25 @@ public class Shooter {
             }
         }
 
-        gateMotor.set(0);
+        else{
+            
+            gateMotor.set(0);
+        }
     }
 
+    /**
+     * 
+     * @param distance vision generated distance from limelight
+     * @return the target rpm
+     */
+    public double setRPM(double distance){
 
-    public void setRPM(double RPM_TARGET){
-
-        this.RPM_TARGET = RPM_TARGET;
+        RPM_TARGET = distance * Constants.SHOOTER_RPM_GAIN;
 
         RPMController.setReference(RPM_TARGET, ControlType.kVelocity);
         shootMotor2.follow(shootMotor1, false);
+
+        return RPM_TARGET;
     }
 
 

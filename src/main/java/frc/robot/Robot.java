@@ -8,7 +8,6 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Spark;
@@ -155,11 +154,6 @@ public class Robot extends TimedRobot {
     //Sucker
     sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
 
-    /** 
-    if(driverController.getSpinnerDeploy()) {
-      spinner.deploySpinner();      
-    }
-
     if(driverController.getSpin()) {
       spinner.runRotation();
     }
@@ -169,7 +163,7 @@ public class Robot extends TimedRobot {
 
     if(driverController.getColor()){
       spinner.runColor();
-    }*/
+    }
 
     navX.loop();
     vision.loop();

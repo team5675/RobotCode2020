@@ -62,6 +62,8 @@ public class AutoChooser {
             case ShootThreeBalls:
                 modeToReturn = new ShootThreeBalls();
                 break;
+            default:
+                modeToReturn = new DoNothing();
         }
 
         //modeToReturn.waitTime = (int) waitTime.getNumber(0) * 1000;
