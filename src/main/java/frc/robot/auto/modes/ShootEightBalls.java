@@ -25,7 +25,10 @@ public class ShootEightBalls extends Mode {
 
     public void run() {
         
-        pathfinder.translate(0.5, -8, -100, 0.5);
+        pathfinder.translate(-0.5, -8, -90, 0.5);
+        actionRunner.run(new Wait(500));
+        pathfinder.translate(0.3, 0, -80, 0.5);8
+        pathfinder.translate(0.3, -0.2, -100, 0.5);
         pathfinder.translate(16.5, 6, 0, 1);
         //actionRunner.run(new Wait(3000));
         //actionRunner.run(new LineUpWithTarget());
