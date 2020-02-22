@@ -51,7 +51,7 @@ public class Constants {
 	public static final double PATHFINDER_KA = 0.011;
 
     //Shooter subsystem constants
-    public static final int GATE_ID = 4;
+    public static final int GATE_ID = 0;
     public static final int SHOOTER_ID_1 = 3;
     public static final int SHOOTER_ID_2 = 4;
     public static final double SHOOTER_SETPOINT = 5000;
@@ -72,7 +72,7 @@ public class Constants {
     public static final int SPINNER_ARM_OUT_CHANNEL = 1;
 
     //Intake subsystem constants
-    public static final int INTAKE_ID = 5;
+    public static final int INTAKE_ID = 1;
     public static final int DEPLOY_ID_1 = 2;
     public static final int DEPLOY_ID_2 = 3;
 

@@ -128,7 +128,7 @@ public class DriverController {
 
     public boolean getRunCompressor() {
 
-        return mainController.getStartButtonPressed();
+        return mainController.getRawButtonPressed(8);
     }
 
 

@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
 
   Vision           vision;
   Sucker           sucker;
-  Shooter          shooter;
+  //Shooter          shooter;
   Drive            drive;
   NavX             navX;
   Spinner          spinner;
@@ -48,8 +48,8 @@ public class Robot extends TimedRobot {
   AutoChooser      autoChooser;
 
   Spark feeder = new Spark(0);
-  CANSparkMax left = new CANSparkMax(10, MotorType.kBrushless);
-  CANSparkMax right = new CANSparkMax(12, MotorType.kBrushless);
+  CANSparkMax left = new CANSparkMax(3, MotorType.kBrushless);
+  CANSparkMax right = new CANSparkMax(4, MotorType.kBrushless);
 
 
 
@@ -62,7 +62,7 @@ public class Robot extends TimedRobot {
     drive            = Drive.getInstance();
     navX             = NavX.getInstance();
     vision           = Vision.getInstance();
-    shooter          = Shooter.getInstance();
+    //shooter          = Shooter.getInstance();
     sucker           = Sucker.getInstance();
     spinner          = Spinner.getInstance();
     pneumatics       = Pneumatics.getInstance();
@@ -173,6 +173,12 @@ public class Robot extends TimedRobot {
 
     navX.loop();
     vision.loop();
+
+    feeder.set(1);
+    //left.getPIDController().setReference(-3000, ControlType.kVelocity);
+    //right.getPIDController().setReference(-3000, ControlType.kVelocity);
+    left.set(-1);
+    right.set(-1);
   }
 
 
