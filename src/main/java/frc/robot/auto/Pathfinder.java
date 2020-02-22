@@ -7,6 +7,7 @@
 
 package frc.robot.auto;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.NavX;
 
@@ -84,16 +85,17 @@ public class Pathfinder {
 
             distanceTraveled -= rotationOffset;
 
-            xSpeed = xFeetGoal * speedMultiplier / hypDistance;
-            ySpeed = yFeetGoal * speedMultiplier / hypDistance;
-            //18.512 * rotationGoal / 360
+            double slowDown = (hypDistance - distanceTraveled) * Constants.PATHFINDER_SLOWDOWN_P;
 
-            System.out.println(distanceTraveled + " > " + hypDistance);
+            xSpeed = xFeetGoal / hypDistance;
+            ySpeed = yFeetGoal / hypDistance;
+
             if (distanceTraveled > hypDistance) {
                 drive.move(0, 0, 0, navX.getAngle(), false);
                 run = false;
             } else {
-                drive.move(xSpeed, ySpeed, (rotationGoal - navX.getAngle()) * 0.007, navX.getAngle() + 90, false);
+                System.out.println("Current Distance: " + distanceTraveled + " Slow Down: " + slowDown);
+                drive.move(xSpeed * speedMultiplier, ySpeed * speedMultiplier, (rotationGoal - navX.getAngle()) * 0.007, navX.getAngle() + 90, false);
             }
         }        
     }
