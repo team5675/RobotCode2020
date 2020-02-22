@@ -28,6 +28,7 @@ public class Pathfinder {
     static double totalDistance;
     static double xSpeed;
     static double ySpeed;
+    static double speedMultiplier;
 
 
     public Pathfinder() {
@@ -38,17 +39,18 @@ public class Pathfinder {
     }
 
 
-    public void translate(double xFeet, double yFeet, double angle, double speedMultiplier) {
+    public void translate(double xFeet, double yFeet, double angle, double newSpeedMultiplier) {
 
         xFeetGoal = xFeet;
         yFeetGoal = yFeet;
         rotationGoal = angle;
         hypDistance = Math.hypot(xFeetGoal, yFeetGoal);
+        speedMultiplier = newSpeedMultiplier;
 
         double distanceFrontLeft = drive.getFrontLeft().getSpeedPosition();
         double distanceFrontRight = drive.getFrontRight().getSpeedPosition();
         double distanceBackLeft = drive.getBackLeft().getSpeedPosition();
-        double distanceBackRight = drive.getBackRight().getSpeedPosition() * -1;
+        double distanceBackRight = drive.getBackRight().getSpeedPosition();
         totalDistance = (distanceFrontLeft + distanceFrontRight + distanceBackLeft + distanceBackRight) / 4;
 
         run = true;
@@ -74,24 +76,24 @@ public class Pathfinder {
             double distanceFrontLeft = drive.getFrontLeft().getSpeedPosition();
             double distanceFrontRight = drive.getFrontRight().getSpeedPosition();
             double distanceBackLeft = drive.getBackLeft().getSpeedPosition();
-            double distanceBackRight = drive.getBackRight().getSpeedPosition() * -1;
+            double distanceBackRight = drive.getBackRight().getSpeedPosition();
             double averageDistance = (distanceFrontLeft + distanceFrontRight + distanceBackLeft + distanceBackRight) / 4;
-            double distanceTraveled = (averageDistance - totalDistance) / 6 * 9.42 / 12 - 1;
+            double distanceTraveled = (averageDistance - totalDistance) / 6 * 9.42 / 12; 
+            
+            double rotationOffset = (7 * (rotationGoal % 360) / 360) / 4;
 
-            xSpeed = xFeetGoal * 0.75 / hypDistance;
-            ySpeed = yFeetGoal * 0.75 / hypDistance;
-
-            //Accounts for rotation movements
-            double rotationOffset = 222.144 * ((rotationGoal % 360) / 360);
-            //Shave it off total distance
             distanceTraveled -= rotationOffset;
 
+            xSpeed = xFeetGoal * speedMultiplier / hypDistance;
+            ySpeed = yFeetGoal * speedMultiplier / hypDistance;
+            //18.512 * rotationGoal / 360
 
+            System.out.println(distanceTraveled + " > " + hypDistance);
             if (distanceTraveled > hypDistance) {
                 drive.move(0, 0, 0, navX.getAngle(), false);
                 run = false;
             } else {
-                drive.move(xSpeed, ySpeed, (rotationGoal - navX.getAngle()) * 0.01, navX.getAngle() + 90, false);
+                drive.move(xSpeed, ySpeed, (rotationGoal - navX.getAngle()) * 0.007, navX.getAngle() + 90, false);
             }
         }        
     }

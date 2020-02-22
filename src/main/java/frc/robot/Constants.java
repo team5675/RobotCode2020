@@ -44,7 +44,7 @@ public class Constants {
     public static final double BR_I = 0.0;
     public static final double BR_D = 0.0;
     public static final int BR_AZIMUTH_ENCODER_ID = 0;
-    public static double BR_ANGLE_OFFSET = 2.573;
+    public static double BR_ANGLE_OFFSET = .073;
 
     public static final double PATHFINDER_KP = 0;
 	public static final double PATHFINDER_KV = 0.0909090909;

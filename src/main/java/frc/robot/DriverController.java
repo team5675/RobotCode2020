@@ -55,7 +55,7 @@ public class DriverController {
         return mainController.getAButton();
     }
 
-    public boolean getX() {
+    public boolean getShoot() {
 
         return mainController.getXButton();
     }
@@ -77,12 +77,12 @@ public class DriverController {
 
     public double getIntake() {
 
-        return auxController.getTriggerAxis(Hand.kRight);
+        return mainController.getTriggerAxis(Hand.kRight);
     }
 
     public double getOuttake() {
         
-        return auxController.getTriggerAxis(Hand.kLeft);
+        return mainController.getTriggerAxis(Hand.kLeft);
     }
 
     public boolean getIntakeDeploy() {
@@ -113,11 +113,6 @@ public class DriverController {
     public boolean getWinch() {
 
         return auxController.getYButton();
-    }
-
-    public boolean getShoot() {
-
-        return false;
     }
 
     public double getColorManual() {

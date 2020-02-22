@@ -117,6 +117,20 @@ public class Shooter {
         return shootMotor1.getEncoder().getVelocity();
     }
 
+
+    public void test() {
+
+        gateMotor.set(1);
+        shootMotor1.set(-1);
+        shootMotor2.set(-1);
+    }
+
+    public void stop() {
+
+        gateMotor.set(0);
+        shootMotor1.set(0);
+        shootMotor2.set(0);
+    }
     
     public static Shooter getInstance() {
 
