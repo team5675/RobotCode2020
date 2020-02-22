@@ -155,7 +155,7 @@ public class Robot extends TimedRobot {
     sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
 
     //Pizza Wheel 3-5 spins
-    if(driverController.getSpinnerDeploy()) {
+    /**if(driverController.getSpinnerDeploy()) {
       spinner.deploySpinner();
     }
     if(driverController.getSpin()) {
@@ -168,7 +168,7 @@ public class Robot extends TimedRobot {
     //Pizza Wheel Color
     if(driverController.getColor()){
       spinner.runColor();
-    }
+    }*/
 
     navX.loop();
     vision.loop();
