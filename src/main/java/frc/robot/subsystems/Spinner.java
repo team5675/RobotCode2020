@@ -37,9 +37,9 @@ public class Spinner {
 
     ColorMatch colorMatch;
 
-    String past = "";
-    String current = "";
-    boolean isOut = false;
+    String past;
+    String current;
+    boolean isOut;
 
     public int changes = 0;
 
@@ -65,10 +65,12 @@ public class Spinner {
         colorMatch.addColorMatch(green);
         colorMatch.addColorMatch(red);
         colorMatch.addColorMatch(yellow);
+
+        isOut = false;
+        past = "";
+        current = "";
     }
 
-
-    
     public void runRotation() {
 
         current = getCurrentColor();
@@ -91,38 +93,24 @@ public class Spinner {
 
     public void runColor() {
         System.out.println("Target: " + realTarget + ", Current: " + getCurrentColor());
+
         if(getCurrentColor().equals(realTarget)) {
-            spinMotor.set(0);
+        spinMotor.set(0);
         }
         else {
             spinMotor.set(0.4);
         }
+        
     }
 
     public void deploySpinner() {
         if(isOut) {
-            retractSpinner();
+            spinDeployArm.set(Value.kReverse);
         }
         else{
-            deploySpinner();
+            spinDeployArm.set(Value.kForward);
         }
         isOut = !isOut;
-    }
-
-    public void retractSpinner() {
-
-        spinDeployArm.set(Value.kReverse);
-    }
-    
-    public void manualSpin(double speed) {
-        spinMotor.set(speed);
-    }
-
-    public void spinWheel() {
-        spinnerController.setReference(Constants.SPINNER_REVS_SETPOINT, ControlType.kPosition);
-    }
-
-    public void spinWheelColor() {
     }
 
     public void setTargets()
