@@ -159,6 +159,10 @@ public class Robot extends TimedRobot {
       indexer.set(0);
     }
 
+    //Pizza Wheel 3-5 spins
+    /**if(driverController.getSpinnerDeploy()) {
+      spinner.deploySpinner();
+    }
     if(driverController.getSpin()) {
       spinner.runRotation();
     }
@@ -166,9 +170,10 @@ public class Robot extends TimedRobot {
       spinner.changes = 0;
     }
 
+    //Pizza Wheel Color
     if(driverController.getColor()){
       spinner.runColor();
-    }
+    }*/
 
     navX.loop();
     vision.loop();

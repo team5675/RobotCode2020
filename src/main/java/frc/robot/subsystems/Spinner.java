@@ -93,6 +93,7 @@ public class Spinner {
 
     public void runColor() {
         System.out.println("Target: " + realTarget + ", Current: " + getCurrentColor());
+        setTargets();
 
         if(getCurrentColor().equals(realTarget)) {
         spinMotor.set(0);
