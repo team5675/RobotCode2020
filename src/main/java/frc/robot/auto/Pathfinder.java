@@ -41,8 +41,8 @@ public class Pathfinder {
 
     public void translate(double xFeet, double yFeet, double angle, double newSpeedMultiplier) {
 
-        xFeetGoal = xFeet;
-        yFeetGoal = yFeet;
+        xFeetGoal = xFeet + yFeet * 0.22;
+        yFeetGoal = yFeet + xFeet * 0.22;
         rotationGoal = angle;
         hypDistance = Math.hypot(xFeetGoal, yFeetGoal);
         speedMultiplier = newSpeedMultiplier;
@@ -80,7 +80,7 @@ public class Pathfinder {
             double averageDistance = (distanceFrontLeft + distanceFrontRight + distanceBackLeft + distanceBackRight) / 4;
             double distanceTraveled = (averageDistance - totalDistance) / 6 * 9.42 / 12; 
             
-            double rotationOffset = (7 * (rotationGoal % 360) / 360) / 4;
+            double rotationOffset = (8.9 * (rotationGoal % 360) / 360) / 4;
 
             distanceTraveled -= rotationOffset;
 

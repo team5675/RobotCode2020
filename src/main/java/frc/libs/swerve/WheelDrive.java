@@ -6,6 +6,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 
 //import frc.robot.SwerveDrive.Encoder;
 
@@ -103,5 +105,10 @@ double speedSetpoint;
 	public double getOffset() {
 
 		return ANGLE_OFFSET;
+	}
+
+	public SwerveModuleState getState() {
+
+		return new SwerveModuleState(driveEncoder.getVelocity(), new Rotation2d(azimuthEncoder.getVoltage()));
 	}
 }
