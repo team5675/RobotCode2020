@@ -10,6 +10,22 @@ public class SwerveDrive {
 	double r;
 
 	public final double CONTROLLER_DEADBAND = .05;
+
+	double a;
+	double b;
+	double c;
+	double d;
+
+	double aOld = 0;
+	double bOld = 0;
+	double cOld = 0;
+	double dOld = 0;
+
+	double braOld = 0;
+	double blaOld = 0;
+	double fraOld = 0;
+	double flaOld = 0;
+
 	
 	/**
 	 * Use for human input
@@ -49,17 +65,26 @@ public class SwerveDrive {
 
 			forward = temp;
 		}
+
+		aOld = a;
+
+		bOld = b;
+
+		cOld = c;
+
+		dOld = d;
 		
-		double a = strafe - rotation  * (L / r); //placeholder vector values
+
+		a = forward + rotation  * (L / r); 
 		
-		double b = strafe + rotation  * (L / r);
+		b = strafe + rotation  * (W / r);
 		
-		double c = forward - rotation * (W / r);
+		c = forward - rotation * (L / r);
 		
-		double d = forward + rotation * (W / r);
+		d = strafe - rotation * (W / r);
 		
 		
-		double backRightSpeed = 0; //calculating speed
+		double backRightSpeed = 0;
 				
 		double backLeftSpeed = 0;
 				
@@ -78,7 +103,7 @@ public class SwerveDrive {
 		frontLeftSpeed = Math.hypot(b, d);
 		
 
-		//Output is 0 to 360 degrees
+		//Output is 0 to 5
 		double backRightAngle 	= (((Math.atan2(a, c) / Math.PI) * 2.5) + 2.5) + backRight.getOffset(); 
 		
 		double backLeftAngle 	= (((Math.atan2(a, d) / Math.PI) * 2.5) + 2.5) + backLeft.getOffset();
@@ -87,12 +112,61 @@ public class SwerveDrive {
 
 		double frontLeftAngle	= (((Math.atan2(b, d) / Math.PI) * 2.5) + 2.5) + frontLeft.getOffset();
 
-		//normalize wheel speeds
-        double max = backRightSpeed;
 
-        if (backLeftSpeed > max)   { max = backLeftSpeed;}
-        if (frontLeftSpeed > max)  { max = frontLeftSpeed;}
-        if (frontRightSpeed > max) { max = frontRightSpeed;}
+		if (braOld != backRightAngle) {//If the angle is different
+
+			braOld = backRightAngle;//set it to the new angle
+
+			if (((bOld * b) + (cOld * c)) < 0) {//if the angles are more than 90 apart
+
+				backRightAngle += 2.5;//flip angle to other side to trvale less
+
+				backRightSpeed *= -1;//invert wheel speed
+			}
+		}
+
+		if (blaOld != backLeftAngle) {//If the angle is different
+
+			blaOld = backLeftAngle;//set it to the new angle
+
+			if (((dOld * d) + (cOld * c)) < 0) {//if the angles are more than 90 apart
+
+				backLeftAngle += 2.5;//flip angle to other side to trvale less
+
+				backLeftSpeed *= -1;//invert wheel speed
+			}
+		}
+
+		if (fraOld != frontRightAngle) {//If the angle is different
+
+			fraOld = frontRightAngle;//set it to the new angle
+
+			if (((bOld * b) + (aOld * a)) < 0) {//if the angles are more than 90 apart
+
+				frontRightAngle += 2.5;//flip angle to other side to trvale less
+
+				frontRightSpeed *= -1;//invert wheel speed
+			}
+		}
+
+		if (flaOld != frontLeftAngle) {//If the angle is different
+
+			flaOld = frontLeftAngle;//set it to the new angle
+
+			if (((dOld * d) + (aOld * a)) < 0) {//if the angles are more than 90 apart
+
+				frontLeftAngle += 2.5;//flip angle to other side to trvale less
+
+				frontLeftSpeed *= -1;//invert wheel speed
+			}
+		}
+
+		//normalize wheel speeds
+        double max = Math.abs(backRightSpeed);
+
+        if (Math.abs(backLeftSpeed)   > max) { max = Math.abs(backLeftSpeed);}
+        if (Math.abs(frontLeftSpeed)  > max) { max = Math.abs(frontLeftSpeed);}
+        if (Math.abs(frontRightSpeed) > max) { max = Math.abs(frontRightSpeed);}
 
         if (max > 1) {
 
@@ -102,37 +176,13 @@ public class SwerveDrive {
             frontRightSpeed /= max;
 		}
 		
-			backRight.drive(backRightSpeed, backRightAngle, deadband); //just using a class to organize modules together
+			backRight.drive(backRightSpeed, backRightAngle, deadband);
 		
 			backLeft.drive(backLeftSpeed, backLeftAngle, deadband);
 		
 			frontRight.drive(frontRightSpeed, frontRightAngle, deadband);
 		
 			frontLeft.drive(frontLeftSpeed, frontLeftAngle, deadband);
-	}
-
-	/**Set the robot to a specified angle (in degrees)
-	 * @param gyroAngle The navX's  measured angle
-	 * @param setpointAngle The desired setpoint angle
-	 */
-	public void rotateToAngle(double gyroAngle, double setpointAngle) {
-
-		r = Math.hypot(L, W);
-
-		double gyroError = (gyroAngle % 360) - setpointAngle;
-
-		double kP = 0.3;
-
-				//Output is 0 to 1
-		double gyroSpeedSetpoint = gyroError * kP;
-
-		//3.125 = the rotaion angle required
-		double gyroAngleSetpoint = 3.125;
-
-		backRight.drive(gyroSpeedSetpoint, gyroAngleSetpoint + backRight.getOffset(), false);
-		backLeft.drive(gyroSpeedSetpoint, gyroAngleSetpoint + backLeft.getOffset(), false);
-		frontRight.drive(gyroSpeedSetpoint, gyroAngleSetpoint + frontRight.getOffset(), false);
-		frontLeft.drive(gyroSpeedSetpoint, gyroAngleSetpoint + frontLeft.getOffset(), false);
 	}
 
 
