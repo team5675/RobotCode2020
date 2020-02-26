@@ -92,8 +92,8 @@ Spinner Subsystem
 
 
 Main Controller
-
 |Button or Axis|Function|
 |---|---|
-|Left Joystick|Forward/Backwards, Strafe Left/Strafe Right|
+|Left Joystick|Forward / Backwards, Strafe Left / Strafe Right|
+|Right Joystick|Rotate Left / Rotate Right|
 
