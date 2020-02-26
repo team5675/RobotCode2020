@@ -91,5 +91,9 @@ Spinner Subsystem
 |6-7        |deploy spin|
 
 
+Main Controller
 
+|Button or Axis|Function|
+|---|---|
+|Left Joystick|Forward/Backwards, Strafe Left/Strafe Right|
 
