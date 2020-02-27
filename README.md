@@ -1,7 +1,7 @@
-![alt text](https://i0.wp.com/www.mattawanwiredcats.org/wp-content/uploads/2019/11/wiredlogo.png?zoom=1&fit=1080%2C532)
+![alt text](https://i0.wp.com/www.mattawanwiredcats.org/wp-content/uploads/2019/11/wiredlogo.png?zoom=1&fit=100%2C532)
   
     
-# -NAME OF ROBOT HERE-
+# MR. MEGA MAID
 
 ![alt text](https://i0.wp.com/www.mattawanwiredcats.org/wp-content/uploads/2018/05/18Apr_Robotics-011-min.jpg)
 
@@ -91,5 +91,44 @@ Spinner Subsystem
 |6-7        |deploy spin|
 
 
+###DriverControllers
 
+Main Controller
 
+|Button or Axis | Function                                           |
+|-------------------|------------------------------------------------|
+|Left Joystick      | Forward / Backwards, Strafe Left / Strafe Right|
+|Right Joystick     | Rotate Left / Rotate Right                     |
+|Left Trigger       | Outake                                         |
+|Right Trigger      | Intake                                         |
+|Left Stick Button  | Unassigned                                     |
+|Right Stick Button | Unassigned                                     |
+|Left Bumper        | Unassigned                                     |
+|Right Bumper       | Robot oriented                                 |
+|Select Button      | Unassigned                                     |
+|Start Button       | Unassigned                                     |
+|Y Button           | Reset Yaw                                      |
+|X Button           | Shoot                                          |
+|B Button           | Vision Line Up                                 |
+|A Button           | Stay Straight                                  |
+|D Pad              | Unassigned                                     |
+
+Aux Controller
+
+|Button or Axis | Function |
+|---------------|----------|
+|Left Joystick      | |
+|Right Joystick     | |
+|Left Trigger       | |
+|Right Trigger      | |
+|Left Stick Button  | |
+|Right Stick Button | |
+|Left Bumper        | |
+|Right Bumper       | |
+|Select Button      | |
+|Start Button       | |
+|Y Button           | |
+|X Button           | |
+|B Button           | |
+|A Button           | |
+|D Pad              | |
