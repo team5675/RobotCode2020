@@ -91,6 +91,8 @@ Spinner Subsystem
 |6-7        |deploy spin|
 
 
+###DriverControllers
+
 Main Controller
 
 |Button or Axis | Function                                           |
@@ -110,3 +112,23 @@ Main Controller
 |B Button           | Vision Line Up                                 |
 |A Button           | Stay Straight                                  |
 |D Pad              | Unassigned                                     |
+
+Aux Controller
+
+|Button or Axis | Function |
+|---------------|----------|
+|Left Joystick      | |
+|Right Joystick     | |
+|Left Trigger       | |
+|Right Trigger      | |
+|Left Stick Button  | |
+|Right Stick Button | |
+|Left Bumper        | |
+|Right Bumper       | |
+|Select Button      | |
+|Start Button       | |
+|Y Button           | |
+|X Button           | |
+|B Button           | |
+|A Button           | |
+|D Pad              | |
