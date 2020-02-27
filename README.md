@@ -92,8 +92,23 @@ Spinner Subsystem
 
 
 Main Controller
-|Button or Axis|Function|
-|---|---|
-|Left Joystick|Forward / Backwards, Strafe Left / Strafe Right|
-|Right Joystick|Rotate Left / Rotate Right|
+
+|Button or Axis | Function                                           |
+|-------------------|------------------------------------------------|
+|Left Joystick      | Forward / Backwards, Strafe Left / Strafe Right|
+|Right Joystick     | Rotate Left / Rotate Right                     |
+|Left Trigger       | Outake                                         |
+|Right Trigger      | Intake                                         |
+|Left Stick Button  | Unassigned                                     |
+|Right Stick Button | Unassigned                                     |
+|Left Bumper        | Unassigned                                     |
+|Right Bumper       | On down, robot oriented                        |
+|Select Button      | Unassigned                                     |
+|Start Button       | Unassigned                                     |
+|Y Button           | Unassigned                                     |
+|X Button           | |
+|B Button           | |
+|A Button           | |
+|D Pad              | Unassigned                                     |
+
 
