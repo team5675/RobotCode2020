@@ -102,13 +102,11 @@ Main Controller
 |Left Stick Button  | Unassigned                                     |
 |Right Stick Button | Unassigned                                     |
 |Left Bumper        | Unassigned                                     |
-|Right Bumper       | On down, robot oriented                        |
+|Right Bumper       | Robot oriented                                 |
 |Select Button      | Unassigned                                     |
 |Start Button       | Unassigned                                     |
-|Y Button           | Unassigned                                     |
-|X Button           | |
-|B Button           | |
-|A Button           | |
+|Y Button           | Reset Yaw                                      |
+|X Button           | Shoot                                          |
+|B Button           | Vision Line Up                                 |
+|A Button           | Stay Straight                                  |
 |D Pad              | Unassigned                                     |
-
-
