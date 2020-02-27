@@ -90,13 +90,19 @@ public class Pathfinder {
             xSpeed = xFeetGoal / hypDistance;
             ySpeed = yFeetGoal / hypDistance;
 
-            if (distanceTraveled > hypDistance) {
-                drive.move(0, 0, 0, navX.getAngle(), false);
+            if (slowDown > 1) {
+                
+            } else if (slowDown < 0.1) {
+                xSpeed = 0;
+                ySpeed = 0;
                 run = false;
             } else {
-                System.out.println("Current Distance: " + distanceTraveled + " Slow Down: " + slowDown);
-                drive.move(xSpeed * speedMultiplier, ySpeed * speedMultiplier, (rotationGoal - navX.getAngle()) * 0.007, navX.getAngle() + 90, false);
+                System.out.println(slowDown);
+                xSpeed = xSpeed * slowDown;
+                ySpeed = ySpeed * slowDown;
             }
+
+            drive.move(xSpeed * speedMultiplier, ySpeed * speedMultiplier, (rotationGoal - navX.getAngle()) * 0.007, navX.getAngle() + 90, false);
         }        
     }
 

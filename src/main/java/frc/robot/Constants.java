@@ -94,7 +94,7 @@ public class Constants {
     //Pathfinder Constants
     public static final double PATHFINDER_SLOWDOWN = 0;
     public static final double PATHFINDER_SLOWDOWN_END = 0.1;
-    public static final double PATHFINDER_SLOWDOWN_P = -0.1;
+    public static final double PATHFINDER_SLOWDOWN_P = 0.5;
 
     //62 Constants
 }

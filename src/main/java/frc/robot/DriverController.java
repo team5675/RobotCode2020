@@ -42,7 +42,7 @@ public class DriverController {
 
     public boolean isFieldOriented() {
 
-        return mainController.getBumper(Hand.kRight);
+        return mainController.getRawButton(6);
     }
 
     public boolean getResetYaw() {
@@ -52,37 +52,37 @@ public class DriverController {
 
     public boolean getStayStraight() {
 
-        return mainController.getAButton();
+        return mainController.getRawButton(1);
     }
 
     public boolean getShoot() {
 
-        return mainController.getXButton();
+        return mainController.getRawButton(3);
     }
 
     public boolean getLineUp() {
 
-        return mainController.getBButton();
+        return mainController.getRawButton(2);
     }
 
     public boolean getOnLineUpPressed() {
 
-        return mainController.getBButtonPressed();
+        return mainController.getRawButtonPressed(2);
     }
 
     public boolean getOnLineUpReleased() {
 
-        return mainController.getBButtonReleased();
+        return mainController.getRawButtonReleased(2);
     }
 
     public double getIntake() {
 
-        return mainController.getTriggerAxis(Hand.kRight);
+        return mainController.getRawAxis(3);
     }
 
     public double getOuttake() {
         
-        return mainController.getTriggerAxis(Hand.kLeft);
+        return mainController.getRawAxis(2);
     }
 
     public boolean getIntakeDeploy() {
