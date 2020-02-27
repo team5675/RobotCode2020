@@ -1,7 +1,7 @@
-![alt text](https://i0.wp.com/www.mattawanwiredcats.org/wp-content/uploads/2019/11/wiredlogo.png?zoom=0.5&fit=1080%2C532)
+![alt text](https://i0.wp.com/www.mattawanwiredcats.org/wp-content/uploads/2019/11/wiredlogo.png?zoom=1&fit=500%2C532)
   
     
-# -MR. MEGA MAID-
+# MR. MEGA MAID
 
 ![alt text](https://i0.wp.com/www.mattawanwiredcats.org/wp-content/uploads/2018/05/18Apr_Robotics-011-min.jpg)
 
