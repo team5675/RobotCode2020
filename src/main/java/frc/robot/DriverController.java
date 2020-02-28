@@ -87,32 +87,32 @@ public class DriverController {
 
     public boolean getIntakeDeploy() {
 
-        return auxController.getBumper(Hand.kLeft);
+        return auxController.getRawButton(5);
     }
 
     public boolean getIntakeRetract() {
 
-        return auxController.getBumper(Hand.kRight);
+        return auxController.getRawButton(6);
     }
 
     public boolean getSpinnerDeploy() {
 
-        return auxController.getAButton();
+        return auxController.getRawButton(1);
     }
 
     public boolean getColor() {
 
-        return auxController.getXButton();
+        return auxController.getRawButton(3);
     }
 
     public boolean getSpin() {
 
-        return auxController.getBButton();
+        return auxController.getRawButton(2);
     }
 
     public boolean getWinch() {
 
-        return auxController.getYButton();
+        return auxController.getRawButton(4);
     }
 
     public double getColorManual() {
