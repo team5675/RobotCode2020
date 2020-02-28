@@ -91,7 +91,7 @@ Spinner Subsystem
 |6-7        |deploy spin|
 
 
-###DriverControllers
+### Driver Controls
 
 Main Controller
 
@@ -106,7 +106,7 @@ Main Controller
 |Left Bumper        | Unassigned                                     |
 |Right Bumper       | Robot oriented                                 |
 |Select Button      | Unassigned                                     |
-|Start Button       | Unassigned                                     |
+|Start Button       | Run Air Compressor                             |
 |Y Button           | Reset Yaw                                      |
 |X Button           | Shoot                                          |
 |B Button           | Vision Line Up                                 |
@@ -117,18 +117,18 @@ Aux Controller
 
 |Button or Axis | Function |
 |---------------|----------|
-|Left Joystick      | |
-|Right Joystick     | |
-|Left Trigger       | |
-|Right Trigger      | |
-|Left Stick Button  | |
-|Right Stick Button | |
-|Left Bumper        | |
-|Right Bumper       | |
-|Select Button      | |
-|Start Button       | |
-|Y Button           | |
-|X Button           | |
-|B Button           | |
-|A Button           | |
-|D Pad              | |
+|Left Joystick      | Left/Right: Get Color Manual |
+|Right Joystick     | Unassigned                   |
+|Left Trigger       | Unassigned                   |
+|Right Trigger      | Unassigned                   |
+|Left Stick Button  | Unassigned                   |
+|Right Stick Button | Unassigned                   |
+|Left Bumper        | Deploy Intake                |
+|Right Bumper       | Retract Intake               |
+|Select Button      | Unassigned                   |
+|Start Button       | Unassigned                   |
+|Y Button           | Winch                        |
+|X Button           | Get Color?                   |
+|B Button           | Spin                         |
+|A Button           | Spinner Deploy               |
+|D Pad              | Unassigned                   |
