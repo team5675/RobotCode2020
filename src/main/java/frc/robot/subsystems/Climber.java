@@ -7,6 +7,11 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import frc.robot.Constants;
+
 /**
  * Add your docs here.
  */
@@ -14,8 +19,44 @@ public class Climber {
 
     static Climber instance;
 
-    public Climber() {
+    DoubleSolenoid lock;
+    //DoubleSolenoid masterArm;
+    Solenoid masterArmRaise;
+    Solenoid masterArmCollapse;
 
+    boolean locked = true;
+    
+
+    public Climber() {
+        lock = new DoubleSolenoid(Constants.LOCK_SOLENOID_ID_1, Constants.LOCK_SOLENOID_ID_2);
+        //masterArm = new DoubleSolenoid(Constants.MASTER_ARM_COLLAPSE_SOLENOID_ID, Constants.MASTER_ARM_RAISE_SOLENOID_ID);
+        masterArmRaise = new Solenoid(Constants.MASTER_ARM_RAISE_SOLENOID_ID);
+        masterArmCollapse = new Solenoid(Constants.MASTER_ARM_COLLAPSE_SOLENOID_ID);
+
+        lock.set(Value.kForward);
+    }
+
+
+    public void releaseLock() {
+        lock.set(Value.kReverse);
+    }
+
+
+    public void raiseMasterArm() {
+        //masterArm.set(Value.kForward);
+        masterArmRaise.set(true);
+    }
+
+
+    public void collapseMasterArm() {
+        //masterArm.set(Value.kOff);
+        //masterArmRaise.set(true);
+        masterArmCollapse.set(true);
+    }
+
+    
+    public void winch() {
+        
     }
     
     

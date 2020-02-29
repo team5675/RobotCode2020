@@ -77,12 +77,12 @@ public class DriverController {
 
     public double getIntake() {
 
-        return mainController.getRawAxis(3);
+        return auxController.getRawAxis(3);
     }
 
     public double getOuttake() {
         
-        return mainController.getRawAxis(2);
+        return auxController.getRawAxis(2);
     }
 
     public boolean getIntakeDeploy() {
@@ -123,6 +123,21 @@ public class DriverController {
     public boolean getRunCompressor() {
 
         return mainController.getRawButtonPressed(8);
+    }
+
+    public boolean getUnlockClimb() {
+
+        return auxController.getRawButton(7);
+    }
+
+    public boolean getRaiseMasterArm() {
+        
+        return auxController.getRawButtonPressed(8);
+    }
+
+    public boolean getCollapseMasterArm() {
+
+        return auxController.getRawButtonReleased(8);
     }
 
 

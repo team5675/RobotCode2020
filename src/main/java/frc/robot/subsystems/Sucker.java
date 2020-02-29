@@ -34,13 +34,13 @@ public class Sucker {
     }
 
 
-    public void expand() {
+    public void deploy() {
 
         intakeSolenoid.set(Value.kForward);
     }
 
 
-    public void collapse() {
+    public void retract() {
 
         intakeSolenoid.set(Value.kReverse);
     }
