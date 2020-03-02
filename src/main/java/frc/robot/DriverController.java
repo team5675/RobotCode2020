@@ -120,11 +120,6 @@ public class DriverController {
         return auxController.getRawAxis(0);
     }
 
-    public boolean getRunCompressor() {
-
-        return mainController.getRawButtonPressed(8);
-    }
-
 
     public static DriverController getInstance() {
 
