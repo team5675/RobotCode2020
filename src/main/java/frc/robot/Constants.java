@@ -56,9 +56,9 @@ public class Constants {
     public static final int SHOOTER_ID_2 = 4;
     public static final double SHOOTER_RPM_GAIN = 145;
     public static final double SHOOTER_SETPOINT = 5000;
-    public static final double SHOOTER_KP = 0;
-    public static final double SHOOTER_KD = 0; 
-    public static final double SHOOTER_KF = 0; 
+    public static final double SHOOTER_KP = 0.00005;
+    public static final double SHOOTER_KD = 0.00002; 
+    public static final double SHOOTER_KF = 0.00019; 
     public static final double SHOOTER_HEIGHT = 2;    //ft
     public static final double SHOOTER_WHEEL_DIAMETER = 0.5025; //ft
     public static final double CAM_HEIGHT = 0;
@@ -102,6 +102,7 @@ public class Constants {
     public static final int MASTER_ARM_RAISE_SOLENOID_ID = 4;
     public static final int MASTER_ARM_COLLAPSE_SOLENOID_ID = 3;
     public static final int WINCH_MOTOR_ID = 2;
+    public static final int TROLLER_MOTOR_ID = 3;
 
     //62 Constants
 }

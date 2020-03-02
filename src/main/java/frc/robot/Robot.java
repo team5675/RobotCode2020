@@ -149,9 +149,6 @@ public class Robot extends TimedRobot {
 
     }
     
-    //Sucker Spin
-    sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
-
     //Sucker Release Deploy
     if (driverController.getIntakeDeploy()) {
       sucker.deploy();
@@ -166,7 +163,19 @@ public class Robot extends TimedRobot {
       climber.raiseMasterArm();
     } else if (driverController.getCollapseMasterArm()) {
       climber.collapseMasterArm();
+      pneumatics.stopCompressor();
     }
+
+    //Winch
+    if (driverController.getWinch()) {
+
+      climber.winch();
+    } else {
+
+      climber.stopWinch();
+    }
+
+    climber.setTroller(driverController.getTroller());
 
     //Pizza Wheel 3-5 spins
     /**if(driverController.getSpinnerDeploy()) {
@@ -189,8 +198,9 @@ public class Robot extends TimedRobot {
 
     if (driverController.getShoot()) {
       shooter.test();
-      sucker.suckOrBlow(-1);
+      sucker.suckOrBlow(-0.5);
     } else {
+      sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
       shooter.stop();
     }
 

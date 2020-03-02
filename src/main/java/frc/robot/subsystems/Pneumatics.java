@@ -39,6 +39,12 @@ public class Pneumatics {
         compressor.start();
     }
 
+
+    public void stopCompressor() {
+
+        compressor.stop();
+    }
+
     
     static public Pneumatics getInstance() {
 

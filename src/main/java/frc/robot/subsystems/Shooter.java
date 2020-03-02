@@ -38,7 +38,8 @@ public class Shooter {
     Spark gateMotor;
     CANSparkMax shootMotor1;
     CANSparkMax shootMotor2;
-    CANPIDController RPMController;
+    CANPIDController RPMController1;
+    CANPIDController RPMController2;
     CANEncoder RPMEncoder;
 
     double angle;
@@ -56,13 +57,20 @@ public class Shooter {
 
         gateMotor     = new Spark(Constants.GATE_ID);
 
-        RPMController = shootMotor1.getPIDController();
+        RPMController1 = shootMotor1.getPIDController();
         RPMEncoder    = shootMotor1.getEncoder();
 
-        RPMController.setP(Constants.SHOOTER_KP);
-        RPMController.setD(Constants.SHOOTER_KD);
-        RPMController.setFF(Constants.SHOOTER_KF);
-        RPMController.setOutputRange(-1, 1);
+        RPMController1.setP(Constants.SHOOTER_KP);
+        RPMController1.setD(Constants.SHOOTER_KD);
+        RPMController1.setFF(Constants.SHOOTER_KF);
+        RPMController1.setOutputRange(-1, 1);
+
+        RPMController2 = shootMotor2.getPIDController();
+
+        RPMController2.setP(Constants.SHOOTER_KP);
+        RPMController2.setD(Constants.SHOOTER_KD);
+        RPMController2.setFF(Constants.SHOOTER_KF);
+        RPMController2.setOutputRange(-1, 1);
 
         distanceLimelight = vision.getDistanceFromTarget();
     }
@@ -105,7 +113,7 @@ public class Shooter {
 
         RPM_TARGET = distance * Constants.SHOOTER_RPM_GAIN;
 
-        RPMController.setReference(RPM_TARGET, ControlType.kVelocity);
+        RPMController1.setReference(RPM_TARGET, ControlType.kVelocity);
         shootMotor2.follow(shootMotor1, false);
 
         return RPM_TARGET;
@@ -120,16 +128,16 @@ public class Shooter {
 
     public void test() {
 
-        gateMotor.set(1);
-        shootMotor1.set(-1);
-        shootMotor2.set(-1);
+        gateMotor.set(-1);
+        shootMotor1.getPIDController().setReference(-3000, ControlType.kVelocity);
+        shootMotor2.getPIDController().setReference(-3000, ControlType.kVelocity);
     }
 
     public void stop() {
 
         gateMotor.set(0);
-        shootMotor1.set(0);
-        shootMotor2.set(0);
+        shootMotor1.getPIDController().setReference(0, ControlType.kVelocity);
+        shootMotor2.getPIDController().setReference(0, ControlType.kVelocity);
     }
     
     public static Shooter getInstance() {

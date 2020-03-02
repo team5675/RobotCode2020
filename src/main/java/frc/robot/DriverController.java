@@ -141,6 +141,12 @@ public class DriverController {
     }
 
 
+    public double getTroller() {
+
+        return auxController.getRawAxis(4);
+    }
+
+
     public static DriverController getInstance() {
 
         if (instance == null) {

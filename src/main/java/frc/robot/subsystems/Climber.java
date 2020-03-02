@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.Constants;
 
@@ -20,43 +21,63 @@ public class Climber {
     static Climber instance;
 
     DoubleSolenoid lock;
-    //DoubleSolenoid masterArm;
     Solenoid masterArmRaise;
     Solenoid masterArmCollapse;
+    Spark winch;
+    Spark troller;
 
     boolean locked = true;
     
 
     public Climber() {
+
         lock = new DoubleSolenoid(Constants.LOCK_SOLENOID_ID_1, Constants.LOCK_SOLENOID_ID_2);
-        //masterArm = new DoubleSolenoid(Constants.MASTER_ARM_COLLAPSE_SOLENOID_ID, Constants.MASTER_ARM_RAISE_SOLENOID_ID);
         masterArmRaise = new Solenoid(Constants.MASTER_ARM_RAISE_SOLENOID_ID);
         masterArmCollapse = new Solenoid(Constants.MASTER_ARM_COLLAPSE_SOLENOID_ID);
+        winch = new Spark(Constants.WINCH_MOTOR_ID);
+        troller = new Spark(Constants.TROLLER_MOTOR_ID);
 
         lock.set(Value.kForward);
+        masterArmRaise.set(false);
+        masterArmCollapse.set(false);
     }
 
 
     public void releaseLock() {
+
         lock.set(Value.kReverse);
     }
 
 
     public void raiseMasterArm() {
-        //masterArm.set(Value.kForward);
+
         masterArmRaise.set(true);
+        //masterArmCollapse.set(true);
     }
 
 
     public void collapseMasterArm() {
-        //masterArm.set(Value.kOff);
-        //masterArmRaise.set(true);
+
+        masterArmRaise.set(false);
         masterArmCollapse.set(true);
     }
 
     
     public void winch() {
+
+        winch.set(1);
+    }
+
+
+    public void stopWinch() {
+
+        winch.set(0);
+    }
+
+    
+    public void setTroller(double speed) {
         
+        troller.set(speed);
     }
     
     
