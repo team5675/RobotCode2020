@@ -118,7 +118,7 @@ Aux Controller
 |Button or Axis | Function |
 |---------------|----------|
 |Left Joystick      | Left/Right: Get Color Manual |
-|Right Joystick     | Unassigned                   |
+|Right Joystick     | Troller                      |
 |Left Trigger       | Unassigned                   |
 |Right Trigger      | Unassigned                   |
 |Left Stick Button  | Unassigned                   |

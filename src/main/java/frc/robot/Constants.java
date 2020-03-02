@@ -30,16 +30,16 @@ public class Constants {
     public static final int FR_AZIMUTH_ENCODER_ID = 2;
 	public static double FR_ANGLE_OFFSET = 0.173;
 
-    public static final int DRIVE_BACK_LEFT_SPEED_ID = 10;
-    public static final int DRIVE_BACK_LEFT_AZIMUTH_ID = 11;
+    public static final int DRIVE_BACK_LEFT_SPEED_ID = 11;
+    public static final int DRIVE_BACK_LEFT_AZIMUTH_ID = 10;
     public static final double BL_P = 0.86;
     public static final double BL_I = 0.0;
     public static final double BL_D = 0.0;
     public static final int BL_AZIMUTH_ENCODER_ID = 1;  
 	public static double BL_ANGLE_OFFSET = 4.943;
 
-    public static final int DRIVE_BACK_RIGHT_SPEED_ID = 7;
-    public static final int DRIVE_BACK_RIGHT_AZIMUTH_ID = 8;
+    public static final int DRIVE_BACK_RIGHT_SPEED_ID = 8;
+    public static final int DRIVE_BACK_RIGHT_AZIMUTH_ID = 7;
     public static final double BR_P = 0.86;
     public static final double BR_I = 0.0;
     public static final double BR_D = 0.0;
@@ -69,13 +69,13 @@ public class Constants {
     public static final int SPINNER_TICKS_PER_REV = 0;
     public static final double SPINNER_REVS_SETPOINT = 100;
     public static final double ONE_COLOR_REVS = 30;
-    public static final int SPINNER_ARM_IN_CHANNEL = 0;
+    public static final int SPINNER_ARM_IN_CHANNEL = 6;
     public static final int SPINNER_ARM_OUT_CHANNEL = 1;
 
     //Intake subsystem constants
     public static final int INTAKE_ID = 1;
-    public static final int DEPLOY_ID_1 = 2;
-    public static final int DEPLOY_ID_2 = 3;
+    public static final int DEPLOY_ID_1 = 7;
+    public static final int DEPLOY_ID_2 = 0;
 
     //Vision subsystem constants
     public static final double VISION_TARGET_HEIGHT = 8.1875;
@@ -95,6 +95,13 @@ public class Constants {
     public static final double PATHFINDER_SLOWDOWN = 0;
     public static final double PATHFINDER_SLOWDOWN_END = 0.1;
     public static final double PATHFINDER_SLOWDOWN_P = 0.5;
+
+    //Climb Constants
+    public static final int LOCK_SOLENOID_ID_1 = 2;
+    public static final int LOCK_SOLENOID_ID_2 = 5;
+    public static final int MASTER_ARM_RAISE_SOLENOID_ID = 4;
+    public static final int MASTER_ARM_COLLAPSE_SOLENOID_ID = 3;
+    public static final int WINCH_MOTOR_ID = 2;
 
     //62 Constants
 }

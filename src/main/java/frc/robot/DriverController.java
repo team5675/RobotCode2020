@@ -8,7 +8,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 /**
  * Organize inputs from the Xbox Controllers
@@ -77,47 +76,67 @@ public class DriverController {
 
     public double getIntake() {
 
-        return mainController.getRawAxis(3);
+        return auxController.getRawAxis(3);
     }
 
     public double getOuttake() {
         
-        return mainController.getRawAxis(2);
+        return auxController.getRawAxis(2);
     }
 
     public boolean getIntakeDeploy() {
 
-        return auxController.getBumper(Hand.kLeft);
+        return auxController.getRawButton(5);
     }
 
     public boolean getIntakeRetract() {
 
-        return auxController.getBumper(Hand.kRight);
+        return auxController.getRawButton(6);
     }
 
     public boolean getSpinnerDeploy() {
 
-        return auxController.getAButton();
+        return auxController.getRawButton(1);
     }
 
     public boolean getColor() {
 
-        return auxController.getXButton();
+        return auxController.getRawButton(3);
     }
 
     public boolean getSpin() {
 
-        return auxController.getBButton();
+        return auxController.getRawButton(2);
     }
 
     public boolean getWinch() {
 
-        return auxController.getYButton();
+        return auxController.getRawButton(4);
     }
 
     public double getColorManual() {
 
         return auxController.getRawAxis(0);
+    }
+
+    public boolean getRunCompressor() {
+
+        return mainController.getRawButtonPressed(8);
+    }
+
+    public boolean getUnlockClimb() {
+
+        return auxController.getRawButton(7);
+    }
+
+    public boolean getRaiseMasterArm() {
+        
+        return auxController.getRawButtonPressed(8);
+    }
+
+    public boolean getCollapseMasterArm() {
+
+        return auxController.getRawButtonReleased(8);
     }
 
 

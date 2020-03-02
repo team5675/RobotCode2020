@@ -7,17 +7,13 @@
 
 package frc.robot;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.ActionRunner;
 import frc.robot.auto.ModeRunner;
 import frc.robot.auto.Pathfinder;
 import frc.robot.auto.actions.Action;
 import frc.robot.auto.actions.LineUpTowardsTargetWithDriver;
-
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.NavX;
 import frc.robot.subsystems.Pneumatics;
@@ -39,17 +35,13 @@ public class Robot extends TimedRobot {
   NavX             navX;
   Spinner          spinner;
   Pneumatics       pneumatics;
+  Climber          climber;
 
   Pathfinder       pathfinder;
   ModeRunner       modeRunner;
   ActionRunner     actionRunner;
   Action           lineUpTowardsTargetWithDriver;
   AutoChooser      autoChooser;
-
-  Spark indexer = new Spark(2);
-  CANSparkMax left = new CANSparkMax(3, MotorType.kBrushless);
-  CANSparkMax right = new CANSparkMax(4, MotorType.kBrushless);
-
 
 
   @Override
@@ -65,6 +57,7 @@ public class Robot extends TimedRobot {
     sucker           = Sucker.getInstance();
     spinner          = Spinner.getInstance();
     pneumatics       = Pneumatics.getInstance();
+    climber          = Climber.getInstance();
 
     actionRunner     = ActionRunner.getInstance();
     pathfinder       = Pathfinder.getInstance();
@@ -113,7 +106,8 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
    //System.out.format("BR: %f \nBL: %f \nFR: %f \nFL: %f\n", drive.getBackRight().getAzimuth(), drive.getBackLeft().getAzimuth(), drive.getFrontRight().getAzimuth(), drive.getFrontLeft().getAzimuth());
-    
+   //System.out.println(drive.getBackRight().getAzimuth()); 
+
     //Reset Yaw on NavX
     if(driverController.getResetYaw()) {
       navX.resetYaw();
@@ -147,12 +141,23 @@ public class Robot extends TimedRobot {
 
     }
     
-    //Sucker
+    //Sucker Spin
     sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
-    if (driverController.getIntake() - driverController.getOuttake() > 0) {
-      indexer.set(-1);
-    } else {
-      indexer.set(0);
+
+    //Sucker Release Deploy
+    if (driverController.getIntakeDeploy()) {
+      sucker.deploy();
+    } else if (driverController.getIntakeRetract()) {
+      sucker.retract();
+    }
+
+    //Climber
+    if (driverController.getUnlockClimb()) {
+      climber.releaseLock();
+    } else if (driverController.getRaiseMasterArm()) {
+      climber.raiseMasterArm();
+    } else if (driverController.getCollapseMasterArm()) {
+      climber.collapseMasterArm();
     }
 
     //Pizza Wheel 3-5 spins
@@ -176,9 +181,14 @@ public class Robot extends TimedRobot {
 
     if (driverController.getShoot()) {
       shooter.test();
+      sucker.suckOrBlow(-1);
     } else {
       shooter.stop();
     }
+
+    //feeder.set(1);
+    //left.getPIDController().setReference(-3000, ControlType.kVelocity);
+    //right.getPIDController().setReference(-3000, ControlType.kVelocity);
   }
 
 
