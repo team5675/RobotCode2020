@@ -99,19 +99,19 @@ Main Controller
 |-------------------|------------------------------------------------|
 |Left Joystick      | Forward / Backwards, Strafe Left / Strafe Right|
 |Right Joystick     | Rotate Left / Rotate Right                     |
-|Left Trigger       | Unassigned                                     |
-|Right Trigger      | Unassigned                                     |
-|Left Stick Button  | Unassigned                                     |
-|Right Stick Button | Unassigned                                     |
-|Left Bumper        | Unassigned                                     |
+|Left Trigger       |                                                |
+|Right Trigger      |                                                |
+|Left Stick Button  |                                                |
+|Right Stick Button |                                                |
+|Left Bumper        |                                                |
 |Right Bumper       | Robot oriented                                 |
-|Select Button      | Unassigned                                     |
-|Start Button       | Unassigned                                     |
+|Select Button      |                                                |
+|Start Button       |                                                |
 |Y Button           | Reset Yaw                                      |
-|X Button           | Unassigned                                     |
-|B Button           | Unassigned                                     |
+|X Button           |                                                |
+|B Button           |                                                |
 |A Button           | Stay Straight                                  |
-|D Pad              | Unassigned                                     |
+|D Pad              |                                                |
 
 Aux Controller
 
@@ -122,13 +122,13 @@ Aux Controller
 |Left Trigger       | Outtake                      |
 |Right Trigger      | Intake                       |
 |Left Stick Button  | Winch Enable                 |
-|Right Stick Button | Unassigned                   |
+|Right Stick Button |                              |
 |Left Bumper        | Deploy Intake                |
 |Right Bumper       | Retract Intake               |
-|Select Button      | Climb                        |
-|Start Button       | Climb                        |
-|Y Button           | Unassigned                   |
+|Select Button      | Climb Lock Dissengage        |
+|Start Button       | Climb Arm Deploy/Collapse    |
+|Y Button           |                              |
 |X Button           | Shoot                        |
 |B Button           | Spin                         |
 |A Button           | Spinner Deploy               |
-|D Pad              | Unassigned                   |
+|D Pad              |                              |
