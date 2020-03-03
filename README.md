@@ -100,7 +100,7 @@ Main Controller
 |Left Joystick      | Forward / Backwards, Strafe Left / Strafe Right|
 |Right Joystick     | Rotate Left / Rotate Right                     |
 |Left Trigger       | Unassigned                                     |
-|Right Trigger      | Unassigned                                         |
+|Right Trigger      | Unassigned                                     |
 |Left Stick Button  | Unassigned                                     |
 |Right Stick Button | Unassigned                                     |
 |Left Bumper        | Unassigned                                     |
@@ -109,7 +109,7 @@ Main Controller
 |Start Button       | Unassigned                                     |
 |Y Button           | Reset Yaw                                      |
 |X Button           | Unassigned                                     |
-|B Button           | Vision Line Up                                 |
+|B Button           | Unassigned                                     |
 |A Button           | Stay Straight                                  |
 |D Pad              | Unassigned                                     |
 
