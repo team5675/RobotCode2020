@@ -99,16 +99,16 @@ Main Controller
 |-------------------|------------------------------------------------|
 |Left Joystick      | Forward / Backwards, Strafe Left / Strafe Right|
 |Right Joystick     | Rotate Left / Rotate Right                     |
-|Left Trigger       | Outake                                         |
-|Right Trigger      | Intake                                         |
+|Left Trigger       | Unassigned                                     |
+|Right Trigger      | Unassigned                                         |
 |Left Stick Button  | Unassigned                                     |
 |Right Stick Button | Unassigned                                     |
 |Left Bumper        | Unassigned                                     |
 |Right Bumper       | Robot oriented                                 |
 |Select Button      | Unassigned                                     |
-|Start Button       | Run Air Compressor                             |
+|Start Button       | Unassigned                                     |
 |Y Button           | Reset Yaw                                      |
-|X Button           | Shoot                                          |
+|X Button           | Unassigned                                     |
 |B Button           | Vision Line Up                                 |
 |A Button           | Stay Straight                                  |
 |D Pad              | Unassigned                                     |
@@ -117,18 +117,18 @@ Aux Controller
 
 |Button or Axis | Function |
 |---------------|----------|
-|Left Joystick      | Left/Right: Get Color Manual |
+|Left Joystick      | Winch                        |
 |Right Joystick     | Troller                      |
-|Left Trigger       | Unassigned                   |
-|Right Trigger      | Unassigned                   |
-|Left Stick Button  | Unassigned                   |
+|Left Trigger       | Outtake                      |
+|Right Trigger      | Intake                       |
+|Left Stick Button  | Winch Enable                 |
 |Right Stick Button | Unassigned                   |
 |Left Bumper        | Deploy Intake                |
 |Right Bumper       | Retract Intake               |
-|Select Button      | Unassigned                   |
-|Start Button       | Unassigned                   |
-|Y Button           | Winch                        |
-|X Button           | Get Color?                   |
+|Select Button      | Climb                        |
+|Start Button       | Climb                        |
+|Y Button           | Unassigned                   |
+|X Button           | Shoot                        |
 |B Button           | Spin                         |
 |A Button           | Spinner Deploy               |
 |D Pad              | Unassigned                   |
