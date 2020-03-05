@@ -105,7 +105,6 @@ public class Pathfinder {
                     run = false;
                 }
             } else {
-                System.out.println(slowDown);
                 xSpeed = xSpeed * slowDown;
                 ySpeed = ySpeed * slowDown;
             }

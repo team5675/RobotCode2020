@@ -39,14 +39,12 @@ public class Shooter {
     
 
     public void shoot() {
+        
         vision.lightOn();
 
         drive.move(driverController.getForward(), driverController.getStrafe(), vision.getHorizontalOffset() * Constants.AUTO_ROTATE_P, 0, true);
 
-        rpm = 1.162 * Math.pow(vision.getDistanceFromTarget(), 3) - 44.968 * Math.pow(vision.getDistanceFromTarget(), 2) + 622.09 * vision.getDistanceFromTarget() - 79.5;
-
-        //System.out.println("Target RPM: " + rpm + " Current: " + (getVelocity()));
-
+        rpm = 1.162 * Math.pow(vision.getDistanceFromTarget(), 3) - 44.968 * Math.pow(vision.getDistanceFromTarget(), 2) + 622.09 * vision.getDistanceFromTarget() - 79.5; //1.162
 
         motorOne.setRPMVelocity((int)rpm * -1);
         motorTwo.setRPMVelocity((int)rpm * -1);
@@ -56,6 +54,7 @@ public class Shooter {
             gate.set(-1);
         } else {
 
+            System.out.println("CURRENT VELOCITY: " + getVelocity() + " GOALS: " + rpm);
             gate.set(0);
         }
     }

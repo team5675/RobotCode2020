@@ -55,10 +55,9 @@ public class Constants {
     public static final int SHOOTER_ID_1 = 3;
     public static final int SHOOTER_ID_2 = 4;
     public static final double SHOOTER_KP = 0.00005;
-    public static final double SHOOTER_KD = 0.00002; 
-    public static final double SHOOTER_KF = 0.00019; 
-    public static final int SHOOTER_GATE_THRESHOLD = 200;
-    public static final double SHOOTER_VISION_GAIN = 150;
+    public static final double SHOOTER_KD = 0.00002;
+    public static final double SHOOTER_KF = 0.00020; //0.00019
+    public static final int SHOOTER_GATE_THRESHOLD = 100;
 
     //Pizza spinner constants
     public static final int SPINNER_MOTOR_ID = 9;

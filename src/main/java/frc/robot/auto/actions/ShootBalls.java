@@ -44,7 +44,6 @@ public class ShootBalls implements Action {
         drive.move(0, 0, vision.getHorizontalOffset() * Constants.AUTO_ROTATE_P, 0, true);
 
         shooter.shoot();
-        System.out.println(shooter.getVelocity() + " > " + (shooter.getRPMTarget() - 100));
 
         if (shooter.getRPMTarget() > shooter.getVelocity() + 300 && debounce) {
 
@@ -57,19 +56,7 @@ public class ShootBalls implements Action {
 
             debounce = true;
         }
-/*
-        if (debounce && shooter.getVelocity() > shooter.getRPMTarget() - 50) {
-            System.out.println("bounce");
-            debounce = false;
-        }
 
-        if (!debounce && shooter.getVelocity() < shooter.getRPMTarget() - 100) {
-            ballsShot++;
-            debounce = true;
-
-            System.out.println("boom!");
-        }
-        */
         if (amount == ballsShot) {
             return false;
         } else {

@@ -27,6 +27,7 @@ public class SparkMaxMotor {
         controller = new CANSparkMax(motorId, MotorType.kBrushless);
 
         controller.restoreFactoryDefaults();
+        controller.setSmartCurrentLimit(40);
         
         pidController = controller.getPIDController();
         encoder = controller.getEncoder();
@@ -57,5 +58,11 @@ public class SparkMaxMotor {
         pidController.setI(i);
         pidController.setD(d);
         pidController.setFF(ff);
+    }
+
+    
+    public void burnFlash() {
+
+        controller.burnFlash();
     }
 }
