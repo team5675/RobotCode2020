@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.auto.modes.DoNothing;
 import frc.robot.auto.modes.Mode;
 import frc.robot.auto.modes.ShootEightBalls;
+import frc.robot.auto.modes.ShootSixBalls;
 import frc.robot.auto.modes.ShootThreeBalls;
 
 /**
@@ -32,6 +33,7 @@ public class AutoChooser {
     enum Modes {
         DoNothing,
         ShootThreeBalls,
+        ShootSixBalls,
         ShootEightBalls
     }
 
@@ -44,6 +46,7 @@ public class AutoChooser {
 
         modeSelector.addOption("Do nothing", Modes.DoNothing);
         modeSelector.addOption("Shoot Three Balls", Modes.ShootThreeBalls);
+        modeSelector.addOption("Shoot Six Balls", Modes.ShootSixBalls);
         modeSelector.addOption("Shoot Eight Balls", Modes.ShootEightBalls);
 
         SmartDashboard.putData(modeSelector);
@@ -58,6 +61,9 @@ public class AutoChooser {
         switch (result) {
             case ShootEightBalls:
                 modeToReturn = new ShootEightBalls();
+                break;
+            case ShootSixBalls:
+                modeToReturn = new ShootSixBalls();
                 break;
             case ShootThreeBalls:
                 modeToReturn = new ShootThreeBalls();

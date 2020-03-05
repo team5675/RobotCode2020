@@ -14,7 +14,7 @@ import frc.robot.subsystems.Shooter;
  */
 public class ShootAllBalls implements Action {
 
-    Shooter shooter = new Shooter();
+    Shooter shooter = Shooter.getInstance();
 
     
     public void start() {
@@ -24,7 +24,9 @@ public class ShootAllBalls implements Action {
 
     public boolean loop() {
 
-        return false;
+        shooter.shoot();
+
+        return true;
     }
 
 

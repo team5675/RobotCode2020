@@ -56,7 +56,7 @@ public class DriverController {
 
     public boolean getShoot() {
 
-        return mainController.getRawButton(3);
+        return auxController.getRawButton(3);
     }
 
     public boolean getLineUp() {
@@ -109,11 +109,6 @@ public class DriverController {
         return auxController.getRawButton(2);
     }
 
-    public boolean getWinch() {
-
-        return auxController.getRawButton(4);
-    }
-
     public double getColorManual() {
 
         return auxController.getRawAxis(0);
@@ -143,6 +138,18 @@ public class DriverController {
     public double getTroller() {
 
         return auxController.getRawAxis(4);
+    }
+
+
+    public boolean getWinchSafety() {
+
+        return auxController.getRawButton(9);
+    }
+
+
+    public double getWinchSpeed() {
+
+        return auxController.getRawAxis(1);
     }
 
 

@@ -9,26 +9,29 @@ package frc.robot.auto.modes;
 
 import frc.robot.auto.ActionRunner;
 import frc.robot.auto.Pathfinder;
-import frc.robot.auto.actions.LineUpWithTarget;
-import frc.robot.auto.actions.ShootAllBalls;
 import frc.robot.auto.actions.ShootBalls;
 import frc.robot.subsystems.Sucker;
 
 /**
  * Add your docs here.
  */
-public class ShootThreeBalls extends Mode {
-    
+public class ShootSixBalls extends Mode {
+
     ActionRunner actionRunner = ActionRunner.getInstance();
     Pathfinder pathfinder = Pathfinder.getInstance();
     Sucker sucker = Sucker.getInstance();
-
     
     public void run() {
 
-        pathfinder.translate(0, -2, 0, 1);
-        System.out.println("really easy!");
+        pathfinder.translate(0, -2, -5, 1);
         sucker.suckOrBlow(-0.5);
+        actionRunner.run(new ShootBalls(3));
+        sucker.deploy();
+        sucker.suckOrBlow(-1);
+        pathfinder.translate(-0.5, -6.5, -75, 0.40);
+        sucker.retract();
+        sucker.suckOrBlow(-0.5);
+        pathfinder.translate(-0.75, 2, -5, 1);
         actionRunner.run(new ShootBalls(3));
     }
 }

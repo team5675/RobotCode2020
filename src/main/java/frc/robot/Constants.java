@@ -51,18 +51,14 @@ public class Constants {
 	public static final double PATHFINDER_KA = 0.011;
 
     //Shooter subsystem constants
-    public static final int GATE_ID = 0;
+    public static final int SHOOTER_GATE_ID = 0;
     public static final int SHOOTER_ID_1 = 3;
     public static final int SHOOTER_ID_2 = 4;
-    public static final double SHOOTER_RPM_GAIN = 145;
-    public static final double SHOOTER_SETPOINT = 5000;
     public static final double SHOOTER_KP = 0.00005;
     public static final double SHOOTER_KD = 0.00002; 
     public static final double SHOOTER_KF = 0.00019; 
-    public static final double SHOOTER_HEIGHT = 2;    //ft
-    public static final double SHOOTER_WHEEL_DIAMETER = 0.5025; //ft
-    public static final double CAM_HEIGHT = 0;
-    public static final double CAM_ANGLE = 0;
+    public static final int SHOOTER_GATE_THRESHOLD = 200;
+    public static final double SHOOTER_VISION_GAIN = 150;
 
     //Pizza spinner constants
     public static final int SPINNER_MOTOR_ID = 9;
@@ -87,7 +83,7 @@ public class Constants {
 
     //Auto Constants
     public static final double AUTO_FORWARD_P = 0.2;
-    public static final double AUTO_ROTATE_P = 0.02;
+    public static final double AUTO_ROTATE_P = 0.03;
     public static final double AUTO_STRAFE_P = 0.05;
     public static final double AUTO_GYRO_P = -0.03;
 

@@ -52,7 +52,7 @@ public class Climber {
     public void raiseMasterArm() {
 
         masterArmRaise.set(true);
-        //masterArmCollapse.set(true);
+        masterArmCollapse.set(false);
     }
 
 
@@ -62,16 +62,10 @@ public class Climber {
         masterArmCollapse.set(true);
     }
 
-    
-    public void winch() {
 
-        winch.set(1);
-    }
+    public void setWinchSpeed(double speed) {
 
-
-    public void stopWinch() {
-
-        winch.set(0);
+        winch.set(Math.abs(speed));
     }
 
     

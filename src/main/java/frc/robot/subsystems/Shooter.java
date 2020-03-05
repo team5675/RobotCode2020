@@ -7,139 +7,83 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
-
 import edu.wpi.first.wpilibj.Spark;
-
-import frc.robot.DriverController;
+import frc.libs.motors.SparkMaxMotor;
 import frc.robot.Constants;
+import frc.robot.DriverController;
 
-/**
- * Shooter timing:
- * 
- * AUTOMATIC SHOT
- * If vision finds target...
- * SetRPM(desired_rpm);
- * IF RPM is okay && button pressed...
- * Shoot();
- * 
- */
 public class Shooter {
 
     static Shooter instance;
 
-    Vision vision;
-    DriverController controller;
+    SparkMaxMotor motorOne;
+    SparkMaxMotor motorTwo;
+    Spark gate;
 
-    Spark gateMotor;
-    CANSparkMax shootMotor1;
-    CANSparkMax shootMotor2;
-    CANPIDController RPMController1;
-    CANPIDController RPMController2;
-    CANEncoder RPMEncoder;
+    Vision vision                     = Vision.getInstance();
+    DriverController driverController = DriverController.getInstance();
+    Drive drive                       = Drive.getInstance();
 
-    double angle;
-    double distanceLimelight;
-
-    double RPM_TARGET;
-
+    double rpm = 0;
+    
+    
     public Shooter() {
-        
-        vision        = Vision.getInstance();
-        controller    = DriverController.getInstance();
 
-        shootMotor1   = new CANSparkMax(Constants.SHOOTER_ID_1, MotorType.kBrushless);
-        shootMotor2   = new CANSparkMax(Constants.SHOOTER_ID_2, MotorType.kBrushless);
+        motorOne = new SparkMaxMotor(Constants.SHOOTER_ID_1);
+        motorTwo = new SparkMaxMotor(Constants.SHOOTER_ID_2);
+        gate = new Spark(Constants.SHOOTER_GATE_ID);
 
-        gateMotor     = new Spark(Constants.GATE_ID);
-
-        RPMController1 = shootMotor1.getPIDController();
-        RPMEncoder    = shootMotor1.getEncoder();
-
-        RPMController1.setP(Constants.SHOOTER_KP);
-        RPMController1.setD(Constants.SHOOTER_KD);
-        RPMController1.setFF(Constants.SHOOTER_KF);
-        RPMController1.setOutputRange(-1, 1);
-
-        RPMController2 = shootMotor2.getPIDController();
-
-        RPMController2.setP(Constants.SHOOTER_KP);
-        RPMController2.setD(Constants.SHOOTER_KD);
-        RPMController2.setFF(Constants.SHOOTER_KF);
-        RPMController2.setOutputRange(-1, 1);
-
-        distanceLimelight = vision.getDistanceFromTarget();
+        motorOne.configurePID(Constants.SHOOTER_KP, 0, Constants.SHOOTER_KD, Constants.SHOOTER_KF);
+        motorTwo.configurePID(Constants.SHOOTER_KP, 0, Constants.SHOOTER_KD, Constants.SHOOTER_KF);
     }
+    
 
-    /**
-     * Method that controls shooter and feeder timing
-     * @param distanceLimelight limelight generated distance
-     */
-    public void shoot(double distanceLimelight) {
+    public void shoot() {
+        vision.lightOn();
 
-        this.distanceLimelight = distanceLimelight;
+        drive.move(driverController.getForward(), driverController.getStrafe(), vision.getHorizontalOffset() * Constants.AUTO_ROTATE_P, 0, true);
 
-        setRPM(distanceLimelight);
+        rpm = 1.162 * Math.pow(vision.getDistanceFromTarget(), 3) - 44.968 * Math.pow(vision.getDistanceFromTarget(), 2) + 622.09 * vision.getDistanceFromTarget() - 79.5;
 
-        if (controller.getShoot()) {
+        //System.out.println("Target RPM: " + rpm + " Current: " + (getVelocity()));
 
-            if(getRPM() >= RPM_TARGET) {
 
-                gateMotor.set(-1);
-            }
+        motorOne.setRPMVelocity((int)rpm * -1);
+        motorTwo.setRPMVelocity((int)rpm * -1);
 
-            else {
+        if ((motorOne.getVelocity() + motorTwo.getVelocity()) / 2 > rpm - Constants.SHOOTER_GATE_THRESHOLD && rpm != 0) {
 
-                gateMotor.set(0);
-            }
-        }
+            gate.set(-1);
+        } else {
 
-        else{
-            
-            gateMotor.set(0);
+            gate.set(0);
         }
     }
 
-    /**
-     * 
-     * @param distance vision generated distance from limelight
-     * @return the target rpm
-     */
-    public double setRPM(double distance){
-
-        RPM_TARGET = distance * Constants.SHOOTER_RPM_GAIN;
-
-        RPMController1.setReference(RPM_TARGET, ControlType.kVelocity);
-        shootMotor2.follow(shootMotor1, false);
-
-        return RPM_TARGET;
-    }
-
-
-    public double getRPM() {
-
-        return shootMotor1.getEncoder().getVelocity();
-    }
-
-
-    public void test() {
-
-        gateMotor.set(-1);
-        shootMotor1.getPIDController().setReference(-3000, ControlType.kVelocity);
-        shootMotor2.getPIDController().setReference(-3000, ControlType.kVelocity);
-    }
 
     public void stop() {
 
-        gateMotor.set(0);
-        shootMotor1.getPIDController().setReference(0, ControlType.kVelocity);
-        shootMotor2.getPIDController().setReference(0, ControlType.kVelocity);
+        vision.lightOff();
+
+        motorOne.setRPMVelocity(0);
+        motorTwo.setRPMVelocity(0);
+        gate.set(0);
+
+        rpm = 0;
+    }
+
+
+    public double getVelocity() {
+
+        return (motorOne.getVelocity() + motorTwo.getVelocity()) / 2;
+    }
+
+    public double getRPMTarget() {
+
+        return rpm;
     }
     
+
     public static Shooter getInstance() {
 
         if (instance == null) {

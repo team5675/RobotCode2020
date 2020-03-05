@@ -75,7 +75,7 @@ public class SwerveDrive {
 
 		frontRightSpeed = Math.hypot(b, c);
 					
-		frontLeftSpeed = Math.hypot(b, d);
+		frontLeftSpeed = Math.hypot(b, d) * -1;
 		
 
 		//Output is 0 to 360 degrees

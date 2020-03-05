@@ -29,6 +29,7 @@ public class Pathfinder {
     static double totalDistance;
     static double xSpeed;
     static double ySpeed;
+    static double zSpeed;
     static double speedMultiplier;
 
 
@@ -42,8 +43,8 @@ public class Pathfinder {
 
     public void translate(double xFeet, double yFeet, double angle, double newSpeedMultiplier) {
 
-        xFeetGoal = xFeet + yFeet * 0.22;
-        yFeetGoal = yFeet + xFeet * 0.22;
+        xFeetGoal = xFeet;
+        yFeetGoal = yFeet;
         rotationGoal = angle;
         hypDistance = Math.hypot(xFeetGoal, yFeetGoal);
         speedMultiplier = newSpeedMultiplier;
@@ -89,20 +90,27 @@ public class Pathfinder {
 
             xSpeed = xFeetGoal / hypDistance;
             ySpeed = yFeetGoal / hypDistance;
+            zSpeed = (rotationGoal - navX.getAngle()) * 0.007;
 
             if (slowDown > 1) {
                 
-            } else if (slowDown < 0.1) {
+            } else if (slowDown < 0.1 / speedMultiplier) {
+
                 xSpeed = 0;
                 ySpeed = 0;
-                run = false;
+                
+                if (Math.abs(zSpeed) < 0.1) {
+
+                    zSpeed = 0;
+                    run = false;
+                }
             } else {
                 System.out.println(slowDown);
                 xSpeed = xSpeed * slowDown;
                 ySpeed = ySpeed * slowDown;
             }
 
-            drive.move(xSpeed * speedMultiplier, ySpeed * speedMultiplier, (rotationGoal - navX.getAngle()) * 0.007, navX.getAngle() + 90, false);
+            drive.move(xSpeed * speedMultiplier, ySpeed * speedMultiplier, zSpeed, navX.getAngle() + 90, false);
         }        
     }
 

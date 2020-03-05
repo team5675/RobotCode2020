@@ -122,7 +122,7 @@ public class Robot extends TimedRobot {
     boolean isFieldOriented = driverController.isFieldOriented();
 
     if (driverController.getLineUp()) {
-      lineUpTowardsTargetWithDriver.loop();
+      
 
     } else if (driverController.getStayStraight()) {
       drive.move(forward, strafe, navX.getAngle() * -0.01, angle, isFieldOriented);
@@ -134,11 +134,10 @@ public class Robot extends TimedRobot {
 
     //Start/stop vision assist driving
     if (driverController.getOnLineUpPressed()) {
-      lineUpTowardsTargetWithDriver.start();
 
     } else if (driverController.getOnLineUpReleased()) {
-      lineUpTowardsTargetWithDriver.stop();
 
+      
     }
     
     //Sucker Release Deploy
@@ -150,21 +149,24 @@ public class Robot extends TimedRobot {
 
     //Climber
     if (driverController.getUnlockClimb()) {
+
       climber.releaseLock();
     } else if (driverController.getRaiseMasterArm()) {
+
       climber.raiseMasterArm();
     } else if (driverController.getCollapseMasterArm()) {
+
       climber.collapseMasterArm();
-      pneumatics.stopCompressor();
+      //pneumatics.stopCompressor();
     }
 
     //Winch
-    if (driverController.getWinch()) {
+    if (driverController.getWinchSafety()) {
 
-      climber.winch();
+      climber.setWinchSpeed(driverController.getWinchSpeed());
     } else {
 
-      climber.stopWinch();
+      climber.setWinchSpeed(0);
     }
 
     climber.setTroller(driverController.getTroller());
@@ -189,16 +191,16 @@ public class Robot extends TimedRobot {
     vision.loop();
 
     if (driverController.getShoot()) {
-      shooter.test();
+
+      lineUpTowardsTargetWithDriver.loop();
+      shooter.shoot();
       sucker.suckOrBlow(-0.5);
     } else {
-      sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
-      shooter.stop();
-    }
 
-    //feeder.set(1);
-    //left.getPIDController().setReference(-3000, ControlType.kVelocity);
-    //right.getPIDController().setReference(-3000, ControlType.kVelocity);
+      lineUpTowardsTargetWithDriver.stop();
+      shooter.stop();
+      sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
+    }
   }
 
 
