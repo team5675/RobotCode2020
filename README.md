@@ -3,7 +3,7 @@
     
 # MR. MEGA MAID
 
-![alt text](https://i0.wp.com/www.mattawanwiredcats.org/wp-content/uploads/2018/05/18Apr_Robotics-011-min.jpg)
+![alt text](GithubLogo.jpg)
 
 
 ### Electrical Control Structure
