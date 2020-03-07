@@ -48,7 +48,9 @@ public class Shooter {
         motorOne.setRPMVelocity((int)rpm * -1);
         motorTwo.setRPMVelocity((int)rpm * -1);
 
-        if ((motorOne.getVelocity() + motorTwo.getVelocity()) / 2 > rpm - Constants.SHOOTER_GATE_THRESHOLD && rpm != 0) {
+        //System.out.println("CURRENT VELOCITY: " + getVelocity() + " GOALS: " + rpm);
+
+        if ((motorOne.getVelocity() + motorTwo.getVelocity()) / 2 > rpm && rpm != 0) {
 
             gate.set(-1);
         } else {

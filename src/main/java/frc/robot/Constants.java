@@ -57,7 +57,7 @@ public class Constants {
     public static final double SHOOTER_KP = 0.00007;
     public static final double SHOOTER_KD = 0.00002;
     public static final double SHOOTER_KF = 0.00021; //0.00019
-    public static final int SHOOTER_GATE_THRESHOLD = 100;
+    //Shooter threshold was 100 RPM
 
     //Pizza spinner constants
     public static final int SPINNER_MOTOR_ID = 9;
@@ -74,8 +74,8 @@ public class Constants {
 
     //Vision subsystem constants
     public static final double VISION_TARGET_HEIGHT = 8.1875;
-    public static final double VISION_CAMERA_HEIGHT = 1.7493;
-    public static final double VISION_CAMERA_ANGLE = 25.3778;
+    public static final double VISION_CAMERA_HEIGHT = 1.8958333//1.7493;
+    public static final double VISION_CAMERA_ANGLE = 15;//25.3778;
 
     //Pneumatics constants
     public static final int COMPRESSOR_ID = 0;
