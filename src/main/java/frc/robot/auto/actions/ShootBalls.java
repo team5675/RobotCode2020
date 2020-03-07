@@ -49,14 +49,14 @@ public class ShootBalls implements Action {
 
         shooter.shoot();
 
-        if (shooter.getRPMTarget() > shooter.getVelocity() + 150 && debounce) {
+        if (shooter.getRPMTarget() > shooter.getVelocity() + 50 && debounce) {
 
             ballsShot++;
 
             debounce = false;
         }
 
-        if (shooter.getVelocity() >= shooter.getRPMTarget() - 150 && !debounce) {
+        if (shooter.getVelocity() >= shooter.getRPMTarget() - 50 && !debounce) {
 
             debounce = true;
         }
