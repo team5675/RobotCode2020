@@ -26,6 +26,7 @@ public class ShootBalls implements Action {
     int amount;
     int ballsShot = 0;
     boolean debounce = false;
+    double lastError = 0;
 
     
     public ShootBalls(int newAmount) {
@@ -40,23 +41,28 @@ public class ShootBalls implements Action {
 
 
     public boolean loop() {
+
+        double error = 0 - vision.getHorizontalOffset();
+        double d = (error - lastError) / .04;
         
-        drive.move(0, 0, vision.getHorizontalOffset() * Constants.AUTO_ROTATE_P, 0, true);
+        drive.move(0, 0, vision.getHorizontalOffset() * Constants.AUTO_ROTATE_P + d * Constants.AUTO_ROTATE_D, 0, true);
 
         shooter.shoot();
 
-        if (shooter.getRPMTarget() > shooter.getVelocity() + 300 && debounce) {
+        if (shooter.getRPMTarget() > shooter.getVelocity() + 150 && debounce) {
 
             ballsShot++;
 
             debounce = false;
         }
 
-        if (shooter.getVelocity() >= shooter.getRPMTarget() - 300 && !debounce) {
+        if (shooter.getVelocity() >= shooter.getRPMTarget() - 150 && !debounce) {
 
             debounce = true;
         }
 
+        lastError = error;
+        
         if (amount == ballsShot) {
             return false;
         } else {

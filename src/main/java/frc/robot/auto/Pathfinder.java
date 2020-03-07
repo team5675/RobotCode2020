@@ -94,7 +94,7 @@ public class Pathfinder {
 
             if (slowDown > 1) {
                 
-            } else if (slowDown < 0.1 / speedMultiplier) {
+            } else if (slowDown < 0.3 / speedMultiplier) {
 
                 xSpeed = 0;
                 ySpeed = 0;

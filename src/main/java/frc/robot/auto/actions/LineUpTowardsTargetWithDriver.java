@@ -21,6 +21,8 @@ public class LineUpTowardsTargetWithDriver implements Action {
     Drive drive = Drive.getInstance();
     Vision vision = Vision.getInstance();
 
+    double lastError = 0;
+
 
     public void start() {
 
@@ -30,14 +32,18 @@ public class LineUpTowardsTargetWithDriver implements Action {
 
     public boolean loop() {
 
-        drive.move(driverController.getForward(), driverController.getStrafe(), vision.getHorizontalOffset() * Constants.AUTO_ROTATE_P, 0, true);
+        double error = 0 - vision.getHorizontalOffset();
+        double d = (error - lastError) / .04;
+        drive.move(driverController.getForward(), driverController.getStrafe(), vision.getHorizontalOffset() * Constants.AUTO_ROTATE_P + d * Constants.AUTO_ROTATE_D, 0, true);
 
+        lastError = error;
         return true; 
     }
 
     
     public void stop() {
 
+        lastError = 0;
         vision.lightOff();
     }
 }

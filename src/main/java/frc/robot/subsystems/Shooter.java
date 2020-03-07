@@ -35,6 +35,9 @@ public class Shooter {
 
         motorOne.configurePID(Constants.SHOOTER_KP, 0, Constants.SHOOTER_KD, Constants.SHOOTER_KF);
         motorTwo.configurePID(Constants.SHOOTER_KP, 0, Constants.SHOOTER_KD, Constants.SHOOTER_KF);
+
+        motorOne.burnFlash();
+        motorTwo.burnFlash();
     }
     
 
@@ -42,12 +45,15 @@ public class Shooter {
         
         vision.lightOn();
 
-        drive.move(driverController.getForward(), driverController.getStrafe(), vision.getHorizontalOffset() * Constants.AUTO_ROTATE_P, 0, true);
+        //drive.move(driverController.getForward(), driverController.getStrafe(), vision.getHorizontalOffset() * Constants.AUTO_ROTATE_P, 0, true);
 
-        rpm = 1.162 * Math.pow(vision.getDistanceFromTarget(), 3) - 44.968 * Math.pow(vision.getDistanceFromTarget(), 2) + 622.09 * vision.getDistanceFromTarget() - 79.5; //1.162
-
+        rpm = -1.7132 * Math.pow(vision.getDistanceFromTarget(), 3) + 68.23 * Math.pow(vision.getDistanceFromTarget(), 2) - 828.01 * vision.getDistanceFromTarget() + 5678.7; //1.162
+        //rpm = 2845;
+        
         motorOne.setRPMVelocity((int)rpm * -1);
         motorTwo.setRPMVelocity((int)rpm * -1);
+
+        //System.out.println("CURRENT VELOCITY: " + getVelocity() + " GOALS: " + rpm);
 
         if ((motorOne.getVelocity() + motorTwo.getVelocity()) / 2 > rpm - Constants.SHOOTER_GATE_THRESHOLD && rpm != 0) {
 
