@@ -44,7 +44,6 @@ public class ShootBalls implements Action {
 
         double error = 0 - vision.getHorizontalOffset();
         double d = (error - lastError) / .04;
-        
         drive.move(0, 0, vision.getHorizontalOffset() * Constants.AUTO_ROTATE_P + d * Constants.AUTO_ROTATE_D, 0, true);
 
         shooter.shoot();
