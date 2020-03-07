@@ -110,8 +110,8 @@ public class Robot extends TimedRobot {
 
     //Reset Yaw on NavX
     if(driverController.getResetYaw()) {
+
       navX.resetYaw();
-      
     }
 
     //Tele-op auto functions or manual drive
@@ -121,30 +121,35 @@ public class Robot extends TimedRobot {
     double angle = navX.getAngle();
     boolean isFieldOriented = driverController.isFieldOriented();
 
-    if (driverController.getLineUp()) {
-      
+    //Shoot else run intake and drive
+    if (driverController.getShoot()) {
 
-    } else if (driverController.getStayStraight()) {
-      drive.move(forward, strafe, navX.getAngle() * -0.01, angle, isFieldOriented);
-
+      lineUpTowardsTargetWithDriver.loop();
+      shooter.shoot();
     } else {
+
       drive.move(forward, strafe, rotation, angle, isFieldOriented);
-
+      sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
     }
 
-    //Start/stop vision assist driving
-    if (driverController.getOnLineUpPressed()) {
-
-    } else if (driverController.getOnLineUpReleased()) {
-
-      
-    }
-    
     //Sucker Release Deploy
     if (driverController.getIntakeDeploy()) {
+
       sucker.deploy();
     } else if (driverController.getIntakeRetract()) {
+
       sucker.retract();
+    }
+    
+    //Start/stop shoot
+    if (driverController.getShootPressed()) {
+
+      sucker.suckOrBlow(-0.5);
+      lineUpTowardsTargetWithDriver.start();
+    } else if (driverController.getShootReleased()) {
+
+      sucker.suckOrBlow(0);
+      lineUpTowardsTargetWithDriver.stop();
     }
 
     //Climber
@@ -160,7 +165,7 @@ public class Robot extends TimedRobot {
       //pneumatics.stopCompressor();
     }
 
-    //Winch
+    //Winch for climber
     if (driverController.getWinchSafety()) {
 
       climber.setWinchSpeed(driverController.getWinchSpeed());
@@ -173,18 +178,6 @@ public class Robot extends TimedRobot {
 
     navX.loop();
     vision.loop();
-
-    if (driverController.getShoot()) {
-
-      lineUpTowardsTargetWithDriver.loop();
-      shooter.shoot();
-      sucker.suckOrBlow(-0.5);
-    } else {
-
-      lineUpTowardsTargetWithDriver.stop();
-      shooter.stop();
-      sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
-    }
 
     //Pizza Wheel 3-5 spins
     /**if(driverController.getSpinnerDeploy()) {
