@@ -42,33 +42,23 @@ public class Shooter {
     
 
     public void shoot() {
-        
-        vision.lightOn();
-
-        //drive.move(driverController.getForward(), driverController.getStrafe(), vision.getHorizontalOffset() * Constants.AUTO_ROTATE_P, 0, true);
 
         rpm = -1.7132 * Math.pow(vision.getDistanceFromTarget(), 3) + 68.23 * Math.pow(vision.getDistanceFromTarget(), 2) - 828.01 * vision.getDistanceFromTarget() + 5678.7; //1.162
-        //rpm = 2845;
         
         motorOne.setRPMVelocity((int)rpm * -1);
         motorTwo.setRPMVelocity((int)rpm * -1);
-
-        //System.out.println("CURRENT VELOCITY: " + getVelocity() + " GOALS: " + rpm);
 
         if ((motorOne.getVelocity() + motorTwo.getVelocity()) / 2 > rpm - Constants.SHOOTER_GATE_THRESHOLD && rpm != 0) {
 
             gate.set(-1);
         } else {
 
-            System.out.println("CURRENT VELOCITY: " + getVelocity() + " GOALS: " + rpm);
             gate.set(0);
         }
     }
 
 
     public void stop() {
-
-        vision.lightOff();
 
         motorOne.setRPMVelocity(0);
         motorTwo.setRPMVelocity(0);
@@ -82,6 +72,7 @@ public class Shooter {
 
         return (motorOne.getVelocity() + motorTwo.getVelocity()) / 2;
     }
+
 
     public double getRPMTarget() {
 

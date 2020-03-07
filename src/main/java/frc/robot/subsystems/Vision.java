@@ -28,6 +28,7 @@ public class Vision {
     static NetworkTable dashboardTable;
 
     double distance;
+    boolean lightOn = false;
 
 
     public Vision() {
@@ -42,12 +43,16 @@ public class Vision {
 
     public void lightOn() {
 
+        lightOn = true;
+
         ledMode.setDouble(3);
     }
 
 
     public void lightOff() {
 
+        lightOn = false;
+        
         ledMode.setDouble(1);
     }
 
@@ -78,8 +83,10 @@ public class Vision {
 
     public void loop() {
         
-        distance = (Constants.VISION_TARGET_HEIGHT - Constants.VISION_CAMERA_HEIGHT) / Math.tan(Math.toRadians(Constants.VISION_CAMERA_ANGLE + getVerticalOffset()));
-        distanceFromTarget.setDouble(distance);
+        if (lightOn) {
+            distance = (Constants.VISION_TARGET_HEIGHT - Constants.VISION_CAMERA_HEIGHT) / Math.tan(Math.toRadians(Constants.VISION_CAMERA_ANGLE + getVerticalOffset()));
+            distanceFromTarget.setDouble(distance);
+        }
     }
 
 

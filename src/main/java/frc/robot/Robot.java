@@ -171,6 +171,21 @@ public class Robot extends TimedRobot {
 
     climber.setTroller(driverController.getTroller());
 
+    navX.loop();
+    vision.loop();
+
+    if (driverController.getShoot()) {
+
+      lineUpTowardsTargetWithDriver.loop();
+      shooter.shoot();
+      sucker.suckOrBlow(-0.5);
+    } else {
+
+      lineUpTowardsTargetWithDriver.stop();
+      shooter.stop();
+      sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
+    }
+
     //Pizza Wheel 3-5 spins
     /**if(driverController.getSpinnerDeploy()) {
       spinner.deploySpinner();
@@ -186,21 +201,6 @@ public class Robot extends TimedRobot {
     if(driverController.getColor()){
       spinner.runColor();
     }*/
-
-    navX.loop();
-    vision.loop();
-
-    if (driverController.getShoot()) {
-
-      lineUpTowardsTargetWithDriver.loop();
-      shooter.shoot();
-      sucker.suckOrBlow(-0.5);
-    } else {
-
-      lineUpTowardsTargetWithDriver.stop();
-      shooter.stop();
-      sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
-    }
   }
 
 
