@@ -14,14 +14,14 @@ Drivetrain Subsystem
 
 |CAN ID     |Motor Type |Function      |
 |-----------|:----------|-------------:|
-|1          |Neo        |Swerve Drive  |
-|2          |Neo        |Swerve Azimuth|
-|3          |Neo        |Swerve Drive  |
-|4          |Neo        |Swerve Azimuth|
-|5          |Neo        |Swerve Drive  |
-|6          |Neo        |Swerve Azimuth|
-|7          |Neo        |Swerve Drive  |
-|8          |Neo        |Swerve Azimuth|
+|8          |Neo        |BR Drive  |
+|7          |Neo        |BR Azimuth|
+|11         |Neo        |BL Drive  |
+|10         |Neo        |BL Azimuth|
+|1          |Neo        |FR Drive  |
+|2          |Neo        |FR Azimuth|
+|5          |Neo        |FL Drive  |
+|6          |Neo        |FL Azimuth|
 
 
 Launcher Subsystem
@@ -29,21 +29,20 @@ Launcher Subsystem
 
 |CAN ID     |Motor Type |Function      |
 |-----------|:----------|-------------:|
-|9          |Neo        |Launcher 1    |
-|10         |Neo        |Launcher 2    |
+|3          |Neo        |Launcher 1    |
+|4          |Neo        |Launcher 2    |
 
 
 |PWM ID     |Motor Type |Function      |
 |-----------|:----------|-------------:|
-|0          |775        |Feeder        |
+|0          |775        |Gate Motor    |
 
 
 Indexer / Intake Subsystem
 
 |PWM ID     |Motor Type |Function      |
 |-----------|:----------|-------------:|
-|1          |BAG        |Indexer Rotate|
-|2          |BAG        |Intake        |
+|1          |BAG        |Index / Intake|
 
 
 Climber Subsystem
@@ -51,16 +50,16 @@ Climber Subsystem
 
 |PWM ID     |Motor Type |Function      |
 |-----------|:----------|-------------:|
-|3          |775        |Winch         |
-|4          |Snowblower |Balancer      |
+|2          |775        |Winch         |
+|3          |Snowblower |Balancer      |
 
 
 Spinner Subsystem
 
 
-|PWM ID     |Motor Type |Function      |
+|CAN ID     |Motor Type |Function      |
 |-----------|:----------|-------------:|
-|5          |JE         |Wheel spinner |
+|9          |JE         |Wheel spinner |
 
 
 ### Pneumatic Control Structure
@@ -71,7 +70,7 @@ Intake Subsystem
 
 |SOLENOID ID|Function   |
 |-----------|:----------|
-|0-1        |Intake arms|
+|0 & 7      |Intake arms|
 
 
 Climber Subsystem
@@ -79,8 +78,8 @@ Climber Subsystem
 
 |SOLENOID ID|Function   |
 |-----------|:----------|
-|2-3        |Deploy high|
-|4-5        |deploy low |
+|2 & 5      |Locking pin|
+|4 & 3      |Main arm   |
 
 
 Spinner Subsystem
@@ -88,7 +87,7 @@ Spinner Subsystem
 
 |SOLENOID ID|Function   |
 |-----------|:----------|
-|6-7        |deploy spin|
+|1 & 6      |deploy spin|
 
 
 ### Driver Controls
