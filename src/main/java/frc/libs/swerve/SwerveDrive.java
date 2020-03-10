@@ -71,7 +71,7 @@ public class SwerveDrive {
 		//Output is 0 to 1
 		backRightSpeed = Math.hypot(a, c);
 			
-		backLeftSpeed = Math.hypot(a, d);
+		backLeftSpeed = Math.hypot(a, d) * -1;
 
 		frontRightSpeed = Math.hypot(b, c);
 					

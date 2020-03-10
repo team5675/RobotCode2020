@@ -7,6 +7,9 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Spark;
 import frc.libs.motors.SparkMaxMotor;
 import frc.robot.Constants;
@@ -25,6 +28,10 @@ public class Shooter {
     Drive drive                       = Drive.getInstance();
 
     double rpm = 0;
+
+    NetworkTable logTable;
+    NetworkTableEntry currentVelocity;
+    NetworkTableEntry velocityGoal;
     
     
     public Shooter() {
@@ -38,25 +45,32 @@ public class Shooter {
 
         motorOne.burnFlash();
         motorTwo.burnFlash();
+
+        logTable = NetworkTableInstance.getDefault().getTable("log");
+        currentVelocity = logTable.getEntry("currentVelocity");
+        velocityGoal = logTable.getEntry("velocityGoal");
     }
     
 
     public void shoot() {
 
-        rpm = -1.7132 * Math.pow(vision.getDistanceFromTarget(), 3) + 68.23 * Math.pow(vision.getDistanceFromTarget(), 2) - 828.01 * vision.getDistanceFromTarget() + 5678.7; //1.162
-        
+        rpm = -0.4402 * Math.pow(vision.getDistanceFromTarget(), 3) + 28.024 * Math.pow(vision.getDistanceFromTarget(), 2) - 549.46 * vision.getDistanceFromTarget() + 5924.2 + 100; //1.162
+        //rpm = 2820;
+
         motorOne.setRPMVelocity((int)rpm * -1);
         motorTwo.setRPMVelocity((int)rpm * -1);
-
-        //System.out.println("CURRENT VELOCITY: " + getVelocity() + " GOALS: " + rpm);
 
         if ((motorOne.getVelocity() + motorTwo.getVelocity()) / 2 > rpm && rpm != 0) {
 
             gate.set(-1);
         } else {
 
+            System.out.println("CURRENT VELOCITY: " + getVelocity() + " GOALS: " + rpm);
             gate.set(0);
         }
+
+        currentVelocity.setDouble(getVelocity());
+        velocityGoal.setDouble(rpm);
     }
 
 

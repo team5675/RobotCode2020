@@ -24,7 +24,7 @@ public class ShootThreeBalls extends Mode {
     
     public void run() {
 
-        //pathfinder.translate(0, -2, 0, 1);
+        pathfinder.translate(0, -2, 0, 1);
         sucker.suckOrBlow(-0.5);
         actionRunner.run(new ShootBalls(3));
     }

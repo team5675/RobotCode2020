@@ -148,6 +148,7 @@ public class Robot extends TimedRobot {
       lineUpTowardsTargetWithDriver.start();
     } else if (driverController.getShootReleased()) {
 
+      shooter.stop();
       sucker.suckOrBlow(0);
       lineUpTowardsTargetWithDriver.stop();
     }

@@ -7,6 +7,9 @@
 
 package frc.robot.auto.actions;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.NavX;
@@ -28,15 +31,22 @@ public class ShootBalls implements Action {
     boolean debounce = false;
     double lastError = 0;
 
+    NetworkTable logTable;
+    NetworkTableEntry ballsShotLog;
+
     
     public ShootBalls(int newAmount) {
 
+        logTable = NetworkTableInstance.getDefault().getTable("log");
+        ballsShotLog = logTable.getEntry("ballsShot");
+        ballsShotLog.setDouble(0);
         amount = newAmount;
     }
 
 
     public void start() {
 
+        vision.lightOn();
     }
 
 
@@ -48,14 +58,16 @@ public class ShootBalls implements Action {
 
         shooter.shoot();
 
-        if (shooter.getRPMTarget() > shooter.getVelocity() + 50 && debounce) {
+        if (shooter.getRPMTarget() > shooter.getVelocity() + 100 && debounce) {
 
             ballsShot++;
+
+            ballsShotLog.setDouble(ballsShot);
 
             debounce = false;
         }
 
-        if (shooter.getVelocity() >= shooter.getRPMTarget() - 50 && !debounce) {
+        if (shooter.getVelocity() >= shooter.getRPMTarget() - 100 && !debounce) {
 
             debounce = true;
         }
@@ -72,6 +84,7 @@ public class ShootBalls implements Action {
 
     public void stop() {
         
+        vision.lightOff();
         shooter.stop();
     }
 }

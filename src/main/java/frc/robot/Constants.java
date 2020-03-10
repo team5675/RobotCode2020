@@ -74,16 +74,16 @@ public class Constants {
 
     //Vision subsystem constants
     public static final double VISION_TARGET_HEIGHT = 8.1875;
-    public static final double VISION_CAMERA_HEIGHT = 1.8958333;//1.7493
-    public static final double VISION_CAMERA_ANGLE = 15;//25.3778;
+    public static final double VISION_CAMERA_HEIGHT = 1.958333;//1.7493
+    public static final double VISION_CAMERA_ANGLE = 16;//25.3778;
 
     //Pneumatics constants
     public static final int COMPRESSOR_ID = 0;
 
     //Auto Constants
     public static final double AUTO_FORWARD_P = 0.2;
-    public static final double AUTO_ROTATE_P = 0.03;
-    public static final double AUTO_ROTATE_D = 0.002;
+    public static final double AUTO_ROTATE_P = 0.025;
+    public static final double AUTO_ROTATE_D = 0.003;
     public static final double AUTO_STRAFE_P = 0.05;
     public static final double AUTO_GYRO_P = -0.03;
 

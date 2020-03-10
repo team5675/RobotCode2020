@@ -28,7 +28,7 @@ public class ShootSixBalls extends Mode {
         actionRunner.run(new ShootBalls(3));
         sucker.deploy();
         sucker.suckOrBlow(-1);
-        pathfinder.translate(-0.5, -7, -75, 0.35);
+        pathfinder.translate(-0.25, -7, -85, 0.25);
         sucker.suckOrBlow(-0.5);
         pathfinder.translate(-0.75, 2, -5, 1);
         actionRunner.run(new ShootBalls(3));

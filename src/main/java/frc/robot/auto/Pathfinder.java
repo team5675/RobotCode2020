@@ -51,7 +51,7 @@ public class Pathfinder {
 
         double distanceFrontLeft = drive.getFrontLeft().getSpeedPosition();
         double distanceFrontRight = drive.getFrontRight().getSpeedPosition();
-        double distanceBackLeft = drive.getBackLeft().getSpeedPosition();
+        double distanceBackLeft = drive.getBackLeft().getSpeedPosition() * -1;
         double distanceBackRight = drive.getBackRight().getSpeedPosition();
         totalDistance = (distanceFrontLeft + distanceFrontRight + distanceBackLeft + distanceBackRight) / 4;
 
@@ -77,7 +77,7 @@ public class Pathfinder {
 
             double distanceFrontLeft = drive.getFrontLeft().getSpeedPosition();
             double distanceFrontRight = drive.getFrontRight().getSpeedPosition();
-            double distanceBackLeft = drive.getBackLeft().getSpeedPosition();
+            double distanceBackLeft = drive.getBackLeft().getSpeedPosition() * -1;
             double distanceBackRight = drive.getBackRight().getSpeedPosition();
             double averageDistance = (distanceFrontLeft + distanceFrontRight + distanceBackLeft + distanceBackRight) / 4;
             double distanceTraveled = (averageDistance - totalDistance) / 6 * 9.42 / 12; 
