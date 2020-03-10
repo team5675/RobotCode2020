@@ -82,6 +82,25 @@ double speedSetpoint;
 			angleMotor.set(anglePID.calculate(azimuthEncoder.getVoltage(), angle));
 		}
 	}
+
+	public void setOffset() {
+
+		angleMotor.set(azimuthEncoder.getVoltage(), 0);
+
+		if (azimuthEncoder.getVoltage() - ANGLE_OFFSET != 0) {
+
+
+			if(azimuthEncoder.getVoltage() - ANGLE_OFFSET > 0) {//ANGLE_OFFSET is smaller
+
+				ANGLE_OFFSET += 0.1;
+			}
+
+			if(azimuthEncoder.getVoltage() - ANGLE_OFFSET < 0) {//ANGLE_OFFSET is larger
+
+				ANGLE_OFFSET -= 0.1;
+			}
+		}
+	}
 	
 	public double getAzimuth() {
 
@@ -105,10 +124,5 @@ double speedSetpoint;
 	public double getOffset() {
 
 		return ANGLE_OFFSET;
-	}
-
-	public SwerveModuleState getState() {
-
-		return new SwerveModuleState(driveEncoder.getVelocity(), new Rotation2d(azimuthEncoder.getVoltage()));
 	}
 }
