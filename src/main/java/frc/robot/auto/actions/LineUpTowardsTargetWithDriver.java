@@ -39,17 +39,13 @@ public class LineUpTowardsTargetWithDriver implements Action {
 
     public boolean loop() {
 
-        error = gyro.getAngle() - targetAngle;
+        error = vision.getHorizontalOffset() * Constants.AUTO_ROTATE_P;
 
-        drive.move(driverController.getForward(), driverController.getStrafe(), error * Constants.AUTO_ROTATE_P, 0, true);
+        drive.backRight().drive(error, 3.2275, false);
+        drive.backLeft().drive(error, 1.8066, false);
+        drive.frontRight().drive(error, 2.0568, false);
+        drive.frontLeft().drive(error, 2.7307, false);
 
-        //double error = 0 - vision.getHorizontalOffset();
-        //double d = (error - lastError) / .04;
-
-        
-        //drive.move(driverController.getForward(), driverController.getStrafe(), vision.getHorizontalOffset() * Constants.AUTO_ROTATE_P + d * Constants.AUTO_ROTATE_D, 0, true);
-
-        //lastError = error;
         return true; 
     }
 
