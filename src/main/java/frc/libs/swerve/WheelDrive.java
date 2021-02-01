@@ -63,6 +63,29 @@ double setpoint;
 
 
 	public void drive(double speed, double angle, boolean deadband) {
+
+		//**WIP OPTIMIZED SWERVE ANGLE**
+
+		//voltage difference
+		double optoAngle = getAzimuth() - angle;
+
+		//If setpoint more than 90 degrees (1.25 volts) from current angle
+		if (Math.abs(optoAngle) >= 1.25) {
+
+			//invert speed
+			speed *= -1;
+
+			//grab voltage 180 degrees from original setpoint
+			if (optoAngle > 0) {
+
+				angle -= 2.5;
+			}
+
+			if (optoAngle < 0) {
+
+				angle += 2.5;
+			}
+		}
 		
 		//normalizes the encoder angle in case offsets caused it to go above 5
 		if (angle > 5) {angle -= 5;}
@@ -85,6 +108,11 @@ double setpoint;
 		}
 	}
 
+	public void setOffset() {
+
+		//Once we get reed switches installed, auto calibration
+
+	}
 	
 	public double getAzimuth() {
 
