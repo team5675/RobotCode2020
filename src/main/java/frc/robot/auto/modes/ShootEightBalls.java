@@ -8,7 +8,7 @@
 package frc.robot.auto.modes;
 
 import frc.robot.auto.ActionRunner;
-import frc.robot.auto.Pathfinder;
+import frc.robot.auto.Pathfinderold;
 import frc.robot.auto.actions.Wait;
 
 /**
@@ -20,7 +20,7 @@ public class ShootEightBalls extends Mode {
     public static double startOffset;
     
     ActionRunner actionRunner = ActionRunner.getInstance();
-    Pathfinder pathfinder = Pathfinder.getInstance();
+    Pathfinderold pathfinder = Pathfinderold.getInstance();
 
 
     public void run() {

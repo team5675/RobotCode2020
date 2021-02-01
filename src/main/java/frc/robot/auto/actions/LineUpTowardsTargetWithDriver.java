@@ -41,10 +41,10 @@ public class LineUpTowardsTargetWithDriver implements Action {
 
         error = vision.getHorizontalOffset() * Constants.AUTO_ROTATE_P;
 
-        drive.backRight().drive(error, 3.2275, false);
-        drive.backLeft().drive(error, 1.8066, false);
-        drive.frontRight().drive(error, 2.0568, false);
-        drive.frontLeft().drive(error, 2.7307, false);
+        drive.getBackRight().drive(error, 3.2275, false);
+        drive.getBackLeft().drive(error, 1.8066, false);
+        drive.getFrontRight().drive(error, 2.0568, false);
+        drive.getFrontLeft().drive(error, 2.7307, false);
 
         return true; 
     }

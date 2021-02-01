@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.ActionRunner;
 import frc.robot.auto.ModeRunner;
 import frc.robot.auto.Pathfinder;
+import frc.robot.auto.SwerveReturnData;
+import frc.robot.auto.Waypoint;
 import frc.robot.auto.actions.Action;
 import frc.robot.auto.actions.LineUpTowardsTargetWithDriver;
 import frc.robot.subsystems.Climber;
@@ -20,7 +22,6 @@ import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Sucker;
-import frc.robot.subsystems.Spinner;
 
 
 public class Robot extends TimedRobot {
@@ -33,7 +34,6 @@ public class Robot extends TimedRobot {
   Shooter          shooter;
   Drive            drive;
   NavX             navX;
-  Spinner          spinner;
   Pneumatics       pneumatics;
   Climber          climber;
 
@@ -55,13 +55,30 @@ public class Robot extends TimedRobot {
     vision           = Vision.getInstance();
     shooter          = Shooter.getInstance();
     sucker           = Sucker.getInstance();
-    spinner          = Spinner.getInstance();
     pneumatics       = Pneumatics.getInstance();
     climber          = Climber.getInstance();
 
     actionRunner     = ActionRunner.getInstance();
-    pathfinder       = Pathfinder.getInstance();
+    pathfinder       = new Pathfinder(0.25, 0.003, 0, 1); 
     autoChooser      = AutoChooser.getInstance();
+
+    Waypoint[] _newTrajectory = new Waypoint[] {
+      new Waypoint(2.5, 7.5, 0),
+      new Waypoint(5, 7.5, 0),
+      new Waypoint(7.5, 12.5, 0),
+      new Waypoint(9.5, 5, 0),
+      new Waypoint(12.5, 2.5, 0),
+      new Waypoint(14.7, 5, 0),
+      new Waypoint(15, 12.5, 0),
+      new Waypoint(15.25, 7.5, 0),
+      new Waypoint(16.125, 2.5, 0),
+      new Waypoint(19.375, 5, 0),
+      new Waypoint(21.875, 7.5, 0),
+      new Waypoint(22.5, 12.5, 0),
+      new Waypoint(27.5, 7.5, 0)
+    };
+
+    pathfinder.translate(2.5, 7.5, _newTrajectory);
   }
 
   
@@ -77,19 +94,38 @@ public class Robot extends TimedRobot {
 
     navX.resetYaw();
     
-    modeRunner = new ModeRunner(autoChooser.getMode());
+    //modeRunner = new ModeRunner(autoChooser.getMode());
 
-    actionRunner.start();
-    modeRunner.start();
+    //actionRunner.start();
+    //modeRunner.start();
   }
 
 
   @Override
   public void autonomousPeriodic() {
 
-    vision.loop();
-    actionRunner.loop();
-    pathfinder.loop();
+    //vision.loop();
+    //actionRunner.loop();
+    
+    SwerveReturnData[] _motorSpeed = pathfinder.loop(
+      drive.getFrontLeft().getAzimuth() - 2.13,
+      drive.getFrontRight().getAzimuth() - 2.62,
+      drive.getBackLeft().getAzimuth() - 2.47,
+      drive.getBackRight().getAzimuth() - 2.58,
+      drive.getFrontLeft().getDrivePosition() / 7.64,
+      (drive.getFrontRight().getDrivePosition() / 7.64) * -1,
+      drive.getBackLeft().getDrivePosition() / 7.64,
+      drive.getBackRight().getDrivePosition() / 7.64
+    );
+
+    drive.getFrontLeft().setAzimuth(_motorSpeed[0].getAzimuthSpeed());
+    drive.getFrontRight().setAzimuth(_motorSpeed[1].getAzimuthSpeed());
+    drive.getBackLeft().setAzimuth(_motorSpeed[2].getAzimuthSpeed());
+    drive.getBackRight().setAzimuth(_motorSpeed[3].getAzimuthSpeed());
+    drive.getFrontLeft().setDrive(_motorSpeed[0].getDriveSpeed());
+    drive.getFrontRight().setDrive(_motorSpeed[1].getDriveSpeed() * -1);
+    drive.getBackLeft().setDrive(_motorSpeed[2].getDriveSpeed());
+    drive.getBackRight().setDrive(_motorSpeed[3].getDriveSpeed());
   }
 
 

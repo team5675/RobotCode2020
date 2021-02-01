@@ -27,7 +27,7 @@ public class NavX {
 
     public double getAngle() {
 
-        return gyro.getAngle();
+        return gyro.getAngle() % 360;
     }
 
     public void resetYaw() {

@@ -5,12 +5,11 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
+
+import frc.libs.swerve.PIDFFController;
 
 //import frc.robot.SwerveDrive.Encoder;
-
+ 
 public class WheelDrive {
 	
 	
@@ -19,7 +18,7 @@ private CANSparkMax speedMotor;
 
 public CANEncoder driveEncoder;
 
-private PIDController anglePID;
+private PIDFFController anglePID;
 
 private AnalogInput azimuthEncoder;
 
@@ -29,10 +28,7 @@ double D;
 
 double ANGLE_OFFSET;
 
-
-double error;
-double angleSetpoint;
-double speedSetpoint;
+double setpoint;
 
 	/**
 	 * @param angleMotor The CAN ID of the azimuth controller
@@ -49,9 +45,10 @@ double speedSetpoint;
 		this.angleMotor = new CANSparkMax(angleMotor, MotorType.kBrushless);
 		this.speedMotor = new CANSparkMax(speedMotor, MotorType.kBrushless);
 
-		anglePID = new PIDController(P, I, D);
 
-		anglePID.enableContinuousInput(0, 5);
+		anglePID = new PIDFFController(P, I, D);
+
+		anglePID.isContinuous(0, 5);
 
 		this.azimuthEncoder = new AnalogInput(analogIn);
 
@@ -68,7 +65,10 @@ double speedSetpoint;
 	public void drive(double speed, double angle, boolean deadband) {
 		
 		//normalizes the encoder angle in case offsets caused it to go above 5
-		if (angle > 5) {angle = angle - 5;}
+		if (angle > 5) {angle -= 5;}
+		if (angle < 0) {angle += 5;}
+
+		//System.out.println("Module ID: " + speedMotor.getDeviceId() + " Error" + anglePID.getPositionError());
 
 		if (deadband) {
 
@@ -76,31 +76,15 @@ double speedSetpoint;
 			angleMotor.set(0);
 		}
 
-		else {
+		else { 
+
+			setpoint = anglePID.calculate(azimuthEncoder.getVoltage(), angle);
 
 			speedMotor.set(speed);
-			angleMotor.set(anglePID.calculate(azimuthEncoder.getVoltage(), angle));
+			angleMotor.set(setpoint);
 		}
 	}
 
-	public void setOffset() {
-
-		angleMotor.set(azimuthEncoder.getVoltage(), 0);
-
-		if (azimuthEncoder.getVoltage() - ANGLE_OFFSET != 0) {
-
-
-			if(azimuthEncoder.getVoltage() - ANGLE_OFFSET > 0) {//ANGLE_OFFSET is smaller
-
-				ANGLE_OFFSET += 0.1;
-			}
-
-			if(azimuthEncoder.getVoltage() - ANGLE_OFFSET < 0) {//ANGLE_OFFSET is larger
-
-				ANGLE_OFFSET -= 0.1;
-			}
-		}
-	}
 	
 	public double getAzimuth() {
 
@@ -113,6 +97,21 @@ double speedSetpoint;
 
 	public void resetSpeedDistance() {
 		driveEncoder.setPosition(0);
+	}
+
+	public void setAzimuth(double setpoint) {
+
+		angleMotor.set(setpoint);
+	}
+
+	public void setDrive(double setpoint) {
+
+		speedMotor.set(setpoint);
+	}
+
+	public double getDrivePosition() {
+
+		return driveEncoder.getPosition();
 	}
 
 	public void stop() {

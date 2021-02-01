@@ -8,7 +8,7 @@
 package frc.robot.auto.modes;
 
 import frc.robot.auto.ActionRunner;
-import frc.robot.auto.Pathfinder;
+import frc.robot.auto.Pathfinderold;
 import frc.robot.auto.actions.ShootBalls;
 import frc.robot.subsystems.Sucker;
 
@@ -18,7 +18,7 @@ import frc.robot.subsystems.Sucker;
 public class ShootSixBalls extends Mode {
 
     ActionRunner actionRunner = ActionRunner.getInstance();
-    Pathfinder pathfinder = Pathfinder.getInstance();
+    Pathfinderold pathfinder = Pathfinderold.getInstance();
     Sucker sucker = Sucker.getInstance();
     
     public void run() {

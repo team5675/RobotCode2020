@@ -21,6 +21,7 @@ public class SwerveDrive {
 	 */
 	public void drive (double x1, double y1, double rotation, double theta, boolean robotCentric) {
 
+
 		if (CONTROLLER_DEADBAND * -1 < x1 && x1 < CONTROLLER_DEADBAND && CONTROLLER_DEADBAND * -1 < y1 && 
 			y1 < CONTROLLER_DEADBAND && CONTROLLER_DEADBAND * -1 < rotation && rotation < CONTROLLER_DEADBAND){
 
@@ -37,7 +38,7 @@ public class SwerveDrive {
 	
 		if (robotCentric) {
 
-			forward = -x1;
+			forward = x1;
 			strafe  = y1;
 		}
 
@@ -57,7 +58,7 @@ public class SwerveDrive {
 		double c = forward - rotation * (W / r);
 		
 		double d = forward + rotation * (W / r);
-		
+
 		
 		double backRightSpeed = 0; //calculating speed
 				
@@ -71,7 +72,7 @@ public class SwerveDrive {
 		//Output is 0 to 1
 		backRightSpeed = Math.hypot(a, c);
 			
-		backLeftSpeed = Math.hypot(a, d) * -1;
+		backLeftSpeed = Math.hypot(a, d);
 
 		frontRightSpeed = Math.hypot(b, c);
 					
@@ -106,7 +107,7 @@ public class SwerveDrive {
 		
 			backLeft.drive(backLeftSpeed, backLeftAngle, deadband);
 		
-			frontRight.drive(frontRightSpeed, frontRightAngle, deadband);
+			frontRight.drive(frontRightSpeed *-1, frontRightAngle, deadband);
 		
 			frontLeft.drive(frontLeftSpeed, frontLeftAngle, deadband);
 	}
