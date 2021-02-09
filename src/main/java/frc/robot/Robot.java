@@ -231,6 +231,13 @@ public class Robot extends TimedRobot {
     if(driverController.getColor()){
       spinner.runColor();
     }*/
+
+
+    
+  sucker.deploy();
+  sucker.suckOrBlow(-1);
+
+
   }
 
 
