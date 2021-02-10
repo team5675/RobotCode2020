@@ -10,6 +10,7 @@ package frc.robot;
 public class Constants {
    
     //Drive subsystem constants
+    public static final double ETPF = 10; //Encoder Ticks Per Foot
     
 	public static final int WHEEL_BASE_WIDTH = 25;
     public static final int WHEEL_BASE_DEPTH = 25;
