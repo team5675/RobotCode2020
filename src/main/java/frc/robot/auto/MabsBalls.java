@@ -133,20 +133,20 @@ public class MabsBalls {
 		}
 		if((pathA || pathB) && isFirstMap) {
 			if(pathA) {
-				pathfinder.translate(ftMoved, 5, firstPointsRed); //offsetx, offsety, Waypoint[] points
+				pathfinder.translate(0, 0, firstPointsRed); //offsetx, offsety, Waypoint[] points
 			}
 			
 			if(pathB) {
-				pathfinder.translate(ftMoved, 5, firstPointsBlue); //offsetx, offsety, Waypoint[] points
+				pathfinder.translate(0, 0, firstPointsBlue); //offsetx, offsety, Waypoint[] points
 			}
 		}
 		if((pathA || pathB) && !isFirstMap) {
 			if(pathA) {
-				pathfinder.translate(ftMoved, 7.5, secondPointsRed); //offsetx, offsety, Waypoint[] points
+				pathfinder.translate(0, 0, secondPointsRed); //offsetx, offsety, Waypoint[] points
 			}
 			
 			if(pathB) {
-				pathfinder.translate(ftMoved, 7.5, secondPointsBlue); //offsetx, offsety, Waypoint[] points
+				pathfinder.translate(0, 0, secondPointsBlue); //offsetx, offsety, Waypoint[] points
 			}
 		}
 	}	
