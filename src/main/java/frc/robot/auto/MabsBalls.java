@@ -93,7 +93,7 @@ public class MabsBalls {
 		double blEnc = drive.getBackLeft().getSpeedPosition();
 		double brEnc = drive.getBackRight().getSpeedPosition();
 		double avg = ((flEnc + frEnc +blEnc + brEnc)/4);
-		ySpeed = slowFactor*((avg*avg / -25) + 1); //just a quadratic that is 1 at x = 0 and 0 at x = 5 for mapping
+		ySpeed = slowFactor*((avg*avg / -2.25) + 1); //just a quadratic that is 1 at x = 0 and 0 at x = 5 for mapping
 		drive.move(0, ySpeed, 0,  0, true);
 	}
 
@@ -113,31 +113,31 @@ public class MabsBalls {
 		ftMoved = avg / Constants.ETPF;
 
 		if(!pathA && !pathB) {  //kinda to not waste computing power on the below
-			if(ftMoved > 4.8 && ftMoved < 5.2 && sucker.getBallIn()) {//we need to figure out the encoder ticks per foot on the robot
+			if(ftMoved > 1.3 && ftMoved < 1.7 && sucker.getBallIn()) {//we need to figure out the encoder ticks per foot on the robot
 				cont = false;
 				pathA = true;
 			}
-			else if(ftMoved > 5.2) {
+			else if(ftMoved > 1.7) {
 				cont = false;
 				pathB = true;
 			}
 		}
 		if((pathA || pathB) && isFirstMap) {
 			if(pathA) {
-				pathfinder.translate(ftMoved, 5, firstPointsRed); //offsetx, offsety, Waypoint[] points
+				pathfinder.translate(0, 0, firstPointsRed); //offsetx, offsety, Waypoint[] points
 			}
 			
 			if(pathB) {
-				pathfinder.translate(ftMoved, 5, firstPointsBlue); //offsetx, offsety, Waypoint[] points
+				pathfinder.translate(0, 0, firstPointsBlue); //offsetx, offsety, Waypoint[] points
 			}
 		}
 		if((pathA || pathB) && !isFirstMap) {
 			if(pathA) {
-				pathfinder.translate(ftMoved, 7.5, secondPointsRed); //offsetx, offsety, Waypoint[] points
+				pathfinder.translate(0, 0, secondPointsRed); //offsetx, offsety, Waypoint[] points
 			}
 			
 			if(pathB) {
-				pathfinder.translate(ftMoved, 7.5, secondPointsBlue); //offsetx, offsety, Waypoint[] points
+				pathfinder.translate(0, 0, secondPointsBlue); //offsetx, offsety, Waypoint[] points
 			}
 		}
 	}	
