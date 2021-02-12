@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.node.ContainerNode;
 import org.apache.commons.math3.ode.FirstOrderFieldIntegrator;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
-
 /*
 drive forward 5 feet to c3 
 	SwerveDrive.drive();
@@ -20,15 +19,7 @@ drive forward 5 feet to c3
 				
 	else 
 			run path b
-
-	 
 */
-
-
-
-
-
-
 public class MabsBalls {
 	
 	Waypoint[] firstPointsRed, firstPointsBlue, secondPointsRed, secondPointsBlue;
