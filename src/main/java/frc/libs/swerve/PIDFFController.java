@@ -21,6 +21,9 @@ public class PIDFFController {
     double prevError;
     double returnValue;
 
+    double previousSetpoint; 
+    double optoAngle;
+
     boolean continuous;
 
     int min;
@@ -32,6 +35,7 @@ public class PIDFFController {
     double returnVal;
 
     double[] setPos = {0,0};
+    double[] setpoints = new double[2];
 
 
     /**
@@ -53,6 +57,12 @@ public class PIDFFController {
 
         min = 0;
         max = 0;
+
+        previousSetpoint = 0;
+        optoAngle = 0;
+
+        setpoints[0] = 0;
+        setpoints[1] = 1;
 
         continuous = false;
 
@@ -102,10 +112,19 @@ public class PIDFFController {
     }
 
 
-    public double calculate(double feedback, double setpoint) {
+    public double[] calculate(double feedback, double setpoint) {
 
-        if (continuous) {
+        if (continuous) { 
 
+            optoAngle = setpoint - previousSetpoint;
+ 
+            if (Math.abs(optoAngle) > 2.5) {
+
+                setpoint -= optoAngle > 0 ? 2.5 : -2.5;
+
+                setpoints[1] = -1;
+            } else { setpoints[1] = 1;}
+                
             if (feedback > setpoint) {
 
                 clUnitsAway = (max - feedback) + setpoint; //Going right
@@ -128,7 +147,6 @@ public class PIDFFController {
 
                 error *= -1;
             }
-
         }else {
 
             error = setpoint - feedback;
@@ -152,9 +170,11 @@ public class PIDFFController {
 
             returnVal = -1;
         }
+
+        setpoints[0] = (returnVal + 0.78 / 12);
         
 
-        if (error > 0.0017 || error < -0.0017) return (returnVal + 0.78 / 12);
-        else return 0;
+        if (error > 0.0017 || error < -0.0017) return setpoints;
+        else return setpoints;
     }
 }
