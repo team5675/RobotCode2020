@@ -1,5 +1,5 @@
 //pathweezer.java
-
+/*
 package frc.robot.auto;
 
 import java.io.File;
@@ -69,4 +69,4 @@ public class PathWeezer {
                 return doubles;
          }
         }
-}
+}*/

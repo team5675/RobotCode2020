@@ -44,6 +44,10 @@ public class DriverController {
         return mainController.getRawButton(6);
     }
 
+    public double getHood() {
+        return mainController.getRawAxis(5);
+    }
+
     public boolean getResetYaw() {
 
         return mainController.getRawButton(4);
@@ -56,7 +60,7 @@ public class DriverController {
 
     public boolean getShoot() {
 
-        return auxController.getRawButton(3);
+        return mainController.getXButton();
     }
 
     public boolean getShootPressed() {

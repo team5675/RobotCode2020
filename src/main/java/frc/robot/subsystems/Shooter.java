@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.Spark;
 import frc.libs.motors.SparkMaxMotor;
 import frc.robot.Constants;
 import frc.robot.DriverController;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 
 public class Shooter {
 
@@ -21,23 +23,40 @@ public class Shooter {
 
     SparkMaxMotor motorOne;
     SparkMaxMotor motorTwo;
+    Spark hoodMotor;
     Spark gate;
 
-    Vision vision                     = Vision.getInstance();
+    Vision vision = Vision.getInstance();
     DriverController driverController = DriverController.getInstance();
-    Drive drive                       = Drive.getInstance();
+    Drive drive = Drive.getInstance();
 
     double rpm = 0;
 
     NetworkTable logTable;
     NetworkTableEntry currentVelocity;
     NetworkTableEntry velocityGoal;
+
+    double currentHoodAngle;
+    double pastHoodAngle;
+    double hoodVelocity;
+    double desiredAngle;
+
+    double hoodP;
+    double hoodD;
+
+    Encoder hoodEncoder;
+    DigitalInput hoodLimit;
     
     
     public Shooter() {
+        hoodLimit = new DigitalInput(0);
+
+        hoodEncoder = new Encoder(1, 2);
+        hoodEncoder.setDistancePerPulse(9/29.6); //in degrees
 
         motorOne = new SparkMaxMotor(Constants.SHOOTER_ID_1);
         motorTwo = new SparkMaxMotor(Constants.SHOOTER_ID_2);
+        hoodMotor = new Spark(Constants.HOOD_ID);
         gate = new Spark(Constants.SHOOTER_GATE_ID);
 
         motorOne.configurePID(Constants.SHOOTER_KP, 0, Constants.SHOOTER_KD, Constants.SHOOTER_KF);
@@ -54,7 +73,36 @@ public class Shooter {
 
     public void shoot() {
 
-        rpm = -0.4402 * Math.pow(vision.getDistanceFromTarget(), 3) + 28.024 * Math.pow(vision.getDistanceFromTarget(), 2) - 549.46 * vision.getDistanceFromTarget() + 5924.2 + 100; //1.162
+        //desiredAngle = limelightx^3 * a etc regression in desmos
+
+        //hoodVelocity = ((currentHoodAngle - desiredAngle) * hoodP) + ((currentHoodAngle - pastAngle) * hoodD)
+        //motorOne.setSpeed(0.9);
+        //motorTwo.setSpeed(0.9);
+        hoodVelocity = driverController.getHood(); //comment this out
+
+        if(hoodLimit.get()) {
+            hoodMotor.set(0);
+            System.out.println("Limit Switch Hit!");
+        } else {
+            hoodMotor.set(hoodVelocity*0.5);
+        }
+
+        //Do limit switch stuff here Logan
+        
+        //if(Math.abs(currentAngle - desiredAngle ) < 1 (or whatever threshold value))) {
+
+        //    gate.set(-1, 0);
+        //} else {
+
+        //    System.out.println("ANGLE: " + currentHoodAngle + "GOAL: " + desiredAngle);
+        //    gate.set(0, 0);
+        //}
+
+        pastHoodAngle = currentHoodAngle;
+        currentHoodAngle = hoodEncoder.getDistance();
+        System.out.println(currentHoodAngle);
+
+        /*rpm = -0.4402 * Math.pow(vision.getDistanceFromTarget(), 3) + 28.024 * Math.pow(vision.getDistanceFromTarget(), 2) - 549.46 * vision.getDistanceFromTarget() + 5924.2 + 100; //1.162
         //rpm = 2820;
 
         motorOne.setRPMVelocity((int)rpm * -1);
@@ -70,7 +118,7 @@ public class Shooter {
         }
 
         currentVelocity.setDouble(getVelocity());
-        velocityGoal.setDouble(rpm);
+        velocityGoal.setDouble(rpm);*/
     }
 
 
