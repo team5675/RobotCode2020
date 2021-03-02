@@ -8,6 +8,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.auto.modes.DoNothing;
 import frc.robot.auto.modes.Mode;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,6 +16,17 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+/*
+import frc.robot.auto.modes.blueA;
+import frc.robot.auto.modes.blueB;
+import frc.robot.auto.modes.redA;
+import frc.robot.auto.modes.slalom;
+import frc.robot.auto.modes.bounce;
+import frc.robot.auto.modes.barrel;
+*/
+
+
 
 //import frc.robot.subsystems.Drive;
     
@@ -36,12 +48,31 @@ public class PathWeezer {
     String path = setFile();
     String json;
 
+    SendableChooser<Modes> modeSelector;
+    NetworkTable pathTable;
+    NetworkTableEntry waitTime;
+    NetworkTableEntry startOffset;
+
+    //static pathChooser instance;
+
+
     static double[][] trajectory = new double[SEGMENTS][VARIABLES];
     // modeSelector = new SendableChooser<Modes>();
 
     public PathWeezer() throws IOException {
         json = readFileAsString(path);
         Scanner in = new Scanner(path);
+    }
+
+    enum Modes {
+        DoNothing,
+        blueA,
+        blueB,
+        redA,
+        redB,
+        slalom,
+        bounce,
+        barrel,
     }
 
     public static String setFile() {
@@ -100,17 +131,21 @@ public class PathWeezer {
 
 
 
-    public fileChooser() {
+    public void fileChooser() {
 
         modeSelector = new SendableChooser<Modes>();
-        autoTable = NetworkTableInstance.getDefault().getTable("auto");
-        waitTime = autoTable.getEntry("waitTime");
-        startOffset = autoTable.getEntry("startOffset");
+        pathTable = NetworkTableInstance.getDefault().getTable("path");
+       // waitTime = pathTable.getEntry("waitTime");
+        //startOffset = autoTable.getEntry("startOffset");
 
-        modeSelector.addOption("DoNothing", Modes.DoNothing);
+        modeSelector.addOption("Do nothing", Modes.DoNothing);
         modeSelector.addOption("blueA", Modes.blueA);
         modeSelector.addOption("blueB", Modes.blueB);
         modeSelector.addOption("redA", Modes.redA);
+        modeSelector.addOption("redB", Modes.redB);
+        modeSelector.addOption("slalom", Modes.slalom);
+        modeSelector.addOption("bounce", Modes.bounce);
+        modeSelector.addOption("barrel", Modes.bounce);
 
         SmartDashboard.putData(modeSelector);
     }
@@ -131,12 +166,25 @@ public class PathWeezer {
             case redA:
                 modeToReturn = new redA();
                 break;
+            case redB:
+                modeToReturn = new redB();
+                break;
+                case slalom:
+                modeToReturn = new slalom();
+                break;
+            case bounce:
+                modeToReturn = new bounce();
+                break;
+            case barrel:
+                modeToReturn = new barrel();
+                break;
             default:
                 modeToReturn = new DoNothing();
+            
         }
 
         //modeToReturn.waitTime = (int) waitTime.getNumber(0) * 1000;
-        modeToReturn.startOffset = startOffset.getDouble(0);
+       // modeToReturn.startOffset = startOffset.getDouble(0);
         
         return modeToReturn;
     }
