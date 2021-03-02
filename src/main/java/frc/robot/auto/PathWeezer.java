@@ -5,6 +5,9 @@ package frc.robot.auto;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 //import frc.robot.subsystems.Drive;
     
 
@@ -21,7 +24,9 @@ public class PathWeezer {
     final static int SEGMENTS = setSegments(); // obv not the real number
     final static int VARIABLES = 7;
 
-    File path = new File(setFile());
+
+    String path = setFile();
+    String json = readFileAsString(path);
     
     static double[][] trajectory = new double[SEGMENTS][VARIABLES];
 
@@ -41,32 +46,8 @@ public class PathWeezer {
 
 
 
-    public String setFile(){
-        int a = 1;
-        String phile = "bluea.wpilib.json";
-        if ( a == 1){
-         phile =  "blueb.wpilib.json";
-        }
-            else if( a==2){
-          phile = "reda.wpilib.json";   
-            }
-            else if(a == 3){
-          phile = "redb.wpilib.json";   
-
-            }
-            else if ( a == 4) {
-            
-            }
-            else if ( a == 5) {
-
-            }
-            else if ( a == 6) {
-
-            }
-            else if ( a == 7) {
-
-            }
-            return phile;
+    public static String setFile(){
+       
         
     }
 
@@ -88,27 +69,25 @@ public class PathWeezer {
         return trajectory;
     }
 
+    public static String readFileAsString(String file)
+    {
+        return new String(Files.readAllBytes(Paths.get(file)));
+    }
+
     public static int setSegments() {
         int segs = 0;
         while (in.hasNext()) {
             int doubles = 0;
-                
-            String path = in.next();
-
-            try{
-                   // it double
-                double d = Double.parseDouble(path);
-                doubles += 1;
-                    
-            }
-            catch (NumberFormatException e) {
-                //not double
-                //doubles = doubles;
-            }
+            
+            String fileX = setFile();
+            long count = fileX.chars().filter(ch -> ch == 'e').count();
+           
+           
             segs = doubles/VARIABLES;
                 
         }
-}
+    
+
         return segs;
     }
 }
