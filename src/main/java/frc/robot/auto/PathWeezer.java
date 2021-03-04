@@ -41,11 +41,11 @@ public class PathWeezer {
     final static double I = 0.1;
     final static double D = 0.1;
     
-    static int SEGMENTS = setSegments(); // obv not the real number
+    int SEGMENTS = getSegments(); // obv not the real number
     final static int VARIABLES = 7;
 
-    static long count;
-    String path = setFile();
+    long count;
+    String path;
     String json;
 
     SendableChooser<Modes> modeSelector;
@@ -56,10 +56,11 @@ public class PathWeezer {
     //static pathChooser instance;
 
 
-    static double[][] trajectory = new double[SEGMENTS][VARIABLES];
+    double[][] trajectory = new double[SEGMENTS][VARIABLES];
     // modeSelector = new SendableChooser<Modes>();
 
     public PathWeezer() throws IOException {
+        path = getFile();
         json = readFileAsString(path);
         Scanner in = new Scanner(path);
     }
@@ -75,13 +76,13 @@ public class PathWeezer {
         barrel,
     }
 
-    public static String setFile() {
+    public static String getFile() {
 
         return "buh";
 
     }
 
-    public static void setTrajectory() {
+    public void setTrajectory() {
 
         for (int a = 0; a < SEGMENTS; a++) {
 
@@ -92,7 +93,7 @@ public class PathWeezer {
         }
     }
 
-    public static double[][] getTrajectory() {
+    public double[][] getTrajectory() {
         return trajectory;
     }
 
@@ -108,12 +109,12 @@ public class PathWeezer {
         return s;
     }
 
-    public static int setSegments() {
+    public int getSegments() {
         int segs = 0;
         while (in.hasNext()) {
             final int doubles = 0;
 
-            final String fileX = setFile();
+            final String fileX = getFile();
             count = fileX.chars().filter(ch -> ch == 'e').count();
         
            
