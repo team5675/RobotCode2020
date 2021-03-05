@@ -76,12 +76,7 @@ public class PathWeezer {
         barrel,
     }
 
-    public static String getFile() {
-
-        return path;
-
-    }
-
+   
     public void setTrajectory() {
 
         for (int a = 0; a < SEGMENTS; a++) {
