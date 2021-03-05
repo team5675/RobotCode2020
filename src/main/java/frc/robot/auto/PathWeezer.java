@@ -22,7 +22,7 @@ import java.nio.file.Paths;
 public class PathWeezer {
 
     public static Scanner in;
-    File pathWeaver;
+    File file;
     
     final static double P = 0.1; //change dis
     final static double I = 0.1;
@@ -48,6 +48,19 @@ public class PathWeezer {
 
         fileChooser();
 
+        path = getFile();
+        file = new File(path);
+        json = readFileAsString(path);
+        System.out.println(json);
+
+
+        try {
+            in = new Scanner(file);
+        } catch(IOException e) {
+        }
+
+        setTrajectory();
+
     }
 
     enum Modes {
@@ -59,46 +72,6 @@ public class PathWeezer {
         bounce,
         barrel,
     }
-
-    public void setTrajectory() {
-
-        for (int a = 0; a < SEGMENTS; a++) {
-
-            for (int x = 0; x < VARIABLES; x++) {
-                trajectory[a][x] = in.nextDouble();
-
-            }
-        }
-    }
-
-    public double[][] getTrajectory() {
-        return trajectory;
-    }
-
-    public static String readFileAsString(String file) throws IOException {
-        String s = "baby";
-        try{
-
-            s= new String(Files.readAllBytes(Paths.get(file)));
-        }
-        catch(IOException a) {
-
-        }
-        return s;
-    }
-
-    public int getSegments() {
-
-        count = path.chars().filter(ch -> ch == 'x').count();
-    
-        return (int)count;
-    }
-
-
-
-
-
-
 
     public void fileChooser() {
 
@@ -122,7 +95,37 @@ public class PathWeezer {
         return fileSelector.getSelected();
     }
 
+    public int getSegments() {
 
+        count = json.chars().filter(ch -> ch == 'x').count();
+    
+        return (int)count;
+    }
 
+    public static String readFileAsString(String file) throws IOException {
+        String s = "";
+        try{
+
+            s = new String(Files.readAllBytes(Paths.get(file)));
+        } catch(IOException e) {
+
+        }
+        return s;
+    }
+
+    public void setTrajectory() {
+
+        for (int a = 0; a < SEGMENTS; a++) {
+
+            for (int x = 0; x < VARIABLES; x++) {
+                trajectory[a][x] = in.nextDouble();
+
+            }
+        }
+    }
+
+    public double[][] getTrajectory() {
+        return trajectory;
+    }
 
 }
