@@ -78,7 +78,7 @@ public class PathWeezer {
 
     public static String getFile() {
 
-        return "buh";
+        return path;
 
     }
 
@@ -115,8 +115,8 @@ public class PathWeezer {
             final int doubles = 0;
 
             final String fileX = getFile();
-            count = fileX.chars().filter(ch -> ch == 'e').count();
-        
+            count = fileX.chars().filter(ch -> ch == 'x').count();
+            
            
             segs = (int)count/VARIABLES;
                 
@@ -125,11 +125,6 @@ public class PathWeezer {
 
         return segs;
     }
-
-
-
-
-
 
 
     public void fileChooser() {
