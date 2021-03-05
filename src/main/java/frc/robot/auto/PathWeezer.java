@@ -76,7 +76,7 @@ public class PathWeezer {
         barrel,
     }
 
-    public static String getFile() {
+    public String getFile() {
 
         return "buh";
 
@@ -110,20 +110,10 @@ public class PathWeezer {
     }
 
     public int getSegments() {
-        int segs = 0;
-        while (in.hasNext()) {
-            final int doubles = 0;
 
-            final String fileX = getFile();
-            count = fileX.chars().filter(ch -> ch == 'e').count();
-        
-           
-            segs = (int)count/VARIABLES;
-                
-        }
+        count = path.chars().filter(ch -> ch == 'x').count();
     
-
-        return segs;
+        return (int)count;
     }
 
 
