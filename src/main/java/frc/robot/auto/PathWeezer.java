@@ -21,6 +21,8 @@ import java.nio.file.Paths;
 
 public class PathWeezer {
 
+    static PathWeezer instance;
+
     public static Scanner in;
     File file;
     
@@ -42,16 +44,14 @@ public class PathWeezer {
 
 
     double[][] trajectory = new double[SEGMENTS][VARIABLES];
-    // modeSelector = new SendableChooser<Modes>();
 
-    public PathWeezer() throws IOException {
+    public PathWeezer(){
 
         fileChooser();
 
         path = getFile();
         file = new File(path);
         json = readFileAsString(path);
-        System.out.println(json);
 
 
         try {
@@ -61,6 +61,10 @@ public class PathWeezer {
 
         setTrajectory();
 
+    }
+
+    public void testFunc() {
+        System.out.println(json);
     }
 
     enum Modes {
@@ -102,7 +106,7 @@ public class PathWeezer {
         return (int)count;
     }
 
-    public static String readFileAsString(String file) throws IOException {
+    public static String readFileAsString(String file){
         String s = "";
         try{
 
@@ -126,6 +130,13 @@ public class PathWeezer {
 
     public double[][] getTrajectory() {
         return trajectory;
+    }
+
+    public static PathWeezer getInstance(){
+        if(instance == null) {
+            instance = new PathWeezer();
+        }
+        return instance;
     }
 
 }
