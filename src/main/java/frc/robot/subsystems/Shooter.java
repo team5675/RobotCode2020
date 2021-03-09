@@ -21,12 +21,20 @@ public class Shooter {
 
     static Shooter instance;
 
-    SparkMaxMotor motorOne;
-    SparkMaxMotor motorTwo;
+    enum ShooterState
+    {
+        StartUp,
+        Shooting,
+        Idle
+    }
+
+    static ShooterState shooterState;
+    SparkMaxMotor flywheelOne;
+    SparkMaxMotor flywheelTwo;
     Spark hoodMotor;
     Spark gate;
 
-    Vision vision = Vision.getInstance();
+    Vision vision;
     DriverController driverController = DriverController.getInstance();
     Drive drive = Drive.getInstance();
 
@@ -36,7 +44,7 @@ public class Shooter {
     NetworkTableEntry currentVelocity;
     NetworkTableEntry velocityGoal;
 
-    double currentHoodAngle;
+    double hoodAngle;
     double pastHoodAngle;
     double hoodVelocity;
     double desiredAngle;
@@ -49,43 +57,93 @@ public class Shooter {
     
     
     public Shooter() {
-        hoodLimit = new DigitalInput(0);
+        vision = Vision.getInstance();
 
+        hoodLimit = new DigitalInput(0);
         hoodEncoder = new Encoder(1, 2);
         hoodEncoder.setDistancePerPulse(9/29.6); //in degrees
 
-        motorOne = new SparkMaxMotor(Constants.SHOOTER_ID_1);
-        motorTwo = new SparkMaxMotor(Constants.SHOOTER_ID_2);
+        flywheelOne = new SparkMaxMotor(Constants.SHOOTER_ID_1);
+        flywheelTwo = new SparkMaxMotor(Constants.SHOOTER_ID_2);
         hoodMotor = new Spark(Constants.HOOD_ID);
         gate = new Spark(Constants.SHOOTER_GATE_ID);
 
-        motorOne.configurePID(Constants.SHOOTER_KP, 0, Constants.SHOOTER_KD, Constants.SHOOTER_KF);
-        motorTwo.configurePID(Constants.SHOOTER_KP, 0, Constants.SHOOTER_KD, Constants.SHOOTER_KF);
-
-        motorOne.burnFlash();
-        motorTwo.burnFlash();
+        flywheelOne.configurePID(Constants.SHOOTER_KP, 0, Constants.SHOOTER_KD, Constants.SHOOTER_KF);
+        flywheelTwo.configurePID(Constants.SHOOTER_KP, 0, Constants.SHOOTER_KD, Constants.SHOOTER_KF);
 
         logTable = NetworkTableInstance.getDefault().getTable("log");
         currentVelocity = logTable.getEntry("currentVelocity");
         velocityGoal = logTable.getEntry("velocityGoal");
     }
     
+    public void run()
+    {
+        System.out.println(hoodEncoder.getDistance());
+        System.out.println(vision.getDistanceFromTarget());
+
+        if (shooterState == ShooterState.StartUp)
+        {
+
+            hoodMotor.set(0.40);
+
+            if (hoodLimit.get() == false)
+            {
+
+                shooterState = ShooterState.Idle;
+                hoodEncoder.reset();
+                hoodMotor.set(0);
+            }
+        }
+        else if (shooterState == ShooterState.Shooting)
+        {
+
+            hoodAngle = hoodEncoder.getDistance();
+            double hoodAngleTarget = 0;
+
+            if(vision.getDistanceFromTarget() < 7.5) {
+                hoodAngleTarget = 36;
+            }
+            else {
+                hoodAngleTarget = 45;
+            }
+                
+            hoodMotor.set((hoodAngleTarget - hoodAngle) * Constants.SHOOTER_HOOD_P * -1);
+
+            flywheelOne.setRPMVelocity(Constants.SHOOTER_FLYWHEEL_RPM * -1);
+            flywheelTwo.setRPMVelocity(Constants.SHOOTER_FLYWHEEL_RPM * -1);
+
+            shooterState = ShooterState.Idle;
+        }
+        else
+        {
+
+            flywheelOne.setRPMVelocity(0);
+            flywheelTwo.setRPMVelocity(0);
+            hoodMotor.set(0);
+        }
+    }
 
     public void shoot() {
+
+        if (shooterState != ShooterState.StartUp)
+        {
+
+            shooterState = ShooterState.Shooting;
+        }
 
         //desiredAngle = limelightx^3 * a etc regression in desmos
 
         //hoodVelocity = ((currentHoodAngle - desiredAngle) * hoodP) + ((currentHoodAngle - pastAngle) * hoodD)
         //motorOne.setSpeed(0.9);
         //motorTwo.setSpeed(0.9);
-        hoodVelocity = driverController.getHood(); //comment this out
+        /*hoodVelocity = driverController.getHood(); //comment this out
 
         if(hoodLimit.get()) {
             hoodMotor.set(0);
             System.out.println("Limit Switch Hit!");
         } else {
             hoodMotor.set(hoodVelocity*0.5);
-        }
+        }*/
 
         //Do limit switch stuff here Logan
         
@@ -98,9 +156,9 @@ public class Shooter {
         //    gate.set(0, 0);
         //}
 
-        pastHoodAngle = currentHoodAngle;
-        currentHoodAngle = hoodEncoder.getDistance();
-        System.out.println(currentHoodAngle);
+        //pastHoodAngle = currentHoodAngle;
+        //currentHoodAngle = hoodEncoder.getDistance();
+        //System.out.println(currentHoodAngle);
 
         /*rpm = -0.4402 * Math.pow(vision.getDistanceFromTarget(), 3) + 28.024 * Math.pow(vision.getDistanceFromTarget(), 2) - 549.46 * vision.getDistanceFromTarget() + 5924.2 + 100; //1.162
         //rpm = 2820;
@@ -124,8 +182,8 @@ public class Shooter {
 
     public void stop() {
 
-        motorOne.setRPMVelocity(0);
-        motorTwo.setRPMVelocity(0);
+        flywheelOne.setRPMVelocity(0);
+        flywheelTwo.setRPMVelocity(0);
         gate.set(0);
 
         rpm = 0;
@@ -134,7 +192,7 @@ public class Shooter {
 
     public double getVelocity() {
 
-        return (motorOne.getVelocity() + motorTwo.getVelocity()) / 2;
+        return (flywheelOne.getVelocity() + flywheelTwo.getVelocity()) / 2;
     }
 
 

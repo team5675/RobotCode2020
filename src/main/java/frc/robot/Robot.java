@@ -160,6 +160,7 @@ public class Robot extends TimedRobot {
     double angle = navX.getAngle();
     boolean isFieldOriented = driverController.isFieldOriented();
 
+    shooter.run();
     //Shoot else run intake and drive
     if (driverController.getShoot()) {
 
@@ -167,8 +168,8 @@ public class Robot extends TimedRobot {
       shooter.shoot();
     } else {
 
-      drive.move(forward, strafe, rotation, angle, isFieldOriented);
-      sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
+      //drive.move(forward, strafe, rotation, angle, isFieldOriented);
+      //sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
     }
 
     //Sucker Release Deploy
@@ -183,7 +184,7 @@ public class Robot extends TimedRobot {
     //Start/stop shoot
     if (driverController.getShootPressed()) {
 
-      sucker.suckOrBlow(-0.5);
+      //sucker.suckOrBlow(-0.5);
       lineUpTowardsTargetWithDriver.start();
     } else if (driverController.getShootReleased()) {
 
