@@ -164,7 +164,7 @@ public class Robot extends TimedRobot {
     //Shoot else run intake and drive
     if (driverController.getShoot()) {
 
-      //lineUpTowardsTargetWithDriver.loop();
+      lineUpTowardsTargetWithDriver.loop();
       shooter.shoot();
     } else {
 
@@ -189,7 +189,7 @@ public class Robot extends TimedRobot {
     } else if (driverController.getShootReleased()) {
 
       shooter.stop();
-      sucker.suckOrBlow(0);
+      //sucker.suckOrBlow(0);
       lineUpTowardsTargetWithDriver.stop();
     }
 

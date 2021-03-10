@@ -119,7 +119,8 @@ public class Shooter {
 
             flywheelOne.setRPMVelocity(0);
             flywheelTwo.setRPMVelocity(0);
-            hoodMotor.set(0);
+            if(hoodLimit.get()) hoodMotor.set(0);
+            else hoodMotor.set(driverController.getHood());
         }
     }
 
