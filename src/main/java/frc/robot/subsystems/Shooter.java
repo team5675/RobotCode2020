@@ -78,8 +78,8 @@ public class Shooter {
     
     public void run()
     {
-        System.out.println("Encoder: " + hoodEncoder.getDistance());
-        System.out.println("Distance" + vision.getDistanceFromTarget());
+        //System.out.println("Encoder: " + hoodEncoder.getDistance());
+        //System.out.println("Distance" + vision.getDistanceFromTarget());
 
         if (shooterState == ShooterState.StartUp)
         {
@@ -103,7 +103,7 @@ public class Shooter {
             if(vision.getDistanceFromTarget() < 7.5) hoodAngleTarget = 36;
             else hoodAngleTarget = 45;
             
-            if(hoodAngleTarget -hoodAngle < 0 && hoodLimit.get()) {
+            if(hoodAngleTarget - hoodAngle < 0 && hoodLimit.get()) {
                 hoodMotor.set(0);
             }
             //hoodMotor.set((hoodAngleTarget - hoodAngle) * Constants.SHOOTER_HOOD_P * -1);
@@ -113,6 +113,9 @@ public class Shooter {
 
             flywheelOne.setRPMVelocity(Constants.SHOOTER_FLYWHEEL_RPM * -1);
             flywheelTwo.setRPMVelocity(Constants.SHOOTER_FLYWHEEL_RPM * -1);
+
+            if(Math.abs(hoodAngleTarget - hoodAngle) < 5) gate.set(-1);
+            else gate.set(0);
 
             shooterState = ShooterState.Idle;
         }

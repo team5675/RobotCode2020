@@ -168,9 +168,14 @@ public class Robot extends TimedRobot {
       shooter.shoot();
     } else {
 
-      //drive.move(forward, strafe, rotation, angle, isFieldOriented);
+      drive.move(forward, strafe, rotation, angle, isFieldOriented);
       //sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
     }
+
+    System.out.println("Front Right: " + drive.getFrontRight().getAzimuth());
+    System.out.println("Front Left: " + drive.getFrontLeft().getAzimuth());
+    System.out.println("Back Right: " + drive.getBackRight().getAzimuth());
+    System.out.println("Back Left: " + drive.getBackLeft().getAzimuth());
 
     //Sucker Release Deploy
     if (driverController.getIntakeDeploy()) {
