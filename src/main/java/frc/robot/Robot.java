@@ -13,7 +13,7 @@ import frc.robot.auto.ModeRunner;
 import frc.robot.auto.Pathfinder;
 import frc.robot.auto.SwerveReturnData;
 import frc.robot.auto.Waypoint;
-import frc.robot.auto.PathWeezer;
+//import frc.robot.auto.PathWeezer;
 import frc.robot.auto.actions.Action;
 import frc.robot.auto.actions.LineUpTowardsTargetWithDriver;
 import frc.robot.subsystems.Climber;
@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
   NavX             navX;
   Pneumatics       pneumatics;
   Climber          climber;
-  PathWeezer       pathWeezer;
+  //PathWeezer       pathWeezer;
 
   Pathfinder       pathfinder;
   ModeRunner       modeRunner;
@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
     sucker           = Sucker.getInstance();
     pneumatics       = Pneumatics.getInstance();
     climber          = Climber.getInstance();
-    pathWeezer       = PathWeezer.getInstance();
+    //pathWeezer       = PathWeezer.getInstance();
 
     actionRunner     = ActionRunner.getInstance();
     pathfinder       = new Pathfinder(0.25, 0.003, 0, 1); 

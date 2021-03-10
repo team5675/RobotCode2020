@@ -1,5 +1,5 @@
 //pathweezer.java
-
+/*
 package frc.robot.auto;
 
 
@@ -139,4 +139,4 @@ public class PathWeezer {
         return instance;
     }
 
-}
+}*/

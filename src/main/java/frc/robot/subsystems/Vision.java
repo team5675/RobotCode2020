@@ -25,6 +25,7 @@ public class Vision {
     static NetworkTableEntry horizontalOffset;
     static NetworkTableEntry verticalOffset;
     static NetworkTableEntry distanceFromTarget;
+    static NetworkTableEntry verticalAngleOffset;
     static NetworkTable dashboardTable;
 
     double distance;
@@ -84,11 +85,10 @@ public class Vision {
     public void loop() {
         
         if (lightOn) {
-            distance = (Constants.VISION_TARGET_HEIGHT - Constants.VISION_CAMERA_HEIGHT) / Math.tan(Math.toRadians(Constants.VISION_CAMERA_ANGLE + getVerticalOffset()));
+            distance = (Constants.VISION_TARGET_HEIGHT - Constants.VISION_CAMERA_HEIGHT) / Math.tan(Math.toRadians(Constants.VISION_CAMERA_ANGLE + getVerticalOffset())) * 0.8;
             distanceFromTarget.setDouble(distance);
         }
     }
-
 
     public double getDistanceFromTarget() {
 

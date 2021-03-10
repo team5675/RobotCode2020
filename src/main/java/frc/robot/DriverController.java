@@ -65,12 +65,12 @@ public class DriverController {
 
     public boolean getShootPressed() {
 
-        return auxController.getRawButtonPressed(3);
+        return mainController.getRawButtonPressed(3);
     }
 
     public boolean getShootReleased() {
 
-        return auxController.getRawButtonReleased(3);
+        return mainController.getRawButtonReleased(3);
     }
 
     public boolean getLineUp() {
