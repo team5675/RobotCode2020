@@ -52,7 +52,7 @@ public class PathWeezer {
         path = getFile();
         file = new File(path);
         json = readFileAsString(path);
-
+        setSegments();
 
         try {
             in = new Scanner(file);
@@ -61,10 +61,6 @@ public class PathWeezer {
 
         setTrajectory();
 
-    }
-
-    public void testFunc() {
-        System.out.println(json);
     }
 
     enum Modes {
@@ -99,11 +95,9 @@ public class PathWeezer {
         return fileSelector.getSelected();
     }
 
-    public int getSegments() {
+    public void setSegments() {
 
-        count = json.chars().filter(ch -> ch == 'x').count();
-    
-        return (int)count;
+        SEGMENTS = (int)(json.chars().filter(ch -> ch == 'x').count());
     }
 
     public static String readFileAsString(String file){
