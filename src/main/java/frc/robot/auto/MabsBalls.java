@@ -82,20 +82,20 @@ public class MabsBalls {
 		}
 		if((pathA || pathB) && isFirstMap) {
 			if(pathA) {
-				pathWeezer.setPath("reda.json");
+				pathWeezer.setPath("reda.wpilib.json");
 			}
 			
 			if(pathB) {
-				pathWeezer.setPath("bluea.json");
+				pathWeezer.setPath("bluea.wpilib.json");
 			}
 		}
 		else if((pathA || pathB) && !isFirstMap) {
 			if(pathA) {
-				pathWeezer.setPath("redb.json");
+				pathWeezer.setPath("redb.wpilib.json");
 			}
 			
 			if(pathB) {
-				pathWeezer.setPath("blueb.json");
+				pathWeezer.setPath("blueb.wpilib.json");
 			}
 		}
 	}	

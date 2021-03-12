@@ -106,9 +106,9 @@ public class PathWeezer {
 
         fileSelector.addOption("A", "A");
         fileSelector.addOption("B", "B");
-        fileSelector.addOption("slalom", "slalom.json");
-        fileSelector.addOption("bounce", "bounce.json");
-        fileSelector.addOption("barrel", "barrel.json");
+        fileSelector.addOption("slalom", "slalom.wpilib.json");
+        fileSelector.addOption("bounce", "bounce.wpilib.json");
+        fileSelector.addOption("barrel", "barrel.wpilib.json");
 
         SmartDashboard.putData(fileSelector);
     }
