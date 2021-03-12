@@ -1,15 +1,7 @@
 package frc.robot.auto;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Sucker;
-import frc.robot.auto.Pathfinder;
 import frc.robot.Constants;
-import frc.robot.auto.Waypoint;
-
-import com.fasterxml.jackson.databind.node.ContainerNode;
-
-import org.apache.commons.math3.ode.FirstOrderFieldIntegrator;
-
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 /*
 drive forward 5 feet to c3 
 	SwerveDrive.drive();
