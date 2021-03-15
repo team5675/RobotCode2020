@@ -162,7 +162,7 @@ public class PIDFFController {
             returnVal = -1;
         }
 
-        setpoint = (returnVal + 0.78 / 12);
+        setpoint = returnVal; //+ 0.78 / 12);
         
 
         if (error > 0.0017 || error < -0.0017) return setpoint;

@@ -111,7 +111,7 @@ public class Shooter {
      
     public void run()
     {
-        System.out.println("Encoder: " + hoodEncoder.getDistance());
+        //System.out.println("Encoder: " + hoodEncoder.getDistance());
         //System.out.println("Distance" + vision.getDistanceFromTarget());
 
         if (shooterState == ShooterState.StartUp)

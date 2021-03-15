@@ -34,12 +34,12 @@ public class Robot extends TimedRobot {
   Vision           vision;
   Sucker           sucker;
   Shooter          shooter;
-  //Drive            drive;
+  Drive            drive;
   NavX             navX;
   Pneumatics       pneumatics;
   Climber          climber;
-  PathWeezer       pathWeezer;
-  Pathfinderold    pathFinderOld;
+  //PathWeezer       pathWeezer;
+  //Pathfinderold    pathFinderOld;
 
   Pathfinder       pathfinder;
   ModeRunner       modeRunner;
@@ -54,17 +54,17 @@ public class Robot extends TimedRobot {
     driverController = DriverController.getInstance();
     dashboard        = Dashboard.getInstance();
     
-    //drive            = Drive.getInstance();
+    drive            = Drive.getInstance();
     navX             = NavX.getInstance();
     vision           = Vision.getInstance();
     shooter          = Shooter.getInstance();
     sucker           = Sucker.getInstance();
     pneumatics       = Pneumatics.getInstance();
     climber          = Climber.getInstance();
-    pathWeezer       = PathWeezer.getInstance();
+    //pathWeezer       = PathWeezer.getInstance();
 
     actionRunner     = ActionRunner.getInstance();
-    pathFinderOld    = Pathfinderold.getInstance();
+    //pathFinderOld    = Pathfinderold.getInstance();
     pathfinder       = new Pathfinder(0.25, 0.003, 0, 1); 
     autoChooser      = AutoChooser.getInstance();
 
@@ -109,7 +109,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-
+/*
     if(pathWeezer.loopUntilTrajectory()) {
       pathFinderOld.runPath();
     }
@@ -172,11 +172,11 @@ public class Robot extends TimedRobot {
     //Shoot else run intake and drive
     if (driverController.getShoot()) {
 
-      //lineUpTowardsTargetWithDriver.loop();
+      lineUpTowardsTargetWithDriver.loop();
       shooter.shoot();
     } else {
 
-      //drive.move(forward, strafe, rotation, angle, isFieldOriented);
+      drive.move(forward, strafe, rotation * -1, angle - 180, isFieldOriented);
       //sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
     }
 
