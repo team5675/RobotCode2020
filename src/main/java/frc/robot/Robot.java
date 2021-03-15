@@ -144,6 +144,7 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
 
     actionRunner.forceStop();
+    vision.lightOn();
 
     lineUpTowardsTargetWithDriver = new LineUpTowardsTargetWithDriver();
   }
@@ -171,8 +172,7 @@ public class Robot extends TimedRobot {
     shooter.run();
     //Shoot else run intake and drive
     if (driverController.getShoot()) {
-
-      lineUpTowardsTargetWithDriver.loop();
+      //lineUpTowardsTargetWithDriver.loop();
       shooter.shoot();
     } else {
 
@@ -198,12 +198,12 @@ public class Robot extends TimedRobot {
     if (driverController.getShootPressed()) {
 
       sucker.suckOrBlow(-0.5);
-      lineUpTowardsTargetWithDriver.start();
+      //lineUpTowardsTargetWithDriver.start();
     } else if (driverController.getShootReleased()) {
 
       shooter.stop();
       //sucker.suckOrBlow(0);
-      lineUpTowardsTargetWithDriver.stop();
+      //lineUpTowardsTargetWithDriver.stop();
     }
 
     //Climber

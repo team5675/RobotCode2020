@@ -15,7 +15,6 @@ import frc.libs.motors.SparkMaxMotor;
 import frc.robot.Constants;
 import frc.robot.DriverController;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
 
 public class Shooter {
 
@@ -42,14 +41,12 @@ public class Shooter {
     NetworkTableEntry currentVelocity;
     NetworkTableEntry velocityGoal;
 
-    double hoodAngle;
     double hoodVelocity;
-    double desiredAngle;
 
     double hoodP;
     double hoodD;
+    boolean highTarget;
 
-    Encoder hoodEncoder;
     DigitalInput hoodLowLimit;
     DigitalInput hoodHighLimit;
     
@@ -59,9 +56,6 @@ public class Shooter {
 
         hoodLowLimit = new DigitalInput(0);
         hoodHighLimit = new DigitalInput(1);
-
-        hoodEncoder = new Encoder(1, 2);
-        //hoodEncoder.setDistancePerPulse(9/29.6); //in degrees
 
         flywheelOne = new SparkMaxMotor(Constants.SHOOTER_ID_1);
         flywheelTwo = new SparkMaxMotor(Constants.SHOOTER_ID_2);
@@ -127,27 +121,14 @@ public class Shooter {
         }
         else if (shooterState == ShooterState.Shooting)
         {
+            alignHood();
 
-            hoodAngle = hoodEncoder.getDistance();
-            System.out.println(hoodAngle);
-            boolean highTarget = false;
-
-            if(vision.getDistanceFromTarget() < 7.5) highTarget = true;
-            else highTarget = false;
-            
-            if(!highTarget) {
-                if(!hoodHighLimit.get()) hoodMotor.set(0); //is triggered
-                else hoodMotor.set(-0.6);
-            }
-            else {
-                if(!hoodLowLimit.get()) hoodMotor.set(0);
-                else hoodMotor.set(0.6);
-            }
+            if(!highTarget && !hoodLowLimit.get()) gate.set(1);
+            else if(highTarget && !hoodHighLimit.get()) gate.set(1);
+            else gate.set(0);
 
             flywheelOne.setRPMVelocity(Constants.SHOOTER_FLYWHEEL_RPM * -1);
             flywheelTwo.setRPMVelocity(Constants.SHOOTER_FLYWHEEL_RPM * -1);
-
-            gate.set(1);
 
             //if(Math.abs(hoodAngleTarget - hoodAngle) < 5) gate.set(1);
             //else gate.set(0);
@@ -159,7 +140,21 @@ public class Shooter {
 
             flywheelOne.setRPMVelocity(0);
             flywheelTwo.setRPMVelocity(0);
-            hoodMotor.set(0);
+            alignHood();
+        }
+    }
+
+    public void alignHood() {
+        if(vision.getDistanceFromTarget() < 7.5) highTarget = true;
+        else highTarget = false;
+            
+        if(!highTarget) {
+            if(!hoodHighLimit.get()) hoodMotor.set(0);
+            else hoodMotor.set(-0.6);
+        }
+        else {
+            if(!hoodLowLimit.get()) hoodMotor.set(0);
+            else hoodMotor.set(0.6);
         }
     }
 
@@ -170,65 +165,21 @@ public class Shooter {
 
             shooterState = ShooterState.Shooting;
         }
-
-        //desiredAngle = limelightx^3 * a etc regression in desmos
-
-        //hoodVelocity = ((currentHoodAngle - desiredAngle) * hoodP) + ((currentHoodAngle - pastAngle) * hoodD)
-        //motorOne.setSpeed(0.9);
-        //motorTwo.setSpeed(0.9);
-        /*hoodVelocity = driverController.getHood(); //comment this out
-
-        if(hoodLimit.get()) {
-            hoodMotor.set(0);
-            System.out.println("Limit Switch Hit!");
-        } else {
-            hoodMotor.set(hoodVelocity*0.5);
-        }*/
-
-        //Do limit switch stuff here Logan
-        
-        //if(Math.abs(currentAngle - desiredAngle ) < 1 (or whatever threshold value))) {
-
-        //    gate.set(-1, 0);
-        //} else {
-
-        //    System.out.println("ANGLE: " + currentHoodAngle + "GOAL: " + desiredAngle);
-        //    gate.set(0, 0);
-        //}
-
-        //pastHoodAngle = currentHoodAngle;
-        //currentHoodAngle = hoodEncoder.getDistance();
-        //System.out.println(currentHoodAngle);
-
-        /*rpm = -0.4402 * Math.pow(vision.getDistanceFromTarget(), 3) + 28.024 * Math.pow(vision.getDistanceFromTarget(), 2) - 549.46 * vision.getDistanceFromTarget() + 5924.2 + 100; //1.162
-        //rpm = 2820;
-
-        motorOne.setRPMVelocity((int)rpm * -1);
-        motorTwo.setRPMVelocity((int)rpm * -1);
-
-        if ((motorOne.getVelocity() + motorTwo.getVelocity()) / 2 > rpm && rpm != 0) {
-
-            gate.set(-1);
-        } else {
-
-            System.out.println("CURRENT VELOCITY: " + getVelocity() + " GOALS: " + rpm);
-            gate.set(0);
-        }
-
-        currentVelocity.setDouble(getVelocity());
-        velocityGoal.setDouble(rpm);*/
     }
 
     public void stop() {
-
-        flywheelOne.setRPMVelocity(0);
-        flywheelTwo.setRPMVelocity(0);
-        gate.set(0);
+        shooterState = ShooterState.Idle;
     }
 
 
     public double getVelocity() {
         return (flywheelOne.getVelocity() + flywheelTwo.getVelocity()) / 2;
+    }
+
+    public String getState() {
+        if(shooterState == ShooterState.StartUp) return "StartUp";
+        else if(shooterState == ShooterState.Shooting) return "Shooting";
+        else return "Idle";
     }
 
     public static Shooter getInstance() {
