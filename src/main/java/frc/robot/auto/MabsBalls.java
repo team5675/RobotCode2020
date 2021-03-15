@@ -1,15 +1,7 @@
 package frc.robot.auto;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Sucker;
-import frc.robot.auto.Pathfinder;
 import frc.robot.Constants;
-import frc.robot.auto.Waypoint;
-
-import com.fasterxml.jackson.databind.node.ContainerNode;
-
-import org.apache.commons.math3.ode.FirstOrderFieldIntegrator;
-
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 /*
 drive forward 5 feet to c3 
 	SwerveDrive.drive();
@@ -26,6 +18,7 @@ public class MabsBalls {
 	//FirstOrderFieldIntegrator
 
 	Pathfinder pathfinder;
+	PathWeezer pathWeezer;
 	Drive drive;
 	Sucker sucker;
 
@@ -44,42 +37,7 @@ public class MabsBalls {
 		pathA = false;
 		pathB = false;
 
-		Waypoint[] firstPointsRed = new Waypoint[1];
-		Waypoint[] firstPointsBlue = new Waypoint[1];
-		Waypoint[] secondPointsRed = new Waypoint[1];
-		Waypoint[] secondPointsBlue = new Waypoint[1];
-		
-
-		firstPointsRed = new Waypoint[] {
-
-			new Waypoint(12.5, 5, 0),
-			new Waypoint(15,12.5,0),
-			new Waypoint(27.5, 7.5,0)
-		};
-
-		firstPointsBlue = new Waypoint[] {
-
-			new Waypoint(15.5, 2.5, 0),
-			new Waypoint(17.5,10,0),
-			new Waypoint(22.5,7.5,0),
-			new Waypoint(27.5,7.5,0)
-		};
-		
-		secondPointsRed = new Waypoint[] {
-
-			new Waypoint(7.5, 10, 0),
-			new Waypoint(12.5,10,0),
-			new Waypoint(17.5, 10,0),
-		};
-		secondPointsBlue = new Waypoint[] {
-
-			new Waypoint(15.5, 5, 0),
-			new Waypoint(20,10,0),
-			new Waypoint(25,10,0),
-		};
-		
-
-
+		pathWeezer = PathWeezer.getInstance();
 		drive = Drive.getInstance();
 		sucker = Sucker.getInstance();
 		pathfinder = new Pathfinder(0.25, 1, 1, 1); //resolution, azimuthP, slowDownP, startSlowDownP
@@ -93,7 +51,7 @@ public class MabsBalls {
 		double blEnc = drive.getBackLeft().getSpeedPosition();
 		double brEnc = drive.getBackRight().getSpeedPosition();
 		double avg = ((flEnc + frEnc +blEnc + brEnc)/4);
-		ySpeed = slowFactor*((avg*avg / -2.25) + 1); //just a quadratic that is 1 at x = 0 and 0 at x = 5 for mapping
+		ySpeed = slowFactor*(-0.33 * avg + 1); 
 		drive.move(0, ySpeed, 0,  0, true);
 	}
 
@@ -124,23 +82,27 @@ public class MabsBalls {
 		}
 		if((pathA || pathB) && isFirstMap) {
 			if(pathA) {
-				pathfinder.translate(0, 0, firstPointsRed); //offsetx, offsety, Waypoint[] points
+				pathWeezer.setPath("reda.wpilib.json");
 			}
 			
 			if(pathB) {
-				pathfinder.translate(0, 0, firstPointsBlue); //offsetx, offsety, Waypoint[] points
+				pathWeezer.setPath("bluea.wpilib.json");
 			}
 		}
-		if((pathA || pathB) && !isFirstMap) {
+		else if((pathA || pathB) && !isFirstMap) {
 			if(pathA) {
-				pathfinder.translate(0, 0, secondPointsRed); //offsetx, offsety, Waypoint[] points
+				pathWeezer.setPath("redb.wpilib.json");
 			}
 			
 			if(pathB) {
-				pathfinder.translate(0, 0, secondPointsBlue); //offsetx, offsety, Waypoint[] points
+				pathWeezer.setPath("blueb.wpilib.json");
 			}
 		}
 	}	
+
+	public void setIsFirstMap(boolean isFirstMap) {
+		this.isFirstMap = isFirstMap;
+	}
 
 	
 }

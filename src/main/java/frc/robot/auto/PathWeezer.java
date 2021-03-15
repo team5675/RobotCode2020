@@ -1,5 +1,5 @@
 //pathweezer.java
-/*
+
 package frc.robot.auto;
 
 
@@ -22,6 +22,7 @@ import java.nio.file.Paths;
 public class PathWeezer {
 
     static PathWeezer instance;
+    MabsBalls mabsBalls;
 
     public static Scanner in;
     File file;
@@ -36,6 +37,7 @@ public class PathWeezer {
     long count;
     String path;
     String json;
+    boolean isSearch;
 
     SendableChooser<String> fileSelector;
     NetworkTable pathTable;
@@ -46,35 +48,55 @@ public class PathWeezer {
     double[][] trajectory = new double[SEGMENTS][VARIABLES];
 
     public PathWeezer(){
+        mabsBalls = new MabsBalls();
 
         fileChooser();
 
         path = getFile();
-        file = new File(path);
-        json = readFileAsString(path);
-
-
-        try {
-            in = new Scanner(file);
-        } catch(IOException e) {
+        if(path.equals("A") && path.equals("B")) {
+            isSearch = true;
+            if(path.equals("A")) mabsBalls.setIsFirstMap(true);
+            else mabsBalls.setIsFirstMap(false);
         }
 
-        setTrajectory();
-
-    }
-
-    public void testFunc() {
-        System.out.println(json);
     }
 
     enum Modes {
-        blueA,
-        blueB,
-        redA,
-        redB,
+        A,
+        B,
         slalom,
         bounce,
         barrel,
+    }
+
+    public boolean loopUntilTrajectory() { //returns if we have a path yet
+        if(!isSearch && trajectory == null) {
+
+            file = new File(path);
+            json = readFileAsString(path);
+            setSegments();
+
+            try {
+
+                in = new Scanner(file);
+
+            } catch(IOException e) {
+            }
+            
+            setTrajectory();
+        }
+        else if(trajectory == null) {
+            mabsBalls.uhhhhh();
+            if(path != "A" && path != "B") return true;
+            else return false;
+
+        }
+        return true;
+        
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public void fileChooser() {
@@ -82,13 +104,11 @@ public class PathWeezer {
         fileSelector = new SendableChooser<String>();
         pathTable = NetworkTableInstance.getDefault().getTable("path");
 
-        fileSelector.addOption("blueA", "blueA");
-        fileSelector.addOption("blueB", "blueB");
-        fileSelector.addOption("redA", "redA");
-        fileSelector.addOption("redB", "redB");
-        fileSelector.addOption("slalom", "slalom");
-        fileSelector.addOption("bounce", "bounce");
-        fileSelector.addOption("barrel", "barrel");
+        fileSelector.addOption("A", "A");
+        fileSelector.addOption("B", "B");
+        fileSelector.addOption("slalom", "slalom.wpilib.json");
+        fileSelector.addOption("bounce", "bounce.wpilib.json");
+        fileSelector.addOption("barrel", "barrel.wpilib.json");
 
         SmartDashboard.putData(fileSelector);
     }
@@ -99,11 +119,9 @@ public class PathWeezer {
         return fileSelector.getSelected();
     }
 
-    public int getSegments() {
+    public void setSegments() {
 
-        count = json.chars().filter(ch -> ch == 'x').count();
-    
-        return (int)count;
+        SEGMENTS = (int)(json.chars().filter(ch -> ch == 'x').count());
     }
 
     public static String readFileAsString(String file){
@@ -139,4 +157,4 @@ public class PathWeezer {
         return instance;
     }
 
-}*/
+}

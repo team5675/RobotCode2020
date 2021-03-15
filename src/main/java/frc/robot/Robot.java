@@ -11,9 +11,10 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.ActionRunner;
 import frc.robot.auto.ModeRunner;
 import frc.robot.auto.Pathfinder;
+import frc.robot.auto.Pathfinderold;
 import frc.robot.auto.SwerveReturnData;
 import frc.robot.auto.Waypoint;
-//import frc.robot.auto.PathWeezer;
+import frc.robot.auto.PathWeezer;
 import frc.robot.auto.actions.Action;
 import frc.robot.auto.actions.LineUpTowardsTargetWithDriver;
 import frc.robot.subsystems.Climber;
@@ -37,7 +38,8 @@ public class Robot extends TimedRobot {
   NavX             navX;
   Pneumatics       pneumatics;
   Climber          climber;
-  //PathWeezer       pathWeezer;
+  PathWeezer       pathWeezer;
+  Pathfinderold    pathFinderOld;
 
   Pathfinder       pathfinder;
   ModeRunner       modeRunner;
@@ -59,9 +61,10 @@ public class Robot extends TimedRobot {
     sucker           = Sucker.getInstance();
     pneumatics       = Pneumatics.getInstance();
     climber          = Climber.getInstance();
-    //pathWeezer       = PathWeezer.getInstance();
+    pathWeezer       = PathWeezer.getInstance();
 
     actionRunner     = ActionRunner.getInstance();
+    pathFinderOld    = Pathfinderold.getInstance();
     pathfinder       = new Pathfinder(0.25, 0.003, 0, 1); 
     autoChooser      = AutoChooser.getInstance();
 
@@ -107,28 +110,33 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
 
+    if(pathWeezer.loopUntilTrajectory()) {
+      pathFinderOld.runPath();
+    }
+
     //vision.loop();
     //actionRunner.loop();
-    
-    //SwerveReturnData[] _motorSpeed = pathfinder.loop(
-      //drive.getFrontLeft().getAzimuth() - 2.13,
-      //drive.getFrontRight().getAzimuth() - 2.62,
-      //drive.getBackLeft().getAzimuth() - 2.47,
-      //drive.getBackRight().getAzimuth() - 2.58,
-      //drive.getFrontLeft().getDrivePosition() / 7.64,
-      //(drive.getFrontRight().getDrivePosition() / 7.64) * -1,
-      //drive.getBackLeft().getDrivePosition() / 7.64,
-      //drive.getBackRight().getDrivePosition() / 7.64
-    //);
+    /*
+    SwerveReturnData[] _motorSpeed = pathfinder.loop(
+      drive.getFrontLeft().getAzimuth() - 2.13,
+      drive.getFrontRight().getAzimuth() - 2.62,
+      drive.getBackLeft().getAzimuth() - 2.47,
+      drive.getBackRight().getAzimuth() - 2.58,
+      drive.getFrontLeft().getDrivePosition() / 7.64,
+      (drive.getFrontRight().getDrivePosition() / 7.64) * -1,
+      drive.getBackLeft().getDrivePosition() / 7.64,
+      drive.getBackRight().getDrivePosition() / 7.64
+    );
 
-    ///drive.getFrontLeft().setAzimuth(_motorSpeed[0].getAzimuthSpeed());
-    //drive.getFrontRight().setAzimuth(_motorSpeed[1].getAzimuthSpeed());
-    //drive.getBackLeft().setAzimuth(_motorSpeed[2].getAzimuthSpeed());
-    //drive.getBackRight().setAzimuth(_motorSpeed[3].getAzimuthSpeed());
-    //drive.getFrontLeft().setDrive(_motorSpeed[0].getDriveSpeed());
-    //drive.getFrontRight().setDrive(_motorSpeed[1].getDriveSpeed() * -1);
-    //drive.getBackLeft().setDrive(_motorSpeed[2].getDriveSpeed());
-    //drive.getBackRight().setDrive(_motorSpeed[3].getDriveSpeed());
+    drive.getFrontLeft().setAzimuth(_motorSpeed[0].getAzimuthSpeed());
+    drive.getFrontRight().setAzimuth(_motorSpeed[1].getAzimuthSpeed());
+    drive.getBackLeft().setAzimuth(_motorSpeed[2].getAzimuthSpeed());
+    drive.getBackRight().setAzimuth(_motorSpeed[3].getAzimuthSpeed());
+    drive.getFrontLeft().setDrive(_motorSpeed[0].getDriveSpeed());
+    drive.getFrontRight().setDrive(_motorSpeed[1].getDriveSpeed() * -1);
+    drive.getBackLeft().setDrive(_motorSpeed[2].getDriveSpeed());
+    drive.getBackRight().setDrive(_motorSpeed[3].getDriveSpeed());
+    */
   }
 
 

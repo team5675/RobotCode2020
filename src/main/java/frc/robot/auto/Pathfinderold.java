@@ -18,6 +18,7 @@ public class Pathfinderold {
 
     static Pathfinderold instance;
     
+    PathWeezer pathWeezer = PathWeezer.getInstance();
     static Drive drive = Drive.getInstance();
     static NavX navX = NavX.getInstance();
 
@@ -110,9 +111,20 @@ public class Pathfinderold {
             }
 
             drive.move(xSpeed * speedMultiplier, ySpeed * speedMultiplier, zSpeed, navX.getAngle() + 90, false);
-        }        
+        }
     }
 
+    public void runPath() {
+        double[][] points = pathWeezer.getTrajectory();
+        int currentPoint = 1; 
+        double pastX = points[0][0];
+        double pastY = points[0][1];
+        while(currentPoint < points.length) {
+            translate(points[currentPoint][0] - pastX, points[currentPoint][1] - pastY, points[currentPoint][2], 1);
+            loop();
+            if(!run) currentPoint++;
+        }
+    }
 
     public static Pathfinderold getInstance() {
 
