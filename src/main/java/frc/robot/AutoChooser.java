@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot;
+/*package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -21,7 +21,7 @@ import frc.robot.auto.modes.ShootThreeBalls;
 /**
  * Add your docs here.
  */
-public class AutoChooser {
+/*public class AutoChooser {
 
     static AutoChooser instance;
 
@@ -88,4 +88,4 @@ public class AutoChooser {
 
         return instance;
     }
-}
+}*/

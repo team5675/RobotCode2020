@@ -45,7 +45,7 @@ public class Robot extends TimedRobot {
   ModeRunner       modeRunner;
   ActionRunner     actionRunner;
   Action           lineUpTowardsTargetWithDriver;
-  AutoChooser      autoChooser;
+  //AutoChooser      autoChooser;
 
 
   @Override
@@ -66,7 +66,7 @@ public class Robot extends TimedRobot {
     actionRunner     = ActionRunner.getInstance();
     //pathFinderOld    = Pathfinderold.getInstance();
     pathfinder       = new Pathfinder(0.25, 0.003, 0, 1); 
-    autoChooser      = AutoChooser.getInstance();
+    //autoChooser      = AutoChooser.getInstance();
 
     Waypoint[] _newTrajectory = new Waypoint[] {
       new Waypoint(2.5, 7.5, 0),
