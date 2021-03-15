@@ -107,7 +107,7 @@ public class SwerveDrive {
 		
 			backLeft.drive(backLeftSpeed, backLeftAngle, deadband);
 		
-			frontRight.drive(frontRightSpeed *-1, frontRightAngle, deadband);
+			frontRight.drive(frontRightSpeed, frontRightAngle, deadband);
 		
 			frontLeft.drive(frontLeftSpeed, frontLeftAngle, deadband);
 	}

@@ -33,7 +33,7 @@ public class Robot extends TimedRobot {
   Vision           vision;
   Sucker           sucker;
   Shooter          shooter;
-  Drive            drive;
+  //Drive            drive;
   NavX             navX;
   Pneumatics       pneumatics;
   Climber          climber;
@@ -52,7 +52,7 @@ public class Robot extends TimedRobot {
     driverController = DriverController.getInstance();
     dashboard        = Dashboard.getInstance();
     
-    drive            = Drive.getInstance();
+    //drive            = Drive.getInstance();
     navX             = NavX.getInstance();
     vision           = Vision.getInstance();
     shooter          = Shooter.getInstance();
@@ -110,25 +110,25 @@ public class Robot extends TimedRobot {
     //vision.loop();
     //actionRunner.loop();
     
-    SwerveReturnData[] _motorSpeed = pathfinder.loop(
-      drive.getFrontLeft().getAzimuth() - 2.13,
-      drive.getFrontRight().getAzimuth() - 2.62,
-      drive.getBackLeft().getAzimuth() - 2.47,
-      drive.getBackRight().getAzimuth() - 2.58,
-      drive.getFrontLeft().getDrivePosition() / 7.64,
-      (drive.getFrontRight().getDrivePosition() / 7.64) * -1,
-      drive.getBackLeft().getDrivePosition() / 7.64,
-      drive.getBackRight().getDrivePosition() / 7.64
-    );
+    //SwerveReturnData[] _motorSpeed = pathfinder.loop(
+      //drive.getFrontLeft().getAzimuth() - 2.13,
+      //drive.getFrontRight().getAzimuth() - 2.62,
+      //drive.getBackLeft().getAzimuth() - 2.47,
+      //drive.getBackRight().getAzimuth() - 2.58,
+      //drive.getFrontLeft().getDrivePosition() / 7.64,
+      //(drive.getFrontRight().getDrivePosition() / 7.64) * -1,
+      //drive.getBackLeft().getDrivePosition() / 7.64,
+      //drive.getBackRight().getDrivePosition() / 7.64
+    //);
 
-    drive.getFrontLeft().setAzimuth(_motorSpeed[0].getAzimuthSpeed());
-    drive.getFrontRight().setAzimuth(_motorSpeed[1].getAzimuthSpeed());
-    drive.getBackLeft().setAzimuth(_motorSpeed[2].getAzimuthSpeed());
-    drive.getBackRight().setAzimuth(_motorSpeed[3].getAzimuthSpeed());
-    drive.getFrontLeft().setDrive(_motorSpeed[0].getDriveSpeed());
-    drive.getFrontRight().setDrive(_motorSpeed[1].getDriveSpeed() * -1);
-    drive.getBackLeft().setDrive(_motorSpeed[2].getDriveSpeed());
-    drive.getBackRight().setDrive(_motorSpeed[3].getDriveSpeed());
+    ///drive.getFrontLeft().setAzimuth(_motorSpeed[0].getAzimuthSpeed());
+    //drive.getFrontRight().setAzimuth(_motorSpeed[1].getAzimuthSpeed());
+    //drive.getBackLeft().setAzimuth(_motorSpeed[2].getAzimuthSpeed());
+    //drive.getBackRight().setAzimuth(_motorSpeed[3].getAzimuthSpeed());
+    //drive.getFrontLeft().setDrive(_motorSpeed[0].getDriveSpeed());
+    //drive.getFrontRight().setDrive(_motorSpeed[1].getDriveSpeed() * -1);
+    //drive.getBackLeft().setDrive(_motorSpeed[2].getDriveSpeed());
+    //drive.getBackRight().setDrive(_motorSpeed[3].getDriveSpeed());
   }
 
 
@@ -164,18 +164,18 @@ public class Robot extends TimedRobot {
     //Shoot else run intake and drive
     if (driverController.getShoot()) {
 
-      lineUpTowardsTargetWithDriver.loop();
+      //lineUpTowardsTargetWithDriver.loop();
       shooter.shoot();
     } else {
 
-      drive.move(forward, strafe, rotation, angle, isFieldOriented);
+      //drive.move(forward, strafe, rotation, angle, isFieldOriented);
       //sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
     }
 
-    System.out.println("Front Right: " + drive.getFrontRight().getAzimuth());
-    System.out.println("Front Left: " + drive.getFrontLeft().getAzimuth());
-    System.out.println("Back Right: " + drive.getBackRight().getAzimuth());
-    System.out.println("Back Left: " + drive.getBackLeft().getAzimuth());
+    //System.out.println("Front Right: " + drive.getFrontRight().getAzimuth());
+    //System.out.println("Front Left: " + drive.getFrontLeft().getAzimuth());
+    //System.out.println("Back Right: " + drive.getBackRight().getAzimuth());
+    //System.out.println("Back Left: " + drive.getBackLeft().getAzimuth());
 
     //Sucker Release Deploy
     if (driverController.getIntakeDeploy()) {
@@ -189,7 +189,7 @@ public class Robot extends TimedRobot {
     //Start/stop shoot
     if (driverController.getShootPressed()) {
 
-      //sucker.suckOrBlow(-0.5);
+      sucker.suckOrBlow(-0.5);
       lineUpTowardsTargetWithDriver.start();
     } else if (driverController.getShootReleased()) {
 

@@ -28,7 +28,7 @@ double D;
 
 double ANGLE_OFFSET;
 
-double[] setpoint = new double[2];
+double setpoint;
 
 	/**
 	 * @param angleMotor The CAN ID of the azimuth controller
@@ -80,8 +80,8 @@ double[] setpoint = new double[2];
 
 			setpoint = anglePID.calculate(azimuthEncoder.getVoltage(), angle);
 
-			speedMotor.set(setpoint[1] * speed);
-			angleMotor.set(setpoint[0]);
+			speedMotor.set(speed);
+			angleMotor.set(setpoint);
 		}
 	}
 

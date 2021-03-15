@@ -112,18 +112,9 @@ public class PIDFFController {
     }
 
 
-    public double[] calculate(double feedback, double setpoint) {
+    public double calculate(double feedback, double setpoint) {
 
         if (continuous) { 
-
-            optoAngle = setpoint - previousSetpoint;
- 
-            if (Math.abs(optoAngle) > 2.5) {
-
-                setpoint -= optoAngle > 0 ? 2.5 : -2.5;
-
-                setpoints[1] = -1;
-            } else { setpoints[1] = 1;}
                 
             if (feedback > setpoint) {
 
@@ -171,10 +162,10 @@ public class PIDFFController {
             returnVal = -1;
         }
 
-        setpoints[0] = (returnVal + 0.78 / 12);
+        setpoint = (returnVal + 0.78 / 12);
         
 
-        if (error > 0.0017 || error < -0.0017) return setpoints;
-        else return setpoints;
+        if (error > 0.0017 || error < -0.0017) return setpoint;
+        else return 0;
     }
 }
