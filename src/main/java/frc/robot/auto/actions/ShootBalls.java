@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.auto.actions;
+/*package frc.robot.auto.actions;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -19,7 +19,7 @@ import frc.robot.subsystems.Vision;
 /**
  * Add your docs here.
  */
-public class ShootBalls implements Action {
+/*public class ShootBalls implements Action {
 
     Shooter shooter = Shooter.getInstance();
     NavX navX = NavX.getInstance();
@@ -87,4 +87,4 @@ public class ShootBalls implements Action {
         vision.lightOff();
         shooter.stop();
     }
-}
+} */

@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.auto.modes;
+/*package frc.robot.auto.modes;
 
 import frc.robot.auto.ActionRunner;
 import frc.robot.auto.Pathfinderold;
@@ -15,7 +15,7 @@ import frc.robot.subsystems.Sucker;
 /**
  * Add your docs here.
  */
-public class ShootSixBalls extends Mode {
+/*public class ShootSixBalls extends Mode {
 
     ActionRunner actionRunner = ActionRunner.getInstance();
     Pathfinderold pathfinder = Pathfinderold.getInstance();
@@ -33,4 +33,4 @@ public class ShootSixBalls extends Mode {
         pathfinder.translate(-0.75, 2, -5, 1);
         actionRunner.run(new ShootBalls(3));
     }
-}
+}*/
