@@ -38,14 +38,11 @@ public class Shooter {
     DriverController driverController = DriverController.getInstance();
     Drive drive = Drive.getInstance();
 
-    double rpm = 0;
-
     NetworkTable logTable;
     NetworkTableEntry currentVelocity;
     NetworkTableEntry velocityGoal;
 
     double hoodAngle;
-    double pastHoodAngle;
     double hoodVelocity;
     double desiredAngle;
 
@@ -53,14 +50,15 @@ public class Shooter {
     double hoodD;
 
     Encoder hoodEncoder;
-    DigitalInput hoodLimit;
+    DigitalInput hoodLowLimit;
+    DigitalInput hoodHighLimit;
     
     
     public Shooter() {
         vision = Vision.getInstance();
 
-        hoodLimit = new DigitalInput(0);
-        //hoodHighLimit = new DigitalInput(1);
+        hoodLowLimit = new DigitalInput(0);
+        hoodHighLimit = new DigitalInput(1);
 
         hoodEncoder = new Encoder(1, 2);
         //hoodEncoder.setDistancePerPulse(9/29.6); //in degrees
@@ -119,7 +117,7 @@ public class Shooter {
 
             hoodMotor.set(0.40);
 
-            if (hoodLimit.get() == false)
+            if (hoodLowLimit.get() == false)
             {
 
                 shooterState = ShooterState.Idle;
@@ -132,19 +130,18 @@ public class Shooter {
 
             hoodAngle = hoodEncoder.getDistance();
             System.out.println(hoodAngle);
-            double hoodAngleTarget = 0;
+            boolean highTarget = false;
 
-            if(vision.getDistanceFromTarget() < 7.5) hoodAngleTarget = -0.25;
-            else hoodAngleTarget = 0.25;
+            if(vision.getDistanceFromTarget() < 7.5) highTarget = true;
+            else highTarget = false;
             
-            if((hoodAngleTarget - hoodAngle) < 0 && hoodLimit.get()) {
-            //if (!hoodLimit.get()) {
-                hoodMotor.set(0);
+            if(!highTarget) {
+                if(!hoodHighLimit.get()) hoodMotor.set(0); //is triggered
+                else hoodMotor.set(-0.6);
             }
-            
             else {
-                hoodMotor.set((hoodAngle - hoodAngleTarget) * Constants.SHOOTER_HOOD_P );
-                //hoodMotor.set(driverController.getHood());
+                if(!hoodLowLimit.get()) hoodMotor.set(0);
+                else hoodMotor.set(0.6);
             }
 
             flywheelOne.setRPMVelocity(Constants.SHOOTER_FLYWHEEL_RPM * -1);
@@ -221,29 +218,18 @@ public class Shooter {
         currentVelocity.setDouble(getVelocity());
         velocityGoal.setDouble(rpm);*/
     }
-    
-
 
     public void stop() {
 
         flywheelOne.setRPMVelocity(0);
         flywheelTwo.setRPMVelocity(0);
         gate.set(0);
-
-        rpm = 0;
     }
 
 
     public double getVelocity() {
-
         return (flywheelOne.getVelocity() + flywheelTwo.getVelocity()) / 2;
     }
-
-
-    public double getRPMTarget() {
-        return rpm;
-    }
-    
 
     public static Shooter getInstance() {
 
