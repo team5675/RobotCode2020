@@ -121,10 +121,10 @@ public class Shooter {
         }
         else if (shooterState == ShooterState.Shooting)
         {
-            alignHood();
+            alignHood(); //hightarget is CLOSER
 
-            if(!highTarget && !hoodLowLimit.get()) gate.set(1);
-            else if(highTarget && !hoodHighLimit.get()) gate.set(1);
+            if(!highTarget && !hoodHighLimit.get()) gate.set(1);
+            else if(highTarget && !hoodLowLimit.get()) gate.set(1);
             else gate.set(0);
 
             flywheelOne.setRPMVelocity(Constants.SHOOTER_FLYWHEEL_RPM * -1);

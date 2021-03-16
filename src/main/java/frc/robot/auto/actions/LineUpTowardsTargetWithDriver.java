@@ -31,20 +31,18 @@ public class LineUpTowardsTargetWithDriver implements Action {
 
     public void start() {
 
-        vision.lightOn();
-
         targetAngle = gyro.getAngle() - vision.getHorizontalOffset();
     }
 
 
     public boolean loop() {
 
-        error = vision.getHorizontalOffset() * Constants.AUTO_ROTATE_P;
+        error = -vision.getHorizontalOffset() * Constants.AUTO_STRAFE_P;
 
-        drive.getBackRight().drive(error, 3.2275, false);
-        drive.getBackLeft().drive(error, 1.8066, false);
-        drive.getFrontRight().drive(error, 2.0568, false);
-        drive.getFrontLeft().drive(error, 2.7307, false);
+        drive.getBackRight().drive(error, 0, false); //rotate 3.2275
+        drive.getBackLeft().drive(error, 0, false);//rotate 1.8066
+        drive.getFrontRight().drive(error, 0, false);//rotate 2.0568
+        drive.getFrontLeft().drive(error, 0, false);//rotate 2.7307
 
         return true; 
     }
@@ -53,6 +51,5 @@ public class LineUpTowardsTargetWithDriver implements Action {
     public void stop() {
 
         //lastError = 0;
-        vision.lightOff();
     }
 }
