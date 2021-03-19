@@ -69,37 +69,6 @@ public class Shooter {
         currentVelocity = logTable.getEntry("currentVelocity");
         velocityGoal = logTable.getEntry("velocityGoal");
     }
-/*
-    public void newRun(){
-
-        //if we need close position
-        if(vision.getDistanceFromTarget() < 7.5) {
-
-            if(!hoodLowLimit.get()) {
-
-                hoodMotor.set(-1);
-            }
-
-            else {
-
-                hoodMotor.set(0);
-            }
-        }
-
-        //otherwise far
-        else {
-
-            if(!hoodHighLimit.get()) {
-
-                hoodMotor.set(1);
-            }
-
-            else {
-
-                hoodMotor.set(0);
-            }
-        }
-    }*/
      
     public void run()
     {
@@ -123,8 +92,10 @@ public class Shooter {
         {
             alignHood(); //hightarget is CLOSER
 
-            if(!highTarget && !hoodHighLimit.get()) gate.set(1);
-            else if(highTarget && !hoodLowLimit.get()) gate.set(1);
+            if(getVelocity() > Constants.SHOOTER_FLYWHEEL_RPM - 300) {
+                if(!highTarget && !hoodHighLimit.get()) gate.set(1);
+                else if(highTarget && !hoodLowLimit.get()) gate.set(1);
+            }
             else gate.set(0);
 
             flywheelOne.setRPMVelocity(Constants.SHOOTER_FLYWHEEL_RPM * -1);
@@ -137,15 +108,15 @@ public class Shooter {
         }
         else
         {
-
+            gate.set(0);
+            hoodMotor.set(0);
             flywheelOne.setRPMVelocity(0);
             flywheelTwo.setRPMVelocity(0);
-            alignHood();
         }
     }
 
     public void alignHood() {
-        if(vision.getDistanceFromTarget() < 7.5) highTarget = true;
+        if(vision.getDistanceFromTarget() < 9.5) highTarget = true;
         else highTarget = false;
             
         if(!highTarget) {

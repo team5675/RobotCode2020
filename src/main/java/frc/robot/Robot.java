@@ -144,7 +144,6 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
 
     actionRunner.forceStop();
-    vision.lightOn();
 
     lineUpTowardsTargetWithDriver = new LineUpTowardsTargetWithDriver();
   }
@@ -172,12 +171,16 @@ public class Robot extends TimedRobot {
     shooter.run();
     //Shoot else run intake and drive
     if (driverController.getShoot()) {
+
+      System.out.println("VISION OFFSET: " + vision.getHorizontalOffset());
       lineUpTowardsTargetWithDriver.loop();
       shooter.shoot();
+
     } else {
 
       drive.move(forward, strafe, rotation * -1, angle - 180, isFieldOriented);
-      //sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
+      sucker.suckOrBlow(driverController.getIntake() - driverController.getOuttake());
+
     }
 
     //System.out.println("Front Right: " + drive.getFrontRight().getAzimuth());
@@ -197,7 +200,7 @@ public class Robot extends TimedRobot {
     //Start/stop shoot
     if (driverController.getShootPressed()) {
 
-      sucker.suckOrBlow(-0.5);
+      sucker.suckOrBlow(-0.9); //This is the speed intake goes to while we're shooting
       lineUpTowardsTargetWithDriver.start();
     } else if (driverController.getShootReleased()) {
 
