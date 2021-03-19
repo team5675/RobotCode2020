@@ -7,7 +7,6 @@
 
 package frc.robot.auto.actions;
 
-import frc.libs.swerve.SwerveDrive;
 import frc.robot.Constants;
 import frc.robot.DriverController;
 import frc.robot.subsystems.Drive;
@@ -27,7 +26,6 @@ public class LineUpTowardsTargetWithDriver implements Action {
     //double lastError = 0;
 
     double targetAngle;
-    double error;
     double offset;
     int dir;
 
@@ -41,11 +39,9 @@ public class LineUpTowardsTargetWithDriver implements Action {
 
     public boolean loop() {
         offset = vision.getHorizontalOffset();
-        error = Math.atan(offset) * 0.11; //was atan(error)
-        System.out.println("OFFSET MOTOR VALUES: " + error);
-        double angle = navX.getAngle();
+        System.out.println("OFFSET MOTOR VALUES: " + offset);
 
-        drive.move(0, 0, -error, angle, false);
+        drive.move(0, 0, offset * Constants.AUTO_STRAFE_P, navX.getAngle(), false);
 
         return true; 
     }

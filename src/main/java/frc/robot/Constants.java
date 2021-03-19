@@ -53,7 +53,7 @@ public class Constants {
 
     //Shooter subsystem constants
     public static final int SHOOTER_FLYWHEEL_RPM = 3000;
-    public static final double SHOOTER_HOOD_P = 0.22;
+    public static final double SHOOTER_HOOD_P = 0.03;
     public static final int SHOOTER_GATE_ID = 0;
     public static final int SHOOTER_ID_1 = 3;
     public static final int SHOOTER_ID_2 = 4;
