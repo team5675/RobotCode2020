@@ -52,7 +52,6 @@ public class Constants {
 	public static final double PATHFINDER_KA = 0.011;
 
     //Shooter subsystem constants
-    public static final int SHOOTER_FLYWHEEL_RPM = 3000;
     public static final double SHOOTER_HOOD_P = 0.01;
     public static final int SHOOTER_GATE_ID = 0;
     public static final int SHOOTER_ID_1 = 3;
@@ -86,7 +85,7 @@ public class Constants {
 
     //Auto Constants
     public static final double AUTO_FORWARD_P = 0.2;
-    public static final double AUTO_ROTATE_P = 0.025;
+    public static final double AUTO_ROTATE_P = 0.015;
     public static final double AUTO_ROTATE_D = 0.003;
     public static final double AUTO_STRAFE_P = 0.05;
     public static final double AUTO_GYRO_P = -0.03;

@@ -45,6 +45,7 @@ public class Shooter {
 
     double hoodP;
     double hoodD;
+    int RPM;
     boolean highTarget;
 
     DigitalInput hoodLowLimit;
@@ -90,16 +91,21 @@ public class Shooter {
         }
         else if (shooterState == ShooterState.Shooting)
         {
+            double dist = vision.getDistanceFromTarget();
+            if(dist < 7.5) RPM = 2900;
+            else if(dist < 11) RPM = 4000;
+            else RPM = 2800;
             alignHood(); //hightarget is CLOSER
 
-            if(getVelocity() > Constants.SHOOTER_FLYWHEEL_RPM - 250) {
+            if(getVelocity() > RPM - 200) {
                 if(!highTarget && !hoodHighLimit.get()) gate.set(1);
                 else if(highTarget && !hoodLowLimit.get()) gate.set(1);
             }
             else gate.set(0);
 
-            flywheelOne.setRPMVelocity((Constants.SHOOTER_FLYWHEEL_RPM + 250) * -1);
-            flywheelTwo.setRPMVelocity((Constants.SHOOTER_FLYWHEEL_RPM + 250) * -1);
+
+            flywheelOne.setRPMVelocity((RPM + 250) * -1);
+            flywheelTwo.setRPMVelocity((RPM + 250) * -1);
 
             //if(Math.abs(hoodAngleTarget - hoodAngle) < 5) gate.set(1);
             //else gate.set(0);

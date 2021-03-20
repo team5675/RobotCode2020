@@ -20,6 +20,7 @@ public class Vision {
 
     static Vision instance;
 
+
     static NetworkTable limelightTable;
     static NetworkTableEntry ledMode;
     static NetworkTableEntry horizontalOffset;
@@ -30,6 +31,7 @@ public class Vision {
 
     double distance;
     boolean lightOn = false;
+    NavX navX;
 
 
     public Vision() {
@@ -40,6 +42,7 @@ public class Vision {
         horizontalOffset = limelightTable.getEntry("tx");
         verticalOffset = limelightTable.getEntry("ty");
         distanceFromTarget = dashboardTable.getEntry("distanceFromTarget");
+        navX = NavX.getInstance();
     }
 
     public void lightOn() {
@@ -73,8 +76,8 @@ public class Vision {
     public double getHorizontalOffset() {
         double raw = horizontalOffset.getDouble(0);
 
-        if(getDistanceFromTarget() < 7.5) return raw - 2;
-        return raw + 4;
+        if(getDistanceFromTarget() < 7.5) return raw + 1; //On the green gaffer tape markers
+        return raw + 5; //+ navX.getAngle() * 0.01
     }
     
 
