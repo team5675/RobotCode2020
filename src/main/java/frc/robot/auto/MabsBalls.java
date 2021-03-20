@@ -53,7 +53,7 @@ public class MabsBalls {
 		drive.move(0, ySpeed, 0,  0, true);
 	}
 
-	public void uhhhhh(){
+	public void runUntilTrajectory(){
 		double flEnc = drive.getFrontLeft().getSpeedPosition();
 		double frEnc = drive.getFrontRight().getSpeedPosition();
 		double blEnc = drive.getBackLeft().getSpeedPosition();

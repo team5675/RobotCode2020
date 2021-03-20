@@ -85,7 +85,7 @@ public class PathWeezer {
             return true;
         }
         else if(trajectory == null) {
-            mabsBalls.uhhhhh();
+            mabsBalls.runUntilTrajectory();
             if(path != "B" && path != "A") {
                 file = new File(path);
                 json = readFileAsString(path);

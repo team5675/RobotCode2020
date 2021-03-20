@@ -71,8 +71,10 @@ public class Vision {
 
 
     public double getHorizontalOffset() {
+        double raw = horizontalOffset.getDouble(0);
 
-        return horizontalOffset.getDouble(0);
+        if(getDistanceFromTarget() < 7.5) return raw - 2;
+        return raw + 4;
     }
     
 

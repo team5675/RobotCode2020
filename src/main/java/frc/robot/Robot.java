@@ -37,7 +37,7 @@ public class Robot extends TimedRobot {
   NavX             navX;
   Pneumatics       pneumatics;
   Climber          climber;
-  PathWeezer       pathWeezer;
+  //PathWeezer       pathWeezer;
   //Pathfinderold    pathFinderOld;
 
   ModeRunner       modeRunner;
@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
     sucker           = Sucker.getInstance();
     pneumatics       = Pneumatics.getInstance();
     climber          = Climber.getInstance();
-    pathWeezer       = PathWeezer.getInstance();
+    //pathWeezer       = PathWeezer.getInstance();
 
     actionRunner     = ActionRunner.getInstance();
     //pathFinderOld    = Pathfinderold.getInstance();
@@ -129,6 +129,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+    System.out.println("Distance:" + vision.getDistanceFromTarget());
 
    //System.out.format("BR: %f \nBL: %f \nFR: %f \nFL: %f\n", drive.getBackRight().getAzimuth(), drive.getBackLeft().getAzimuth(), drive.getFrontRight().getAzimuth(), drive.getFrontLeft().getAzimuth());
    //System.out.println(drive.getBackRight().getAzimuth()); 
@@ -149,8 +150,6 @@ public class Robot extends TimedRobot {
     shooter.run();
     //Shoot else run intake and drive
     if (driverController.getShoot()) {
-
-      System.out.println("VISION OFFSET: " + vision.getHorizontalOffset());
       lineUpTowardsTargetWithDriver.loop();
       shooter.shoot();
 

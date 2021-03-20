@@ -98,8 +98,8 @@ public class Shooter {
             }
             else gate.set(0);
 
-            flywheelOne.setRPMVelocity((Constants.SHOOTER_FLYWHEEL_RPM + 100) * -1);
-            flywheelTwo.setRPMVelocity((Constants.SHOOTER_FLYWHEEL_RPM + 100) * -1);
+            flywheelOne.setRPMVelocity((Constants.SHOOTER_FLYWHEEL_RPM + 250) * -1);
+            flywheelTwo.setRPMVelocity((Constants.SHOOTER_FLYWHEEL_RPM + 250) * -1);
 
             //if(Math.abs(hoodAngleTarget - hoodAngle) < 5) gate.set(1);
             //else gate.set(0);
