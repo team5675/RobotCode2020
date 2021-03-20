@@ -78,7 +78,7 @@ public class Shooter {
         if (shooterState == ShooterState.StartUp)
         {
 
-            hoodMotor.set(0.40);
+            hoodMotor.set(0.40001);
 
             if (hoodLowLimit.get() == false)
             {
@@ -92,14 +92,14 @@ public class Shooter {
         {
             alignHood(); //hightarget is CLOSER
 
-            if(getVelocity() > Constants.SHOOTER_FLYWHEEL_RPM - 300) {
+            if(getVelocity() > Constants.SHOOTER_FLYWHEEL_RPM - 250) {
                 if(!highTarget && !hoodHighLimit.get()) gate.set(1);
                 else if(highTarget && !hoodLowLimit.get()) gate.set(1);
             }
             else gate.set(0);
 
-            flywheelOne.setRPMVelocity(Constants.SHOOTER_FLYWHEEL_RPM * -1);
-            flywheelTwo.setRPMVelocity(Constants.SHOOTER_FLYWHEEL_RPM * -1);
+            flywheelOne.setRPMVelocity((Constants.SHOOTER_FLYWHEEL_RPM + 100) * -1);
+            flywheelTwo.setRPMVelocity((Constants.SHOOTER_FLYWHEEL_RPM + 100) * -1);
 
             //if(Math.abs(hoodAngleTarget - hoodAngle) < 5) gate.set(1);
             //else gate.set(0);

@@ -82,19 +82,34 @@ public class PathWeezer {
             }
             
             setTrajectory();
+            return true;
         }
         else if(trajectory == null) {
             mabsBalls.uhhhhh();
-            if(path != "A" && path != "B") return true;
+            if(path != "B" && path != "A") {
+                file = new File(path);
+                json = readFileAsString(path);
+                setSegments();
+
+                try {
+
+                    in = new Scanner(file);
+
+                } catch(IOException e) {
+                }  
+            
+                setTrajectory();
+                return true;
+            }
             else return false;
 
         }
-        return true;
+        else return false;
         
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setWhichPath(String path) {
+        this.path += path;
     }
 
     public void fileChooser() {

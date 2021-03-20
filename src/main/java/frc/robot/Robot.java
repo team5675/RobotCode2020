@@ -10,7 +10,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.ActionRunner;
 import frc.robot.auto.ModeRunner;
-import frc.robot.auto.Pathfinder;
 import frc.robot.auto.Pathfinderold;
 import frc.robot.auto.SwerveReturnData;
 import frc.robot.auto.Waypoint;
@@ -38,10 +37,9 @@ public class Robot extends TimedRobot {
   NavX             navX;
   Pneumatics       pneumatics;
   Climber          climber;
-  //PathWeezer       pathWeezer;
+  PathWeezer       pathWeezer;
   //Pathfinderold    pathFinderOld;
 
-  Pathfinder       pathfinder;
   ModeRunner       modeRunner;
   ActionRunner     actionRunner;
   Action           lineUpTowardsTargetWithDriver;
@@ -61,32 +59,12 @@ public class Robot extends TimedRobot {
     sucker           = Sucker.getInstance();
     pneumatics       = Pneumatics.getInstance();
     climber          = Climber.getInstance();
-    //pathWeezer       = PathWeezer.getInstance();
+    pathWeezer       = PathWeezer.getInstance();
 
     actionRunner     = ActionRunner.getInstance();
     //pathFinderOld    = Pathfinderold.getInstance();
-    pathfinder       = new Pathfinder(0.25, 0.003, 0, 1); 
     //autoChooser      = AutoChooser.getInstance();
-
-    Waypoint[] _newTrajectory = new Waypoint[] {
-      new Waypoint(2.5, 7.5, 0),
-      new Waypoint(5, 7.5, 0),
-      new Waypoint(7.5, 12.5, 0),
-      new Waypoint(9.5, 5, 0),
-      new Waypoint(12.5, 2.5, 0),
-      new Waypoint(14.7, 5, 0),
-      new Waypoint(15, 12.5, 0),
-      new Waypoint(15.25, 7.5, 0),
-      new Waypoint(16.125, 2.5, 0),
-      new Waypoint(19.375, 5, 0),
-      new Waypoint(21.875, 7.5, 0),
-      new Waypoint(22.5, 12.5, 0),
-      new Waypoint(27.5, 7.5, 0)
-    };
-
-    pathfinder.translate(2.5, 7.5, _newTrajectory);
   }
-
   
   @Override
   public void disabledPeriodic() {

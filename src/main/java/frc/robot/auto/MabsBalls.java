@@ -17,7 +17,6 @@ public class MabsBalls {
 	Waypoint[] firstPointsRed, firstPointsBlue, secondPointsRed, secondPointsBlue;
 	//FirstOrderFieldIntegrator
 
-	Pathfinder pathfinder;
 	PathWeezer pathWeezer;
 	Drive drive;
 	Sucker sucker;
@@ -40,7 +39,6 @@ public class MabsBalls {
 		pathWeezer = PathWeezer.getInstance();
 		drive = Drive.getInstance();
 		sucker = Sucker.getInstance();
-		pathfinder = new Pathfinder(0.25, 1, 1, 1); //resolution, azimuthP, slowDownP, startSlowDownP
 	}
 	
 
@@ -82,20 +80,20 @@ public class MabsBalls {
 		}
 		if((pathA || pathB) && isFirstMap) {
 			if(pathA) {
-				pathWeezer.setPath("reda.wpilib.json");
+				pathWeezer.setWhichPath("reda.wpilib.json");
 			}
 			
 			if(pathB) {
-				pathWeezer.setPath("bluea.wpilib.json");
+				pathWeezer.setWhichPath("bluea.wpilib.json");
 			}
 		}
 		else if((pathA || pathB) && !isFirstMap) {
 			if(pathA) {
-				pathWeezer.setPath("redb.wpilib.json");
+				pathWeezer.setWhichPath("redb.wpilib.json");
 			}
 			
 			if(pathB) {
-				pathWeezer.setPath("blueb.wpilib.json");
+				pathWeezer.setWhichPath("blueb.wpilib.json");
 			}
 		}
 	}	
