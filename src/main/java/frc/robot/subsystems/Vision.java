@@ -77,7 +77,7 @@ public class Vision {
         double raw = horizontalOffset.getDouble(0);
 
         if(getDistanceFromTarget() < 7.5) return raw + 1; //On the green gaffer tape markers
-        return raw + 5; //+ navX.getAngle() * 0.01
+        return raw + 1 + (getDistanceFromTarget() - 7.5) * 0.235;
     }
     
 

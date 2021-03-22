@@ -92,12 +92,14 @@ public class Shooter {
         else if (shooterState == ShooterState.Shooting)
         {
             double dist = vision.getDistanceFromTarget();
-            if(dist < 7.5) RPM = 2900;
+            System.out.println(dist);
+            if(dist < 8) RPM = 2900;
             else if(dist < 11) RPM = 4000;
+            else if(dist > 17.5) RPM = 2700;
             else RPM = 2800;
             alignHood(); //hightarget is CLOSER
 
-            if(getVelocity() > RPM - 200) {
+            if(getVelocity() > RPM - 150) {
                 if(!highTarget && !hoodHighLimit.get()) gate.set(1);
                 else if(highTarget && !hoodLowLimit.get()) gate.set(1);
             }

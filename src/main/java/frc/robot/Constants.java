@@ -85,8 +85,8 @@ public class Constants {
 
     //Auto Constants
     public static final double AUTO_FORWARD_P = 0.2;
-    public static final double AUTO_ROTATE_P = 0.015;
-    public static final double AUTO_ROTATE_D = 0.003;
+    public static final double AUTO_ROTATE_P = 0.022;
+    public static final double AUTO_ROTATE_D = 0.009;
     public static final double AUTO_STRAFE_P = 0.05;
     public static final double AUTO_GYRO_P = -0.03;
 
