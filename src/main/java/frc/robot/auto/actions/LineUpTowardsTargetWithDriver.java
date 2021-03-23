@@ -47,7 +47,7 @@ public class LineUpTowardsTargetWithDriver implements Action {
 
     
     public void stop() {
-        //vision.lightOff();
+        vision.lightOff();
         //lastError = 0;
     }
 }

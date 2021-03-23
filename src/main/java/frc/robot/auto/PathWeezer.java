@@ -43,15 +43,17 @@ public class PathWeezer {
     //static pathChooser instance;
 
 
-    double[][] trajectory = new double[SEGMENTS][VARIABLES];
+    double[][] trajectory;
 
     public PathWeezer(){
-        mabsBalls = new MabsBalls();
-
+        System.out.println(trajectory == null);
+        mabsBalls = MabsBalls.getInstance();
         fileChooser();
 
-        path = getFile();
-        if(path.equals("A") && path.equals("B")) {
+        path = "barrel.wpilib.json";
+        if(path == null) path = "";
+
+        if(path.equals("A") || path.equals("B")) {
             isSearch = true;
             if(path.equals("A")) mabsBalls.setIsFirstMap(true);
             else mabsBalls.setIsFirstMap(false);
@@ -69,42 +71,29 @@ public class PathWeezer {
 
     public boolean loopUntilTrajectory() { //returns if we have a path yet
         if(!isSearch && trajectory == null) {
-
-            file = new File(path);
-            json = readFileAsString(path);
+            json = "[{\"time\":0.0,\"velocity\":0.0,\"acceleration\":19.685000000000002,\"pose\":{\"translation\":{\"x\":3.8794345707815827,\"y\":-7.943113977904344},\"rotation\":{\"radians\":-0.12219517069135498}},\"curvature\":0.0},{\"time\":0.10877394050869953,\"velocity\":2.1412150189137504,\"acceleration\":19.685000000000002,\"pose\":{\"translation\":{\"x\":3.995059243805545,\"y\":-7.956988959461563},\"rotation\":{\"radians\":-0.11403616212861808}},\"curvature\":0.13529380586989045},{\"time\":0.15398140024501505,\"velocity\":3.031123863823122,\"acceleration\":19.685000000000002,\"pose\":{\"translation\":{\"x\":4.111342700714026,\"y\":-7.969116462427955},\"rotation\":{\"radians\":-0.09173696219224305}},\"curvature\":0.2410409161117139},{\"time\":0.1888915128692814,\"velocity\":3.718329430831805,\"acceleration\":19.68500000000001,\"pose\":{\"translation\":{\"x\":4.2288155992504075,\"y\":-7.978049884590216},\"rotation\":{\"radians\":-0.058577181205594436}},\"curvature\":0.31679853574434075}]";
+            //json = readFileAsString(path);
             setSegments();
 
-            try {
-
-                in = new Scanner(file);
-
-            } catch(IOException e) {
-            }
-            
+            trajectory = new double[SEGMENTS][VARIABLES];
             setTrajectory();
             return true;
         }
         else if(trajectory == null) {
             mabsBalls.runUntilTrajectory();
             if(path != "B" && path != "A") {
-                file = new File(path);
+
                 json = readFileAsString(path);
                 setSegments();
 
-                try {
-
-                    in = new Scanner(file);
-
-                } catch(IOException e) {
-                }  
-            
+                trajectory = new double[SEGMENTS][VARIABLES];
                 setTrajectory();
                 return true;
             }
             else return false;
 
         }
-        else return false;
+        else return true;
         
     }
 
@@ -149,12 +138,22 @@ public class PathWeezer {
     }
 
     public void setTrajectory() {
+        int lastI = 0;
 
         for (int a = 0; a < SEGMENTS; a++) {
 
             for (int x = 0; x < VARIABLES; x++) {
-                trajectory[a][x] = in.nextDouble();
+                int currI = json.indexOf(".", lastI);
 
+                int endI = json.indexOf(",", currI);
+                if(json.indexOf("}", currI) < endI) endI = json.indexOf("}", currI);
+                if(endI < 0) {
+                    trajectory[a][x] = Double.parseDouble(json.substring(currI - 1, json.length() - 6));
+                    break;
+                }
+
+                trajectory[a][x] = Double.parseDouble(json.substring(currI - 1, endI));
+                lastI = currI + 1;
             }
         }
     }

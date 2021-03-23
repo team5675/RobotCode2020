@@ -37,8 +37,8 @@ public class Robot extends TimedRobot {
   NavX             navX;
   Pneumatics       pneumatics;
   Climber          climber;
-  //PathWeezer       pathWeezer;
-  //Pathfinderold    pathFinderOld;
+  PathWeezer       pathWeezer;
+  Pathfinderold    pathFinderOld;
 
   ModeRunner       modeRunner;
   ActionRunner     actionRunner;
@@ -59,10 +59,10 @@ public class Robot extends TimedRobot {
     sucker           = Sucker.getInstance();
     pneumatics       = Pneumatics.getInstance();
     climber          = Climber.getInstance();
-    //pathWeezer       = PathWeezer.getInstance();
+    pathWeezer       = PathWeezer.getInstance();
 
     actionRunner     = ActionRunner.getInstance();
-    //pathFinderOld    = Pathfinderold.getInstance();
+    pathFinderOld    = Pathfinderold.getInstance();
     //autoChooser      = AutoChooser.getInstance();
   }
   
@@ -87,7 +87,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-/*
+
     if(pathWeezer.loopUntilTrajectory()) {
       pathFinderOld.runPath();
     }

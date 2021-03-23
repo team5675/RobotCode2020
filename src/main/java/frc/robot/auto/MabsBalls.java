@@ -17,6 +17,7 @@ public class MabsBalls {
 	Waypoint[] firstPointsRed, firstPointsBlue, secondPointsRed, secondPointsBlue;
 	//FirstOrderFieldIntegrator
 
+	static MabsBalls instance;
 	PathWeezer pathWeezer;
 	Drive drive;
 	Sucker sucker;
@@ -36,12 +37,9 @@ public class MabsBalls {
 		pathA = false;
 		pathB = false;
 
-		pathWeezer = PathWeezer.getInstance();
 		drive = Drive.getInstance();
 		sucker = Sucker.getInstance();
 	}
-	
-
 
 	public void moveOneAndAHalfFeetBitch(){
 		double flEnc = drive.getFrontLeft().getSpeedPosition();
@@ -54,6 +52,7 @@ public class MabsBalls {
 	}
 
 	public void runUntilTrajectory(){
+		pathWeezer = PathWeezer.getInstance();
 		double flEnc = drive.getFrontLeft().getSpeedPosition();
 		double frEnc = drive.getFrontRight().getSpeedPosition();
 		double blEnc = drive.getBackLeft().getSpeedPosition();
@@ -100,6 +99,15 @@ public class MabsBalls {
 
 	public void setIsFirstMap(boolean isFirstMap) {
 		this.isFirstMap = isFirstMap;
+	}
+
+	public static MabsBalls getInstance() {
+		if (instance == null) {
+
+            instance = new MabsBalls();
+        }
+
+        return instance;
 	}
 
 	
