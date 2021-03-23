@@ -41,7 +41,7 @@ public class MabsBalls {
 		sucker = Sucker.getInstance();
 	}
 
-	public void moveOneAndAHalfFeetBitch(){
+	public void moveOneAndAHalfFeet(){
 		double flEnc = drive.getFrontLeft().getSpeedPosition();
 		double frEnc = drive.getFrontRight().getSpeedPosition();
 		double blEnc = drive.getBackLeft().getSpeedPosition();
@@ -61,7 +61,7 @@ public class MabsBalls {
 
 		sucker.suckOrBlow(-1); //or whatever speed value we want it at
 
-		if(cont) moveOneAndAHalfFeetBitch();
+		if(cont) moveOneAndAHalfFeet();
 
 		sucker.ballIn(); //basically just keeps rechecking if a ball is found
 
@@ -79,20 +79,20 @@ public class MabsBalls {
 		}
 		if((pathA || pathB) && isFirstMap) {
 			if(pathA) {
-				pathWeezer.setWhichPath("reda.wpilib.json");
+				pathWeezer.setWhichPath("paths/reda.wpilib.json");
 			}
 			
 			if(pathB) {
-				pathWeezer.setWhichPath("bluea.wpilib.json");
+				pathWeezer.setWhichPath("paths/bluea.wpilib.json");
 			}
 		}
 		else if((pathA || pathB) && !isFirstMap) {
 			if(pathA) {
-				pathWeezer.setWhichPath("redb.wpilib.json");
+				pathWeezer.setWhichPath("paths/redb.wpilib.json");
 			}
 			
 			if(pathB) {
-				pathWeezer.setWhichPath("blueb.wpilib.json");
+				pathWeezer.setWhichPath("paths/blueb.wpilib.json");
 			}
 		}
 	}	
