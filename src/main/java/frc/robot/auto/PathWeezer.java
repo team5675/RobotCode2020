@@ -6,7 +6,6 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Sucker;
 
@@ -15,10 +14,6 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-//import frc.robot.subsystems.Drive;
-    
-
 
 public class PathWeezer {
 
@@ -79,12 +74,24 @@ public class PathWeezer {
 
     }
 
-    enum Modes {
-        A,
-        B,
-        slalom,
-        bounce,
-        barrel,
+    public void fileChooser() {
+
+        fileSelector = new SendableChooser<String>();
+        pathTable = NetworkTableInstance.getDefault().getTable("path");
+
+        fileSelector.addOption("A", "A");
+        fileSelector.addOption("B", "B");
+        fileSelector.addOption("slalom", "slalom");
+        fileSelector.addOption("bounce", "bounce");
+        fileSelector.addOption("barrel", "barrel");
+
+        SmartDashboard.putData(fileSelector);
+    }
+
+
+    public String getFile() {
+        
+        return fileSelector.getSelected();
     }
 
     public boolean loopUntilTrajectory() { //returns if we have a path yet
@@ -104,54 +111,6 @@ public class PathWeezer {
         }
         return true;
         
-    }
-
-    public void setPath(String path) {
-        this.path += path;
-    }
-
-    public void fileChooser() {
-
-        fileSelector = new SendableChooser<String>();
-        pathTable = NetworkTableInstance.getDefault().getTable("path");
-
-        fileSelector.addOption("A", "A");
-        fileSelector.addOption("B", "B");
-        fileSelector.addOption("slalom", "slalom.wpilib.json");
-        fileSelector.addOption("bounce", "bounce.wpilib.json");
-        fileSelector.addOption("barrel", "barrel.wpilib.json");
-
-        SmartDashboard.putData(fileSelector);
-    }
-
-
-    public String getFile() {
-        
-        return fileSelector.getSelected();
-    }
-
-    public static String readFileAsString(String file){
-        String s = "";
-        try{
-
-            s = new String(Files.readAllBytes(Paths.get(file)));
-        } catch(IOException e) {
-
-        }
-        return s;
-    }
-
-    public void moveOneAndAHalfFeet(){
-        if(!pathFinderOld.getRun()) pathFinderOld.translate(0, 1.7, 0, 0.5);
-        pathFinderOld.loop();
-        if(!pathFinderOld.getRun()) cont= false;
-		/*double flEnc = drive.getFrontLeft().getSpeedPosition();
-		double frEnc = drive.getFrontRight().getSpeedPosition();
-		double blEnc = drive.getBackLeft().getSpeedPosition();
-		double brEnc = drive.getBackRight().getSpeedPosition();
-		double avg = ((flEnc + frEnc +blEnc + brEnc)/4);
-		ySpeed = slowFactor*(-0.33 * avg + 1); 
-		drive.move(0, ySpeed, 0,  0, true);*/
     }
     
     public void runSearch(){
@@ -173,29 +132,44 @@ public class PathWeezer {
 				cont = false;
 				isBlue = true;
 			}
-		}
-		if((isRed || isBlue) && isFirstMap) {
-			if(isRed) {
-				path = "reda.wpilib.json";
-			}
-			
-			if(isBlue) {
-				path = "bluea.wpilib.json";
-			}
-		}
-		else if((isRed || isBlue) && !isFirstMap) {
-			if(isRed) {
-				path = "redb.wpilib.json";
-			}
-			
-			if(isBlue) {
-				path = "blueb.wpilib.json";
-			}
-		}
+        }
+		else {
+            if(isFirstMap) {
+                if(isRed) {
+                    path = "reda";
+                }
+                
+                if(isBlue) {
+                    path = "bluea";
+                }
+            }
+            else {
+                if(isRed) {
+                    path = "redb";
+                }
+                
+                if(isBlue) {
+                    path = "blueb";
+                }
+            }
+        }
+    }
+
+    public void moveOneAndAHalfFeet(){
+        if(!pathFinderOld.getRun()) pathFinderOld.translate(0, 1.7, 0, 0.5);
+        pathFinderOld.loop();
+        if(!pathFinderOld.getRun()) cont= false;
+		/*double flEnc = drive.getFrontLeft().getSpeedPosition();
+		double frEnc = drive.getFrontRight().getSpeedPosition();
+		double blEnc = drive.getBackLeft().getSpeedPosition();
+		double brEnc = drive.getBackRight().getSpeedPosition();
+		double avg = ((flEnc + frEnc +blEnc + brEnc)/4);
+		ySpeed = slowFactor*(-0.33 * avg + 1); 
+		drive.move(0, ySpeed, 0,  0, true);*/
     }
 
     public void setTrajectory() {
-        path = "src/main/java/frc/robot/auto/paths/" + path;
+        path = "src/main/java/frc/robot/auto/paths/" + path + ".wpilib.json";
         json = readFileAsString(path);
 
         SEGMENTS = (int)(json.chars().filter(ch -> ch == 'x').count());
@@ -219,13 +193,29 @@ public class PathWeezer {
                 }
 
                 trajectory[a][x] = Double.parseDouble(json.substring(currI, endI));
+                
                 lastI = currI + 4;
             }
         }
     }
 
+    public static String readFileAsString(String file){
+        String s = "";
+        try{
+
+            s = new String(Files.readAllBytes(Paths.get(file)));
+        } catch(IOException e) {
+
+        }
+        return s;
+    }
+
     public double[][] getTrajectory() {
         return trajectory;
+    }
+
+    public void setPath(String path) {
+        this.path += path;
     }
 
     public static PathWeezer getInstance(){

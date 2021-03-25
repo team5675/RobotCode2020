@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import frc.robot.auto.ActionRunner;
 import frc.robot.auto.ModeRunner;
 import frc.robot.auto.Pathfinderold;
-import frc.robot.auto.SwerveReturnData;
-import frc.robot.auto.Waypoint;
 import frc.robot.auto.PathWeezer;
 import frc.robot.auto.actions.Action;
 import frc.robot.auto.actions.LineUpTowardsTargetWithDriver;
@@ -94,27 +92,6 @@ public class Robot extends TimedRobot {
 
     //vision.loop();
     //actionRunner.loop();
-    /*
-    SwerveReturnData[] _motorSpeed = pathfinder.loop(
-      drive.getFrontLeft().getAzimuth() - 2.13,
-      drive.getFrontRight().getAzimuth() - 2.62,
-      drive.getBackLeft().getAzimuth() - 2.47,
-      drive.getBackRight().getAzimuth() - 2.58,
-      drive.getFrontLeft().getDrivePosition() / 7.64,
-      (drive.getFrontRight().getDrivePosition() / 7.64) * -1,
-      drive.getBackLeft().getDrivePosition() / 7.64,
-      drive.getBackRight().getDrivePosition() / 7.64
-    );
-
-    drive.getFrontLeft().setAzimuth(_motorSpeed[0].getAzimuthSpeed());
-    drive.getFrontRight().setAzimuth(_motorSpeed[1].getAzimuthSpeed());
-    drive.getBackLeft().setAzimuth(_motorSpeed[2].getAzimuthSpeed());
-    drive.getBackRight().setAzimuth(_motorSpeed[3].getAzimuthSpeed());
-    drive.getFrontLeft().setDrive(_motorSpeed[0].getDriveSpeed());
-    drive.getFrontRight().setDrive(_motorSpeed[1].getDriveSpeed() * -1);
-    drive.getBackLeft().setDrive(_motorSpeed[2].getDriveSpeed());
-    drive.getBackRight().setDrive(_motorSpeed[3].getDriveSpeed());
-    */
   }
 
 
@@ -129,9 +106,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-
-   //System.out.format("BR: %f \nBL: %f \nFR: %f \nFL: %f\n", drive.getBackRight().getAzimuth(), drive.getBackLeft().getAzimuth(), drive.getFrontRight().getAzimuth(), drive.getFrontLeft().getAzimuth());
-   //System.out.println(drive.getBackRight().getAzimuth()); 
 
     //Reset Yaw on NavX
     if(driverController.getResetYaw()) {
