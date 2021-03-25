@@ -32,6 +32,7 @@ public class Pathfinderold {
     static double ySpeed;
     static double zSpeed;
     static double speedMultiplier;
+    static double distanceTraveled;
 
 
     public Pathfinderold() {
@@ -81,7 +82,7 @@ public class Pathfinderold {
             double distanceBackLeft = drive.getBackLeft().getSpeedPosition() * -1;
             double distanceBackRight = drive.getBackRight().getSpeedPosition();
             double averageDistance = (distanceFrontLeft + distanceFrontRight + distanceBackLeft + distanceBackRight) / 4;
-            double distanceTraveled = (averageDistance - totalDistance) / 6 * 9.42 / 12; 
+            distanceTraveled = (averageDistance - totalDistance) / 6 * 9.42 / 12; 
             
             double rotationOffset = (8.9 * (rotationGoal % 360) / 360) / 4;
 
@@ -126,6 +127,14 @@ public class Pathfinderold {
             loop();
             if(!run) currentPoint++;
         }
+    }
+
+    public double getFtMoved() {
+        return distanceTraveled;
+    }
+    
+    public boolean getRun() {
+        return run;
     }
 
     public static Pathfinderold getInstance() {

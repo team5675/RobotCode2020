@@ -28,7 +28,8 @@ public class PathWeezer {
     File file;
     
     Drive drive;
-	Sucker sucker;
+    Sucker sucker;
+    Pathfinderold pathFinderOld;
 
 	double ySpeed;
 	double ftMoved;
@@ -58,14 +59,16 @@ public class PathWeezer {
     public PathWeezer(){
         cont = true;
 		isRed = false;
-		isBlue = false;
+        isBlue = false;
+        
         drive = Drive.getInstance();
         sucker = Sucker.getInstance();
+        pathFinderOld = Pathfinderold.getInstance();
 
         System.out.println(trajectory == null);
         fileChooser();
 
-        path = "barrel.wpilib.json";
+        path = getFile();
         if(path == null) path = "";
 
         if(path.equals("A") || path.equals("B")) {
@@ -86,16 +89,13 @@ public class PathWeezer {
 
     public boolean loopUntilTrajectory() { //returns if we have a path yet
         if(!isSearch && trajectory == null) {
-            json = readFileAsString(path);
             setTrajectory();
             return true;
         }
         else if(trajectory == null) {
-            runUntilTrajectory();
+            runSearch();
 
             if(path != "B" && path != "A") {
-
-                json = readFileAsString(path);
                 setTrajectory();
                 return true;
             }
@@ -106,7 +106,7 @@ public class PathWeezer {
         
     }
 
-    public void setWhichPath(String path) {
+    public void setPath(String path) {
         this.path += path;
     }
 
@@ -117,9 +117,9 @@ public class PathWeezer {
 
         fileSelector.addOption("A", "A");
         fileSelector.addOption("B", "B");
-        fileSelector.addOption("slalom", "paths/slalom.wpilib.json");
-        fileSelector.addOption("bounce", "paths/bounce.wpilib.json");
-        fileSelector.addOption("barrel", "paths/barrel.wpilib.json");
+        fileSelector.addOption("slalom", "slalom.wpilib.json");
+        fileSelector.addOption("bounce", "bounce.wpilib.json");
+        fileSelector.addOption("barrel", "barrel.wpilib.json");
 
         SmartDashboard.putData(fileSelector);
     }
@@ -141,7 +141,63 @@ public class PathWeezer {
         return s;
     }
 
+    public void moveOneAndAHalfFeet(){
+        if(!pathFinderOld.getRun()) pathFinderOld.translate(0, 1.7, 0, 0.5);
+        pathFinderOld.loop();
+        if(!pathFinderOld.getRun()) cont= false;
+		/*double flEnc = drive.getFrontLeft().getSpeedPosition();
+		double frEnc = drive.getFrontRight().getSpeedPosition();
+		double blEnc = drive.getBackLeft().getSpeedPosition();
+		double brEnc = drive.getBackRight().getSpeedPosition();
+		double avg = ((flEnc + frEnc +blEnc + brEnc)/4);
+		ySpeed = slowFactor*(-0.33 * avg + 1); 
+		drive.move(0, ySpeed, 0,  0, true);*/
+    }
+    
+    public void runSearch(){
+
+		sucker.suckOrBlow(-1); //or whatever speed value we want it at
+
+		if(cont) moveOneAndAHalfFeet();
+
+		sucker.ballIn(); //basically just keeps rechecking if a ball is found
+
+		ftMoved = pathFinderOld.getFtMoved();
+
+		if(!isRed && !isBlue) {  //kinda to not waste computing power on the below
+			if(ftMoved > 1.3 && ftMoved < 1.7 && sucker.getBallIn()) {//we need to figure out the encoder ticks per foot on the robot
+				cont = false;
+				isRed = true;
+			}
+			else if(ftMoved > 1.7) {
+				cont = false;
+				isBlue = true;
+			}
+		}
+		if((isRed || isBlue) && isFirstMap) {
+			if(isRed) {
+				path = "reda.wpilib.json";
+			}
+			
+			if(isBlue) {
+				path = "bluea.wpilib.json";
+			}
+		}
+		else if((isRed || isBlue) && !isFirstMap) {
+			if(isRed) {
+				path = "redb.wpilib.json";
+			}
+			
+			if(isBlue) {
+				path = "blueb.wpilib.json";
+			}
+		}
+    }
+
     public void setTrajectory() {
+        path = "src/main/java/frc/robot/auto/paths/" + path;
+        json = readFileAsString(path);
+
         SEGMENTS = (int)(json.chars().filter(ch -> ch == 'x').count());
         trajectory = new double[SEGMENTS][VARIABLES];
 
@@ -167,61 +223,6 @@ public class PathWeezer {
             }
         }
     }
-
-    public void moveOneAndAHalfFeet(){
-		double flEnc = drive.getFrontLeft().getSpeedPosition();
-		double frEnc = drive.getFrontRight().getSpeedPosition();
-		double blEnc = drive.getBackLeft().getSpeedPosition();
-		double brEnc = drive.getBackRight().getSpeedPosition();
-		double avg = ((flEnc + frEnc +blEnc + brEnc)/4);
-		ySpeed = slowFactor*(-0.33 * avg + 1); 
-		drive.move(0, ySpeed, 0,  0, true);
-    }
-    
-    public void runUntilTrajectory(){
-		double flEnc = drive.getFrontLeft().getSpeedPosition();
-		double frEnc = drive.getFrontRight().getSpeedPosition();
-		double blEnc = drive.getBackLeft().getSpeedPosition();
-		double brEnc = drive.getBackRight().getSpeedPosition();
-		double avg = ((flEnc + frEnc +blEnc + brEnc)/4);
-
-		sucker.suckOrBlow(-1); //or whatever speed value we want it at
-
-		if(cont) moveOneAndAHalfFeet();
-
-		sucker.ballIn(); //basically just keeps rechecking if a ball is found
-
-		ftMoved = avg / Constants.ETPF;
-
-		if(!isRed && !isBlue) {  //kinda to not waste computing power on the below
-			if(ftMoved > 1.3 && ftMoved < 1.7 && sucker.getBallIn()) {//we need to figure out the encoder ticks per foot on the robot
-				cont = false;
-				isRed = true;
-			}
-			else if(ftMoved > 1.7) {
-				cont = false;
-				isBlue = true;
-			}
-		}
-		if((isRed || isBlue) && isFirstMap) {
-			if(isRed) {
-				path = "paths/reda.wpilib.json";
-			}
-			
-			if(isBlue) {
-				path = "paths/bluea.wpilib.json";
-			}
-		}
-		else if((isRed || isBlue) && !isFirstMap) {
-			if(isRed) {
-				path = "paths/redb.wpilib.json";
-			}
-			
-			if(isBlue) {
-				path = "paths/blueb.wpilib.json";
-			}
-		}
-	}
 
     public double[][] getTrajectory() {
         return trajectory;
