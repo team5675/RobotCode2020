@@ -58,12 +58,11 @@ public class PathWeezer {
         
         drive = Drive.getInstance();
         sucker = Sucker.getInstance();
-        pathFinderOld = Pathfinderold.getInstance();
 
         System.out.println(trajectory == null);
         fileChooser();
 
-        path = getFile();
+        path = "slalom";
         if(path == null) path = "";
 
         if(path.equals("A") || path.equals("B")) {
@@ -114,6 +113,7 @@ public class PathWeezer {
     }
     
     public void runSearch(){
+        pathFinderOld = Pathfinderold.getInstance();
 
 		sucker.suckOrBlow(-1); //or whatever speed value we want it at
 

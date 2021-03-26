@@ -86,7 +86,7 @@ public class Constants {
     //Auto Constants
     public static final double AUTO_FORWARD_P = 0.2;
     public static final double AUTO_ROTATE_P = 0.022;
-    public static final double AUTO_ROTATE_D = 0.009;
+    public static final double AUTO_ROTATE_D = 0.009; //change this back to 0.009 once you put the WheelDrive slow
     public static final double AUTO_STRAFE_P = 0.05;
     public static final double AUTO_GYRO_P = -0.03;
 
