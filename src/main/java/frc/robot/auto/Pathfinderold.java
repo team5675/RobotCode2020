@@ -120,13 +120,13 @@ public class Pathfinderold {
         double[][] points = pathWeezer.getTrajectory();
 
         int currentPoint = 1; 
-        double pastX = points[0][0];
-        double pastY = points[0][1];
+        double pastX = points[0][3];
+        double pastY = points[0][4];
 
         while(currentPoint < points.length) {
             if(!run) {
                 currentPoint++;
-                translate(points[currentPoint][0] - pastX, points[currentPoint][1] - pastY, points[currentPoint][2], 0.5);
+                translate(points[currentPoint][3] - pastX, points[currentPoint][4] - pastY, points[currentPoint][5], 0.5);
             }
         }
     }
