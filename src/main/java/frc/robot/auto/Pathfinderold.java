@@ -63,6 +63,7 @@ public class Pathfinderold {
         while (run) {
 
             try {
+                loop();
                 Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -123,9 +124,10 @@ public class Pathfinderold {
         double pastY = points[0][1];
 
         while(currentPoint < points.length) {
-            translate(points[currentPoint][0] - pastX, points[currentPoint][1] - pastY, points[currentPoint][2], 0.5);
-            loop();
-            if(!run) currentPoint++;
+            if(!run) {
+                currentPoint++;
+                translate(points[currentPoint][0] - pastX, points[currentPoint][1] - pastY, points[currentPoint][2], 0.5);
+            }
         }
     }
 

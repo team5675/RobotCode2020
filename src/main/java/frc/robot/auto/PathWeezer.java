@@ -70,7 +70,9 @@ public class PathWeezer {
             if(path.equals("A")) isFirstMap = true;
             else isFirstMap = false;
         }
-
+        else {
+            isSearch = false;
+        }
     }
 
     public void fileChooser() {
@@ -169,9 +171,9 @@ public class PathWeezer {
     }
 
     public void setTrajectory() {
-        path = "src/main/java/frc/robot/auto/paths/" + path + ".wpilib.json";
-        json = readFileAsString(path);
+        path = "/home/lvuser/deploy/" + path + ".wpilib.json";
 
+        json = readFileAsString("/home/lvuser/deploy/slalom.wpilib.json");
         SEGMENTS = (int)(json.chars().filter(ch -> ch == 'x').count());
         trajectory = new double[SEGMENTS][VARIABLES];
 
@@ -193,7 +195,6 @@ public class PathWeezer {
                 }
 
                 trajectory[a][x] = Double.parseDouble(json.substring(currI, endI));
-                
                 lastI = currI + 4;
             }
         }
