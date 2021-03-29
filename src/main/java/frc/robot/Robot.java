@@ -80,6 +80,17 @@ public class Robot extends TimedRobot {
 
     //actionRunner.start();
     //modeRunner.start();
+
+    // ode to matt hummel
+    //drive.move(, strafe, rotation, angle, isFieldOriented);
+    drive.move(.5, .5, 0, 0, true);
+    try {
+      Thread.sleep(1000);
+  } catch (InterruptedException e) {
+      e.printStackTrace();
+  }
+  drive.move(0, 0, 0, 0, true);
+
   }
 
 
