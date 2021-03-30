@@ -125,9 +125,9 @@ public class Robot extends TimedRobot {
     }
 
     //Tele-op auto functions or manual drive
-    double forward = driverController.getForward() * 0.5; //CHANGE THIS BACK
-    double strafe = driverController.getStrafe() * 0.5;
-    double rotation = driverController.getRotation() * 0.5;
+    double forward = driverController.getForward(); //CHANGE THIS BACK
+    double strafe = driverController.getStrafe();
+    double rotation = driverController.getRotation();
     double angle = navX.getAngle();
     boolean isFieldOriented = driverController.isFieldOriented();
 
