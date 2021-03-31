@@ -46,6 +46,7 @@ public class Shooter {
     double hoodP;
     double hoodD;
     int RPM;
+    double dist;
     boolean highTarget;
 
     DigitalInput hoodLowLimit;
@@ -73,6 +74,11 @@ public class Shooter {
      
     public void run()
     {
+        dist = vision.getDistanceFromTarget();
+        if(dist < 8) RPM = 3050;
+        else if(dist < 11.3) RPM = 4000;
+        else if(dist > 17.5) RPM = 2700;
+        else RPM = 2625;
         //System.out.println("Encoder: " + hoodEncoder.getDistance());
         //System.out.println("Distance" + vision.getDistanceFromTarget());
 
@@ -91,23 +97,20 @@ public class Shooter {
         }
         else if (shooterState == ShooterState.Shooting)
         {
-            double dist = vision.getDistanceFromTarget();
-            if(dist < 8) RPM = 3050;
-            else if(dist < 11.3) RPM = 4000;
-            else if(dist > 17.5) RPM = 2700;
-            else RPM = 2625;
             alignHood(); //hightarget is CLOSER
 
-            if(getVelocity() > RPM - 150) {
-                if(!highTarget && !hoodHighLimit.get()) gate.set(1);
-                else if(highTarget && !hoodLowLimit.get()) gate.set(1);
+            if(driverController.getGate()) {
+                gate.set(1);
             }
             else gate.set(0);
 
-
-            flywheelOne.setRPMVelocity((RPM + 250) * -1);
-            flywheelTwo.setRPMVelocity((RPM + 250) * -1);
-
+            if(driverController.getStopFlywheel()) {
+                flywheelOne.setRPMVelocity(0);
+                flywheelTwo.setRPMVelocity(0);
+            } else {
+                flywheelOne.setRPMVelocity((RPM + 250) * -1);
+                flywheelTwo.setRPMVelocity((RPM + 250) * -1);
+            }
             //if(Math.abs(hoodAngleTarget - hoodAngle) < 5) gate.set(1);
             //else gate.set(0);
 
@@ -115,10 +118,16 @@ public class Shooter {
         }
         else
         {
+
             gate.set(0);
             hoodMotor.set(0);
-            flywheelOne.setRPMVelocity(0);
-            flywheelTwo.setRPMVelocity(0);
+            if(driverController.getStopFlywheel()) {
+                flywheelOne.setRPMVelocity(0);
+                flywheelTwo.setRPMVelocity(0);
+            } else {
+                flywheelOne.setRPMVelocity((int)(0.75 * RPM));
+                flywheelTwo.setRPMVelocity((int)(0.75 * RPM));
+            }
         }
     }
 

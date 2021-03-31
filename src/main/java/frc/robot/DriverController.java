@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 /**
  * Organize inputs from the Xbox Controllers
@@ -51,6 +52,14 @@ public class DriverController {
     public boolean getResetYaw() {
 
         return mainController.getRawButton(4);
+    }
+
+    public boolean getGate(){
+        return (0 > mainController.getRawAxis(3));
+    }
+
+    public boolean getStopFlywheel(){
+        return (0 < mainController.getRawAxis(3));
     }
 
     public boolean getStayStraight() {
