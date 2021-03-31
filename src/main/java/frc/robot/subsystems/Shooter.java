@@ -93,7 +93,7 @@ public class Shooter {
         {
             double dist = vision.getDistanceFromTarget();
             if(dist < 8) RPM = 3050;
-            else if(dist < 11) RPM = 4000;
+            else if(dist < 11.3) RPM = 4000;
             else if(dist > 17.5) RPM = 2700;
             else RPM = 2625;
             alignHood(); //hightarget is CLOSER
