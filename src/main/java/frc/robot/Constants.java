@@ -21,7 +21,7 @@ public class Constants {
     public static final double FL_I = 0;
     public static final double FL_D = 0.003;
     public static final int FL_AZIMUTH_ENCODER_ID = 3;
-	public static double FL_ANGLE_OFFSET = 4.696;//1.54;
+	public static double FL_ANGLE_OFFSET = .107;//1.54;
 
     public static final int DRIVE_FRONT_RIGHT_SPEED_ID = 1;//6;
     public static final int DRIVE_FRONT_RIGHT_AZIMUTH_ID = 2;//5;
@@ -29,7 +29,7 @@ public class Constants {
     public static final double FR_I = 0;
     public static final double FR_D = 0.003;
     public static final int FR_AZIMUTH_ENCODER_ID = 2;
-	public static double FR_ANGLE_OFFSET = 3.037;//2.41;
+	public static double FR_ANGLE_OFFSET =  2.89; //41;
 
     public static final int DRIVE_BACK_LEFT_SPEED_ID = 11;//1;
     public static final int DRIVE_BACK_LEFT_AZIMUTH_ID = 10;//2;
@@ -37,7 +37,7 @@ public class Constants {
     public static final double BL_I = 0;
     public static final double BL_D = 0.003;
     public static final int BL_AZIMUTH_ENCODER_ID = 1;  
-	public static double BL_ANGLE_OFFSET = 2.421;//0.37;
+	public static double BL_ANGLE_OFFSET = 2.395;//0.37;
 
     public static final int DRIVE_BACK_RIGHT_SPEED_ID = 8;//4;
     public static final int DRIVE_BACK_RIGHT_AZIMUTH_ID = 7;//3;
@@ -45,7 +45,7 @@ public class Constants {
     public static final double BR_I = 0;
     public static final double BR_D = 0.003;
     public static final int BR_AZIMUTH_ENCODER_ID = 0;
-    public static double BR_ANGLE_OFFSET = 4.2;//4.25;3.276
+    public static double BR_ANGLE_OFFSET = 4.116;//4.25;3.276
 
     public static final double PATHFINDER_KP = 0;
 	public static final double PATHFINDER_KV = 0.0909090909;
